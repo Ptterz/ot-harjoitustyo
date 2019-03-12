@@ -1,4 +1,8 @@
-# Tämä on otsikko
+#Ohjelmistotekniikka, harjoitustyö
+
+##Tehtävät
+
+###Viikko 1
 
 Tämä sisältää **normaalia** tekstiä, jolla on tarkoitus tehdä *jotain*.
 
