@@ -1,8 +1,8 @@
-#Ohjelmistotekniikka, harjoitustyö
+# Ohjelmistotekniikka, harjoitustyö
 
-##Tehtävät
+## Tehtävät
 
-###Viikko 1
+### Viikko 1
 
 Tämä sisältää **normaalia** tekstiä, jolla on tarkoitus tehdä *jotain*.
 
