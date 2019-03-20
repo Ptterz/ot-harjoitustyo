@@ -10,4 +10,6 @@ Tämä sisältää **normaalia** tekstiä, jolla on tarkoitus tehdä *jotain*.
 
 [komentorivi.txt](https://github.com/Ptterz/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
 
-Epäsync!
+### Viikko 2
+
+Määrittelydokumentin ja työaikakirjanpidon luonti.
