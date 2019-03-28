@@ -131,7 +131,7 @@
     })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
 </script>
   <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="1M1pko5aWo7UQSnhP1XVnwZ6Pr0aQWnNkoTi4N+MIdqBdPKb3J2K5N98PWP8KKLx+VOG2LYrLVnR2Y6qmZq7tw==" />
+<meta name="csrf-token" content="dw4d6og0iOGWTLqf/cU5SK74pKHXN3fRLJ7Iqd/O12l98mOI25EvBhNrhxYsk3djbn5GnNzEzgxypz2Rnl3Aug==" />
 </head>
 	<body class="">
 		<nav class="navbar navbar-default">
@@ -194,7 +194,7 @@
   var customizations = new Array();
   var theme = 'plain';
   var dsl = "[Pelilauta]-2[Noppa], [Pelilauta]-2...8[Pelaaja], [Ruutu|seuraava: Ruutu]-[Pelilauta], [Ruutu]-[Pelinappula], [Pelinappula]-[Pelaaja], [Aloitusruutu]-&gt;[Ruutu]";
-  var extension = '.png';
+  var extension = '.json';
   var lastHash = null;
   var host_name = 'http://yuml.me/'
   var namespace = ''
