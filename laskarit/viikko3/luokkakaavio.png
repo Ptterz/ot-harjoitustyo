@@ -1,0 +1,854 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!--[if IE]><link rel="shortcut icon" href="/assets/favicon/favicon-a50e0f178a55cb7f0e5bf6f4e9f2be419700f9d1bdf04183b790ca08ea36b87d.ico"><![endif]-->
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-16-6db74ff08f641098553280e6ad255e7f7ab9dc6a7adf5fd7a20bf58d01d64829.png"
+		type="image/png"
+		sizes="16x16"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-32-aa0852da1cd114a7093aaf3f56dc09ea94e7f7a7f3c3cd1b55a47c49022458ff.png"
+		type="image/png"
+		sizes="32x32"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-57-4b7192ffbd7222a23b5e9010edd724c8b48b1757f8a4bc639103f25017f11cd4.png"
+		type="image/png"
+		sizes="57x57"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-60-94ba057180ba8fd9a6d9708f0a93d8ca993299ba51a9ebc26bd37bfabae343bd.png"
+		type="image/png"
+		sizes="60x60"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-64-44909052432a6ed8b3a55a8a51c8ee3c0e563f8e1f3114db269899999728f7d8.png"
+		type="image/png"
+		sizes="64x64"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-70-d2d1e6f9b37752ff45304295641111452e9087d29f5f8cf359c17acb778ff300.png"
+		type="image/png"
+		sizes="70x70"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-72-4cac7665935202686e2e549ee48b214c17d6140ce22570c8590859f663a2b9bc.png"
+		type="image/png"
+		sizes="72x72"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-76-957da20939c7774a2f5c712c5001cf51a7fef6ba90154c69ee71675b4016c362.png"
+		type="image/png"
+		sizes="76x76"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-96-b565e82b06d934f6d81de57cccf18e3233828501b40f43a9a300e629cfef5bea.png"
+		type="image/png"
+		sizes="96x96"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-114-452d29fa7843e6d07a5cf588bcdd2aa2b0a1faf77097da2a5cff13926182618e.png"
+		type="image/png"
+		sizes="114x114"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-120-5c8b535b8bd031e7e3356086d889010413acce1d9a66aa512ab31b2f6826e076.png"
+		type="image/png"
+		sizes="120x120"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-144-5833e3e5ea23020591c58e7521b5a44af88e8e7b4d6723c548a09d9ad286ec15.png"
+		type="image/png"
+		sizes="144x144"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-150-862ae70e1cffa2d8b4f35db085df053718d018dee666690110742b6ee51cfd25.png"
+		type="image/png"
+		sizes="150x150"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-152-0b2b056d78a1cf428f9919d734a5096ecffe9899277a18cc38a780a2f9b34624.png"
+		type="image/png"
+		sizes="152x152"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-160-ed1ba511707b8178e872d5eb3d4bc0df90875604b5306a2c1d4787703ac918ba.png"
+		type="image/png"
+		sizes="160x160"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-180-85b22141434422275fde22cafae706a240915df78fc4ca07f7b68f4107da95bb.png"
+		type="image/png"
+		sizes="180x180"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-192-5e95e103e6620494722ee34ff982e12fdfceffda250e88cd07b9e834d6be5804.png"
+		type="image/png"
+		sizes="192x192"
+	>
+	<link
+		rel="icon"
+		href="/assets/favicon/favicon-310-a29d2bf1be141ecd8783f97639e00ea793b79583fd57c40a4f64cec71c73c0c8.png"
+		type="image/png"
+		sizes="310x310"
+	>
+
+<title>Create UML diagrams online in seconds, no special tools needed.</title>
+  <link rel="stylesheet" media="all" href="/assets/application-ece3836764c6aea51d153777d762fec2755174d817f701ba2b553085a93a65f4.css" />
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900" rel="stylesheet">
+  <script src="/assets/application-f683bf7a15522916072244d91b38e222986a59c608d862d4f33159ec4c1ae50b.js"></script>
+  <!-- Hotjar Tracking Code for https://yuml.me -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:987660,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+  <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="1M1pko5aWo7UQSnhP1XVnwZ6Pr0aQWnNkoTi4N+MIdqBdPKb3J2K5N98PWP8KKLx+VOG2LYrLVnR2Y6qmZq7tw==" />
+</head>
+	<body class="">
+		<nav class="navbar navbar-default">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+    <button aria-controls="bs-navbar" aria-expanded="true" class="navbar-toggle" data-target="#mainMenu" data-toggle="collapse" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+      <a class="navbar-brand" href="/">
+      	<img src="/assets/yuml_logo-20fa733bb97b2f215775b0487da394ca48cff0d690b7d3e2257bd95307ccd9c6.png" alt="Yuml logo" width="80" height="40" />
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="mainMenu">
+      <ul class="nav navbar-nav center-links">
+        <li><a href="/diagram/scruffy/class/draw">Draw</a></li>
+
+          <li>
+            <a href="/pricing">Pricing</a>
+          </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Help <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/integrations">Integrations</a></li>
+            <li>
+              <a href="http://www.tobinharris.com/past/tags/yuml" target="_blank" rel="noopener noreferrer">Blog</a>
+            </li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="http://groups.google.com/group/yuml" target="_blank" rel="noopener noreferrer">Forum</a></li>
+            <li><a href="/selfhosting">Self Hosting</a></li>
+          </ul>
+        </li>
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <div>
+              <a class="login btn btn-white-border" href="/users/sign_in">LOGIN</a>
+              <a class="btn btn-solid register" href="/users/sign_up">REGISTER</a>
+            </div>
+        </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    setTimeout(function() {
+        $('#flash').hide()
+    },3000)
+  })
+</script>
+
+
+		<div id="content">
+
+		<script type="text/javascript" charset="utf-8">
+  var timeout = null;
+  var justLoaded = true;
+  var type = 'class';
+  var customizations = new Array();
+  var theme = 'plain';
+  var dsl = "[Pelilauta]-2[Noppa], [Pelilauta]-2...8[Pelaaja], [Ruutu|seuraava: Ruutu]-[Pelilauta], [Ruutu]-[Pelinappula], [Pelinappula]-[Pelaaja], [Aloitusruutu]-&gt;[Ruutu]";
+  var extension = '.png';
+  var lastHash = null;
+  var host_name = 'http://yuml.me/'
+  var namespace = ''
+  var diagramName = ''
+  var digest = '6e4b9a0a'
+  var output_without_extension;
+  var edit_link,draw_url,short_url_link;
+  $(document).ready(function() {
+  $('.btn.' + type).removeClass('btn-gray').addClass('btn-blue')
+    $(".rss-popup span").click(function() {
+        $(this).next("div").stop(true, true).animate({
+          opacity: "show",
+          top: "-1em"
+        }, "fast");
+      }
+      /*, function() {
+      		$(this).next("div").animate({opacity: "hide", top: "20"}, "fast");
+      	}*/
+    );
+
+    $(".rss-popup-div").hover(null, function() {
+      $(".rss-popup-div").animate({
+        opacity: "hide",
+        top: "-2em"
+      }, "fast")
+    });
+
+    $('#dsl_text').attr('value', dsl);
+
+    var pressed = {};
+    $("#dsl_text").keydown(function(e) {
+      pressed[event.keyCode] = true;
+      // Check if 'E' was pressed
+      if (69 == event.keyCode) {
+        // Check if Ctrl + S (Windows) or Command + S (Mac) was pressed
+        if (pressed[17] || pressed[224]) {
+
+          buildUrl();
+          createDiagram()
+          event.preventDefault();
+        }
+      } else {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(function() {
+          buildUrl();
+          createDiagram()
+        }, 800);
+      }
+    });
+
+    $("#dsl_text").keyup(function(e) {
+      delete pressed[e.keyCode];
+    });
+
+    $('#usecaseImg').load(function() {
+      $('#ajax-loader').hide();
+      if (!$.browser.msie) {
+        $('#usecaseImg').css({
+          opacity: 1
+        });
+      }
+    });
+
+  });
+
+
+  if (extension == '.png') {
+    extension == '';
+  }
+
+
+
+  var labels = new Array();
+  labels['usecase'] = 'Use Case Diagram';
+  labels['class'] = 'Class Diagram';
+  labels['activity'] = 'Activity Diagram';
+  labels['dot'] = 'Dot Diagram';
+  labels['mindmap'] = 'MindMap Diagram';
+
+  var examples = new Array()
+
+  examples['activity'] = "(start)->|a|,|a|->(Make Coffee)->|b|,|a|->(Make Breakfast)->|b|,|b|-><c>[want more coffee]->(Make Coffee),<c>[satisfied]->(end)";
+  examples['class'] = '// Cool Class Diagram\n[Customer|-forname:string;surname:string|doShiz()]<>-orders*>[Order]\n[Order]++-0..*>[LineItem]\n[Order]-[note:Aggregate root{bg:wheat}]';
+  examples['usecase'] = '[Customer]-(Sign In)\n[Customer]-(Buy Products)\n(Buy Products)>(Browse Products)\n(Buy Products)>(Checkout)\n(Checkout)<(Add New Credit Card)';
+  examples['dot'] = 'digraph G{\n Hello->World;\n}';
+  examples['mindmap'] = '(yUML)-(Drawing)/(Sketching)/(Fun)';
+
+
+  function createDiagram(){
+
+    if ($('#usecaseImg').attr('src') != encodeURICustom(draw_url)) {
+      $('#usecaseImg').css({
+        opacity: 0.5
+      });
+     $('#ajax-loader').show();
+       $.ajax({
+        method: "POST",
+        url: draw_url,
+        data: {
+          dsl_text: dsl,
+          name : diagramName
+        },
+        success: function(src){
+          if (diagramName){
+                splitted = $('#usecaseImg').attr('src').split('?')
+                  new_url = splitted[0] + '?' + new Date().getTime();
+                  $('#usecaseImg').attr('src',  new_url);
+          }else{
+            $('#usecaseImg').attr('src', '/' + src);
+            name = src.replace(/^\/|\.pdf|\.png|.\jpeg/g, '');
+            digest = name
+            changeImageNames(name)
+          }
+        }
+      });
+
+    }
+    return false;
+  }
+
+  function getDiagramNameIfEmpty() {
+    $.post(encodeURI(short_url_link), function(data) {
+
+        //override GET data (which is garbage because there is no short_url_link for POST, we'd need to make it compatible)
+        data = data.replace(/^\/|\.pdf|\.png|.\jpeg/g, '');
+        // if (digest){
+        //   data = digest;
+        // }else{
+        //   digest = data
+        // }
+        // if (diagramName){
+        //   data = diagramName
+        // }
+        // if the hash is the same, then a new diagram hasn't been generated
+        // so this isn't a new advert view
+        if (lastHash != data) {
+          $('#advert-iframe').attr('src', '/diagram/google_ad')
+          lastHash = data;
+        }
+        changeImageNames(data)
+        $('.twitter_link').text("Tweet this diagram.");
+        $('.twitter_link').attr("href", "http://twitter.com/home?status=Check out my @yuml_app diagram http://yuml.me/edit/" + data);
+
+      })
+  }
+
+  function buildUrl() {
+
+    if (dsl == '' || justLoaded == false) {
+      dsl = $('#dsl_text').attr('value');
+    }
+
+    if (type != 'dot') dsl = cleanDsl(dsl)
+    var method = dsl.length > 200 ? 'POST' : 'GET';
+
+    //always post dot files, it's simpler
+    if (type == 'dot') method = 'POST';
+
+    var template = method == 'GET' ? namespace + "/diagram/[THEME];[CUSTOMISATIONS]/[TYPE]/short_url/[DSL][EXTENSION]" : namespace + "/diagram/[THEME];[CUSTOMISATIONS]/[TYPE]/";
+    var output = template.replace('[THEME]', theme);
+    output = output.replace('[CUSTOMISATIONS]', getCustomizations());
+    output = output.replace('[TYPE]', type);
+    output = output.replace('[DSL]', dsl);
+    output = output.replace(';/', '/');
+    short_url_link = output.replace('[EXTENSION]', extension);
+    output_without_extension = output.replace('/short_url/', '/').replace('[EXTENSION]', '')
+    edit_link = output.replace('/short_url/', '/edit/').replace('[EXTENSION]', '')
+    output = output.replace('[EXTENSION]', extension);
+    output = output.replace('/short_url/', '/');
+
+    output = output.replace('[EXTENSION]', extension);
+    console.log(output)
+    draw_url = output;
+      changeEditableLinks()
+      console.log(encodeURI(short_url_link))
+
+  }
+
+  function changeEditableLinks() {
+      nspace = ""
+      dsl_part = output_without_extension.substr(1)
+
+      $('.png_link').text(host_name +  dsl_part);
+      $('.png_link').attr("href", host_name +   dsl_part);
+
+      $('#png_link').val(host_name +  dsl_part);
+      $('#pdf_link').val(host_name +  dsl_part + '.pdf');
+      $('#jpg_link').val(host_name +  dsl_part + '.jpg');
+      $('#json_link').val(host_name + dsl_part + '.json');
+      $('#svg_link').val(host_name +  dsl_part + '.svg');
+      $('#edit_link').val(host_name +  edit_link.substr(1));
+  }
+
+  function changeImageNames(name) {
+       nspace = ""
+        if (namespace != "") {
+          nspace = namespace.replace(/\//g, '')
+          nspace = nspace + "/"
+        }
+        $('.png_short_link').text(host_name + nspace + name + '.png');
+        $('.png_short_link').attr("href", host_name + nspace + name + '.png');
+
+        $('.pdf_short_link').text(host_name + nspace + name + '.pdf');
+        $('.pdf_short_link').attr("href", host_name + nspace + name + '.pdf');
+
+        $('.jpg_short_link').text(host_name + nspace + name + '.jpg');
+        $('.jpg_short_link').attr("href", host_name + nspace + name + '.jpg');
+
+        $('.json_short_link').text(host_name + nspace + name + '.json');
+        $('.json_short_link').attr("href", host_name + nspace + name + '.json');
+
+        $('.svg_short_link').text(host_name + nspace + name + '.svg');
+        $('.svg_short_link').attr("href", host_name + nspace + name + '.svg');
+
+        $('.edit_short_link').text(host_name + nspace + "edit/" + name);
+        $('.edit_short_link').attr("href", host_name + nspace + "edit/" + name);
+  }
+
+  function saveName() {
+    if ($('#diagramName').val().trim() == ''){
+      alert('Diagram name can\'t be empty')
+      return;
+    }
+    var pattern = /^[\w&.-]+$/
+    if (!pattern.test($('#diagramName').val())){
+        alert('Diagram names should only have alpha numerical and these 2 _ - special chracters')
+        return;
+    }
+    $('#saveBtn').attr('disabled',true);
+    $.ajax({
+          method: 'post',
+          url:  namespace + '/name_diagram/' + digest ,
+          data: {name:$('#diagramName').val(),old_name:diagramName},
+          success: function(data){
+            $('#saveBtn').removeAttr('disabled');
+            if (data.status == 1){
+              alert('Name already taken')
+            }else if(data.status == 2){
+              alert('You are only allowed to create 5 named diagrams. Please subscribe to pro plan and create more')
+            }else{
+                diagramName = $('#diagramName').val()
+                changeImageNames(diagramName);
+                // window.history.pushState("yUML", "yUML", $('.edit_short_link').attr('href'))
+                window.location.href = $('.edit_short_link').attr('href')
+            }
+          }
+        })
+  }
+
+  function trim(str) {
+    return str.substring(0, str.length - 1);
+  }
+
+  function encodeURICustom(dsl) {
+    tmp = encodeURI(dsl);
+    tmp = tmp.replace(/#/g, '%23')
+    return tmp;
+  }
+
+  function cleanDsl(dsl) {
+    tmp = dsl
+    tmp = tmp.replace(/\//g, '%2F');
+    tmp = tmp.replace(/(\n|\r|\t)+$/, '');
+    tmp = tmp.replace(/\n/g, ', ').replace(/,,/g, ',').replace(/, $/, '')
+    return tmp;
+  }
+
+  function prettyDsl(dsl) {
+    tmp = dsl
+    tmp = dsl.replace(/\,\s+/g, '\n');
+    tmp = tmp.replace(/,,/g, ',').replace(/, $/, '')
+    return tmp;
+  }
+
+  function customize(property, val) {
+    $('.rss-popup-div').hide();
+    customizations[property] = val;
+    if (val == null) {
+      delete(customizations[property])
+    }
+    buildUrl();
+    createDiagram()
+  }
+
+  function getCustomizations() {
+    var str = "";
+    if (customizations['dir']) {
+      str += "dir:" + customizations['dir'] + ";";
+    }
+    if (customizations['scale']) {
+      str += "scale:" + customizations['scale'] + ";";
+    }
+    return str;
+  }
+
+
+  function changeDiagramType(title, typeName, themeName, fileType, fileLabel, dslText) {
+    type = typeName || type;
+    theme = themeName || theme;
+    dsl = dslText || dsl;
+
+    $('.rss-popup-div').hide();
+    if (fileType) {
+      extension = fileType;
+      $('#extension-label').html(fileLabel)
+    }
+    if (typeName) {
+      $('#diagram-label').html(labels[typeName]);
+    }
+    if (theme) {
+      $('#theme-label').html(theme.replace(/nofunky/, 'boring'));
+    }
+    if (typeName && typeName != 'dot')
+      $('#dsl_text').val(prettyDsl(dsl));
+    else
+      $('#dsl_text').val(dsl);
+
+    buildUrl();
+    createDiagram()
+  }
+
+  $(document).ready(function() {
+    if (dsl == '') {
+      dsl = examples[type]
+    }
+
+    $('#diagramStyleChangeImage').on('click', function (e) {
+      changeDiagramType(null, null, $(this).data('switchTo'));
+    })
+
+    if (diagramName){
+       output_without_extension = dsl.replace(/^\/|\.pdf|\.png|.\jpeg/g, '');
+       $('#diagramName').val(diagramName)
+    }
+    buildUrl();
+    if (digest) {
+      name = diagramName || digest
+      changeImageNames(name)
+      changeEditableLinks()
+    }else{
+       createDiagram()
+       getDiagramNameIfEmpty()
+       changeDiagramType(type, type, theme, '', extension)
+    }
+   $('#usecaseImg').css({
+          opacity: 1
+        });
+   $('#dsl_text').attr('value', dsl);
+    justLoaded = false;
+  });
+</script>
+<div class="container">
+
+  <div class="drawing row">
+    <div class="types col-md-12">
+      <div class="row">
+        <div class="col-xs-4 diagram-type-tab">
+          <a href="/diagram/class/draw" class="btn btn-gray btn-lg class diagram">
+            Draw Class Diagram
+          </a>
+        </div>
+        <div class="col-xs-4 diagram-type-tab">
+          <a href="/diagram/activity/draw" class="btn btn-gray btn-lg activity">
+            Draw Activity Diagram
+          </a>
+        </div>
+        <div class="col-xs-4 diagram-type-tab">
+          <a href="/diagram/usecase/draw" class="btn btn-gray btn-lg usecase">
+            Draw Use Case Diagram
+          </a>
+        </div>
+      </div>
+      <div class="samples">
+          <a href="/diagram/class/samples">Class Samples</a> | <a href="/diagram/activity/samples">Activity Samples</a>  | <a href="/diagram/usecase/samples">Use Case Samples</a>
+      </div>
+
+    <div class="option-section big-text">Draw
+      <div class="rss-popup"><span id="diagram-label" class="draw-options">Class Diagram</span>
+        <div class="rss-popup-div">
+          <span class="rss-popup-close" onclick="$('.rss-popup-div').hide()">X</span>
+          <ul>
+            <li style="list-style:none;cursor:pointer;" onclick="changeDiagramType('Class Diagram','class',null,null,null,examples['class'])"><img src="/diagram/scruffy;scale:70/class/[Class  Diagram]<>->[Ooh!]" /></li>
+            <li style="list-style:none;cursor:pointer;" onclick="changeDiagramType('Use Case Diagram','usecase',null,null,null,examples['usecase'])"><img src="/diagram/scruffy;scale:70/usecase/[You]-(Use Case Diagram)" /></li>
+            <li style="list-style:none;cursor:pointer;" onclick="changeDiagramType('Activity Diagram','activity',null,null,null,examples['activity'])"><img src="/diagram/scruffy;scale:70/activity/(start)->(Activity)->(end)" /></li>
+            <li style="list-style:none;cursor:pointer;" onclick="changeDiagramType('Dot Diagram','dot',null,null,null,examples['dot'])"><img src="/diagram/plain;scale:100/dot/digraph%20G{Diagram [shape=egg]; Dot [shape=triangle]; Dot->Diagram;rankdir=LR;}" /></li>
+          </ul>
+        </div>
+      </div>
+      <div style="height: .5em;"></div>
+      <span style="font-size: .7em; padding: .3em; display: inline-table;">Make it a
+	<div class="rss-popup" ><span id="theme-label" class="draw-options">nofunky</span>
+      <div class="rss-popup-div">
+        <span class="rss-popup-close" onclick="$('.rss-popup-div').hide()">X</span>
+        <ul>
+          <li style="list-style:none;cursor:pointer;" onclick="changeDiagramType(null,null,'nofunky')"><img src="/images/draw_boring.png" /></li>
+          <li style="list-style:none;cursor:pointer;" onclick="changeDiagramType(null,null,'plain' )"><img src="/images/draw_plain.png" /></li>
+          <li style="list-style:none;cursor:pointer;" onclick="changeDiagramType(null,null,'scruffy' )"><img src="/images/draw_scruffy.png" /></li>
+        </ul>
+      </div>
+    </div> one!
+
+  </div>
+
+  <p>
+    <div class="rss-popup">Tweak
+
+      <span id="tweak-label" class="draw-options">size</span>
+      <div class="rss-popup-div">
+        <span class="rss-popup-close" onclick="$('.rss-popup-div').hide()">X</span>
+        <ul>
+          <li style="list-style:none;cursor:pointer;" onclick="customize('scale','180' )"><img src="/diagram/scale:180/class/[note:Huge!]" alt="Huge" /></li>
+          <li style="list-style:none;cursor:pointer;" onclick="customize('scale','120' )"><img src="/diagram/scale:140/class/[note:Big]" alt="Big" /></li>
+          <li style="list-style:none;cursor:pointer;" onclick="customize('scale', null)"><img src="/diagram/class/[note:Normal]" alt="Normal" /></li>
+          <li style="list-style:none;cursor:pointer;" onclick="customize('scale','80')"><img src="/diagram/scale:80/class/[note:Small]" alt="Small" /></li>
+          <li style="list-style:none;cursor:pointer;" onclick="customize('scale','60')"><img src="/diagram/scale:60/class/[note:Tiny]" alt="Smaller" /></li>
+        </ul>
+      </div>
+      and
+      <span id="tweak-label" class="draw-options">direction</span>
+      <div class="rss-popup-div">
+        <span class="rss-popup-close" onclick="$('.rss-popup-div').hide()">X</span>
+        <ul style="width: 200px">
+          <li style="list-style:none;cursor:pointer; padding-bottom: 1em;" onclick="customize('dir','LR')">Left to Right</li>
+          <li style="list-style:none;cursor:pointer; padding-bottom: 1em;" onclick="customize('dir','TB')">Top Down</li>
+          <li style="list-style:none;cursor:pointer; padding-bottom: 1em;" onclick="customize('dir','RL')">Right to Left</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rss-popup"><span class='draw-options' id="extension-label"></span>
+      <div class="rss-popup-div">
+        <span class="rss-popup-close" onclick="$('.rss-popup-div').hide()">X</span>
+        <ul>
+          <li style="list-style:none;cursor:pointer;padding:.2em;" onclick="changeDiagramType(null,null,null,'.png','.png image')">PNG image</li>
+          <li style="list-style:none;cursor:pointer;padding:.2em;" onclick="changeDiagramType(null,null,null,'.jpg','.jpeg image' )">JPEG image</li>
+          <li style="list-style:none;cursor:pointer;padding:.2em;" onclick="changeDiagramType(null,null,null,'.pdf', 'PDF file' )">PDF file</li>
+        </ul>
+      </div>
+    </div>
+  </p>
+</div>
+
+
+ <div class="col-md-12  col-xs-12">
+  <div class="col-md-2  col-xs-2"></div>
+  <div class="col-md-10  col-xs-10">
+    <div class="editor">
+        <textarea id='dsl_text' style="width:100%;padding: 1em; line-height: 1.8em; font-size: 1.1em; font-family: Courier;" rows="8" cols="70" name="dsl_text">
+          [Customer]
+          <>-orders*>[Order] [Order]++-1..*>[LineItem]
+        </textarea>
+
+    </div>
+  </div>
+
+  <div class="col-md-12  col-xs-12 drawDiagram" >
+      <p >
+          <input type="button" style="font-size: 1.4em;" value="Draw Diagram (ctrl-e)" onclick="buildUrl();createDiagram(); return false;" />
+          </br>
+          <a href="http://yuml.me/69f3a9ba.svg" target="_new">View diagram colour codes</a>
+        </p>
+  </div>
+
+  <div class="preview col-md-12  col-xs-12">
+      <p style="padding-top: 2em; position: relative;">
+        <img id="ajax-loader" src="/images/ajax-loader.gif" style="display: none; position: absolute; top: 50%; left: 50%;" />
+            <img id="usecaseImg" src="/diagram/class/[Pelilauta]-2[Noppa],%20[Pelilauta]-2...8[Pelaaja],%20[Ruutu%7Cseuraava:%20Ruutu]-[Pelilauta],%20[Ruutu]-[Pelinappula],%20[Pelinappula]-[Pelaaja],%20[Aloitusruutu]-%3E[Ruutu]"/>
+      </p>
+
+      <iframe
+        id='advert-iframe'
+        src='/diagram/google_ad'
+        style="width:780px;height:110px;border:0px;display: block;margin:0 auto;"></iframe>
+
+      <div class="short_url">
+        <p class="med-text">
+          <a class="png_short_link" href=""></a>
+        </p>
+        <img src="/images/twitter.png" alt="Tweet this" />
+        <a class="twitter_link" href="" target="_blank" rel="noopener noreferrer"></a>
+        <br/><a href="/getit">Run yUML on your own servers</a>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="tableWrapper">
+    <h2>Other sharable URLs for this diagram</h2>
+    <table style="">
+
+      <tr>
+        <td></td>
+        <td style="background: #DDD; width: 400px;">Editable Url
+          <br/><small>Best for wikis and blog posts</small></td>
+        <td style="background: #DDD; width: 200px;">Short Url
+          <br/><small>For twitter etc</small></td>
+      </tr>
+
+      <tr>
+        <td style="background: #DDD">Edit Later
+          <br/><small>To come back and edit the image later.</small></td>
+        <td>
+          <input id="edit_link" style="background-color: #EEE; border: 0px solid white;width: 100%; padding: .2em; font-size: .85em;" type="text" onclick="this.select()" />
+        </td>
+        <td>
+          <a class="edit_short_link" href=""></a>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="background: #DDD">PNG Image
+          <br/><small>For blogs, wikis or email. Transparent background.</small></td>
+        <td>
+          <input id="png_link" style="background-color: #EEE; border: 0px solid white;width: 100%; padding: .2em; font-size: .85em;" onclick="this.select()" type="text" />
+        </td>
+        <td>
+          <a class="png_short_link" href=""></a>
+        </td>
+      </tr>
+      <tr>
+        <td style="background: #DDD">PDF Document
+          <br/><small>Great for printing. Infinite zoom.</small></td>
+        <td>
+          <input id="pdf_link" style="background-color: #EEE; border: 0px solid white;width: 100%; padding: .2em; font-size: .85em;" type="text" onclick="this.select()" />
+        </td>
+        <td>
+          <a class="pdf_short_link" href=""></a>
+        </td>
+      </tr>
+      <tr>
+        <td style="background: #DDD">JPEG Image
+          <br/><small>Solid background. Plays nicer with some desktop tools.</small></td>
+        <td>
+          <input id="jpg_link" style="background-color: #EEE; border: 0px solid white;width: 100%; padding: .2em; font-size: .85em;" type="text" onclick="this.select()" />
+        </td>
+        <td>
+          <a class="jpg_short_link" href=""></a>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="background: #DDD">JSON File
+          <br/><small>To programmatically save metadata.</small></td>
+        <td>
+          <input id="json_link" style="background-color: #EEE; border: 0px solid white;width: 100%; padding: .2em; font-size: .85em;" type="text" onclick="this.select()" />
+        </td>
+        <td>
+          <a class="json_short_link" href=""></a>
+        </td>
+      </tr>
+
+      <tr>
+        <td style="background: #DDD">SVG Vector Graphics
+          <br/><small>Experimental!</small></td>
+        <td>
+          <input id="svg_link" style="background-color: #EEE; border: 0px solid white;width: 100%; padding: .2em; font-size: .85em;" type="text" onclick="this.select()" />
+        </td>
+        <td>
+          <a class="svg_short_link" href=""></a>
+        </td>
+      </tr>
+    </table>
+    </br>
+    </br>
+    <p style="color: red;"><b>This page is experimental. Tweet me your <a href="http://twitter.com/tobinharris" target="_blank" rel="noopener noreferrer">feedback</a>. Does it work on IE!!!???</b></p>
+
+
+    <p style="">
+<br/><a href="http://pocketworks.co.uk" target="_blank" rel="noopener noreferrer"><img src="/images/pocketworks_logo.png" alt="Built by PocketWorks"></a>
+</p>
+
+  </div>
+
+</div>
+
+		</div>
+
+		<footer>
+	<div class="container">
+		<div class="row">
+			<div class="top col-md-12 col-xs-12">
+				<div class="left col-md-3 col-xs-12">
+					<div class="title">POWERED BY </div>
+					<br>
+					<img src="/assets/pocketworks-866df3919ecabf7b0fa35da4a6816278d7becd5db0bc087bea78cc8315743656.png" alt="Pocketworks" />
+				</div>
+
+				<div class="right col-md-9 col-xs-12">
+					<div class="section col-md-3 col-xs-4">
+						<div class="title">ACCOUNT</div>
+						<ul>
+							<li><a href="/users/sign_up">Register</a></li>
+							<li><a href="/users/sign_in">Login</a></li>
+						</ul>
+					</div>
+
+					<div class="section col-md-3 col-xs-4">
+						<div class="title">HELP</a></div>
+						<ul>
+							<li><a href="/integrations">Integrations</a></li>
+							<li>
+								<a href="http://www.tobinharris.com/past/tags/yuml" target="_blank" rel="noopener noreferrer">Blog</a>
+							</li>
+							<li><a href="/faq">FAQ</a></li>
+							<li><a href="http://groups.google.com/group/yuml" target="_blank" rel="noopener noreferrer">Forum</a></li>
+							<li><a href="/selfhosting">Self Hosting</a></li>
+						</ul>
+					</div>
+
+					<div class="section col-md-3 col-xs-4">
+						<div class="title">HOME</div>
+						<ul>
+							<li><a href="/diagram/scruffy/class/draw">Draw</a></li>
+
+							  <li>
+							    <a href="/pricing">Pricing</a>
+							  </li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="bottom">
+			<div class="row">
+				<div class="copyright col-md-7 col-xs-12">
+					© 2017, Yuml, Pocketworks Mobile Ltd. All Rights Reserved.
+				</div>
+
+				<div class="right col-md-5 col-xs-12 contact-links">
+	      	<a class="contact-link" target="_blank" rel="noopener noreferrer" href="//twitter.com/tobinharris">
+	      		<img class="contact-image" src="/assets/twitter-1df0f29a45509ac14838f14247cd1e88501dea74941f7eab7d7aad80c0350eeb.png" alt="Twitter" /><span>Tweet us</span>
+</a>
+	      	<a class="contact-link" target="_blank" rel="noopener noreferrer" href="mailto:tobin@pocketworks.co.uk">
+	        	<img class="contact-image" src="/assets/email-94695e24df9546626cf7178ba28a2db49607b8b9c871539f049dd6c6df2226c9.png" alt="Email" /><span>Send us an email</span>
+</a>				</div>
+			</div>
+		</div>
+	</div>
+</footer>
+
+		<!-- Google Analytics-->	
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-4340115-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+	</body>	
+</html>
