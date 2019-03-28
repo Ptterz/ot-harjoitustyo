@@ -13,3 +13,7 @@ Tämä sisältää **normaalia** tekstiä, jolla on tarkoitus tehdä *jotain*.
 ### Viikko 2
 
 Määrittelydokumentin ja työaikakirjanpidon luonti.
+
+[Tuntikirjanpito](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
+
+### Viikko 3
