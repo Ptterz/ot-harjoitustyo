@@ -1,9 +1,13 @@
 
 package appen.logic;
 
+import appen.dao.FileExerciseDao;
+import appen.dao.FilePlayerDao;
+
 public class Management {
-    
     private Calculator calc;
+    private FilePlayerDao fpd;
+    private FileExerciseDao fed;
 
     public Management() {
         this.calc = new Calculator();
