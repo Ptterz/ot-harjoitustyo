@@ -1,6 +1,6 @@
-# Ohjelmistotekniikka, harjoitustyö
+# Laradigappen
 
-## Tehtävät
+## Viikkoerittely
 
 ### Viikko 1
 
@@ -14,6 +14,6 @@ Tämä sisältää **normaalia** tekstiä, jolla on tarkoitus tehdä *jotain*.
 
 Määrittelydokumentin ja työaikakirjanpidon luonti.
 
-[Tuntikirjanpito](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
+## Tuntikirjanpito
 
-### Viikko 3
+Sovelluksen tekoon käytetyn ajan erittely löytyy tiedostosta [Tuntikirjanpito](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
