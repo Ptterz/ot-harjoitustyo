@@ -8,7 +8,6 @@ import java.util.List;
 
 public class FilePlayerDao implements PlayerDao {
     public List<Player> players;
-    private Player newPlayer;
     
     public FilePlayerDao() throws SQLException {
         this.players = new ArrayList<>();
@@ -20,15 +19,20 @@ public class FilePlayerDao implements PlayerDao {
         }
     }
     
-    private void uploadNewPlayer() throws SQLException {
-        //lataa newPlayer tietokantaan
+    private void uploadNewPlayer(Player player) throws SQLException {
+        //Lisää pelaaja tietokantaan
     }
     
     @Override
     public void createNewPlayer(String nickname, String password) {
-        this.newPlayer = new Player(nickname, password);
-        players.add(newPlayer);
-        //Lisätään pelaaja listalle
+        Player player = new Player(nickname, password);
+        players.add(player);
+        
+        try {
+            uploadNewPlayer(player);
+        } catch (Exception e) {
+            //Error!
+        }
     }
     
     @Override

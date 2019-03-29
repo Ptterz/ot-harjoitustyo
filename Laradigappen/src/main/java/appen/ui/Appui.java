@@ -122,7 +122,7 @@ public class Appui extends Application {
         Button createButton = new Button("Luo tehtävä");
         Button scoreButton = new Button("Pisteet");
         Button playerInfoButton = new Button("Omat tiedot");
-        Button quitButton = new Button("Kirjaudu ulos");
+        Button quitButton = new Button("Lopeta");
 
         VBox vMainMenu = new VBox();
 
