@@ -4,3 +4,4 @@
 |11.3|3|JavaFX:n rungon tekemistä ja toimintojen suunnittelua|
 |14.3|3|JavaFX ja suunnittelua|
 |28.3|2|Luokkien luomista|
+|29.3|3|Testien, Domain ja Dao luontia|
