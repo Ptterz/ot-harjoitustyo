@@ -1,5 +1,5 @@
 
-package com.mycompany.laradigappen;
+package appen.main;
 
 import appen.ui.Appui;
 import javafx.application.Application;

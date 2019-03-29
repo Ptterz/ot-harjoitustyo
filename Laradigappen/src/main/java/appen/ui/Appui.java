@@ -34,6 +34,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Aloitusnäkymä                                         Aloitusnäkymä
         //---------------------------------------------------------------------
+        
         Label nameText = new Label("Nimimerkki: ");
         TextField nameField = new TextField();
         Label passwordText = new Label("Salasana: ");
@@ -65,6 +66,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Tunnusten luonti                                    Tunnusten luonti
         //---------------------------------------------------------------------
+        
         Label tryNameText = new Label("Nimimerkki: ");
         TextField tryNameField = new TextField();
         Label tryPasswordText = new Label("Salasana: ");
@@ -114,6 +116,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Valikkonäkymä                                         Valikkonäkymä
         //---------------------------------------------------------------------
+        
         Label menuText = new Label("Tervetuloa, (pelaaja)!");
         Button playButton = new Button("Pelaa");
         Button createButton = new Button("Luo tehtävä");
@@ -141,6 +144,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Pelinäkymä                                            Pelinäkymä
         //---------------------------------------------------------------------
+        
         Label exerciseText = new Label("Tehtävä: ");
         Label exerciseField = new Label("(tähän tehtävä)");
         TextField answerField = new TextField();
@@ -163,6 +167,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Oikea vastaus                                        Oikea vastaus
         //---------------------------------------------------------------------
+        
         Label headlineField = new Label("Vastaus oikein!");
         Label triesField = new Label("Yrityksiä: X");
         Label timeSpent = new Label("Aikaa kului: X sekuntia");
@@ -185,6 +190,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Tehtävien luonti                                   Tehtävien luonti
         //---------------------------------------------------------------------
+        
         Label formulaText = new Label("Lauseke: ");
         TextField formulaField = new TextField();
         Button submitButton = new Button("Lisää");
@@ -210,6 +216,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Scoreboard                                            Scoreboard
         //---------------------------------------------------------------------
+        
         Label scoreHeader = new Label("Pistetilanne");
         Button scoreReturnButton = new Button("Palaa päävalikkoon");
 
@@ -225,6 +232,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Pelaajan tiedot                                      Pelaajan tiedot
         //---------------------------------------------------------------------
+        
         Label playerHeader = new Label("Omat tiedot");
         Button playerReturnButton = new Button("Palaa päävalikkoon");
 
@@ -240,6 +248,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Logout                                                    Logout
         //---------------------------------------------------------------------
+        
         BorderPane logoutBorder = new BorderPane();
 
         Label message = new Label("Olet kirjautunut ulos. \nIkkuna sulkeutuu automaattisesti.");
@@ -251,6 +260,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Painikkeet                                            Painikkeet
         //---------------------------------------------------------------------
+        
         //openScene
         loginButton.setOnAction((event) -> {
             //tarkasta, että nimi ja salasana eivät ole tyhjiä tai epäkelpoisia
@@ -393,6 +403,7 @@ public class Appui extends Application {
 
         //mainMenuScene
         quitButton.setOnAction((event) -> {
+            manage.quit();
             window.setScene(logoutScene);
             timer.start();
         });

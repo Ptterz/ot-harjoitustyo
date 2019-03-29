@@ -38,4 +38,8 @@ public class Management {
     public void createAccount(String name, String password) {
         
     }
+    
+    public void quit() {
+        //Tallenna listoissa olevat tiedot tietokantoihin molemmissa Daoissa
+    }
 }
