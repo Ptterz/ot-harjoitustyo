@@ -280,9 +280,9 @@ public class Appui extends Application {
 
         //createAccountScene
         checkNameAvailabilityButton.setOnAction((event) -> {
-
+            //käytä metodia!!!
             String name = tryNameField.getText().trim();
-
+            
             if (name.length() == 0) {
                 nameAvailable.setText("Anna nimimerkki!");
                 nameAvailable.setTextFill(Color.rgb(210, 39, 30));
