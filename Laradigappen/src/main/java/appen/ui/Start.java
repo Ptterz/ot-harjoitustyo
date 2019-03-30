@@ -1,4 +1,4 @@
-package appen.main;
+package appen.ui;
 
 import appen.ui.Appui;
 import javafx.application.Application;
