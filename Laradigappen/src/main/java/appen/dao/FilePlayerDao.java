@@ -11,12 +11,6 @@ public class FilePlayerDao implements PlayerDao {
     
     public FilePlayerDao() throws SQLException {
         this.players = new ArrayList<>();
-        
-        try {
-            //Lue tietokanta
-        } catch (Exception e) {
-            //Luo tietokanta, koska ei olemassa!
-        }
     }
     
     private void uploadNewPlayer(Player player) throws SQLException {

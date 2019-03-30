@@ -1,5 +1,5 @@
 
-package appen.logic;
+package appen.domain;
 
 import appen.dao.FileExerciseDao;
 import appen.dao.FilePlayerDao;

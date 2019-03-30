@@ -1,7 +1,7 @@
 
 package appen.ui;
 
-import appen.logic.Management;
+import appen.domain.Management;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;

@@ -1,4 +1,4 @@
-package appen.logic;
+package appen.domain;
 
 public class Calculator {
 
