@@ -1,4 +1,3 @@
-
 package appen.main;
 
 import appen.ui.Appui;
@@ -9,5 +8,5 @@ public class Start {
     public static void main(String[] args) {
         Application.launch(Appui.class);
     }
-    
+
 }
