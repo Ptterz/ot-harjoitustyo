@@ -19,9 +19,14 @@ public class Database {
     public void init() throws SQLException {
         Connection connex = getConnection();
         connex.prepareStatement("CREATE TABLE IF NOT EXISTS Player ("
+                + "nickname VARCHAR(20) PRIMARY KEY,"
+                + "password VARCHAR(20));"
+        ).executeUpdate();
+        
+        connex.prepareStatement("CREATE TABLE IF NOT EXISTS Exercise ("
                 + "id INTEGER PRIMARY KEY,"
-                + "nickname VARCHAR(30),"
-                + "password VARCHAR(50));"
+                + "question VARCHAR(50),"
+                + "answer VARCHAR(30));"
         ).executeUpdate();
     }
 }

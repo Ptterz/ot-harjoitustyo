@@ -1,6 +1,8 @@
-
 package appen.ui;
 
+import appen.dao.FileExerciseDao;
+import appen.dao.FilePlayerDao;
+import appen.database.Database;
 import appen.domain.Management;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -18,12 +20,17 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Appui extends Application {
+
     private Stage window;
     private Management manage;
 
     @Override
     public void init() throws Exception {
-        this.manage = new Management();
+        Database db = new Database("jdbc:sqlite:laradigappen.db");
+//        db.init();
+        FilePlayerDao fpd = new FilePlayerDao(db);
+        FileExerciseDao fed = new FileExerciseDao(db);
+        this.manage = new Management(fpd, fed);
     }
 
     @Override
@@ -34,14 +41,13 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Aloitusnäkymä                                         Aloitusnäkymä
         //---------------------------------------------------------------------
-        
-        Label nameText = new Label("Nimimerkki: ");
+        Label nameText = new Label("Nickname: ");
         TextField nameField = new TextField();
-        Label passwordText = new Label("Salasana: ");
+        Label passwordText = new Label("Password: ");
         PasswordField passwordField = new PasswordField();
-        Label failure = new Label("");
-        Button loginButton = new Button("Kirjaudu");
-        Button createAccountButton = new Button("Luo tunnukset");
+        Label failureText = new Label("");
+        Button loginButton = new Button("Login");
+        Button createAccountButton = new Button("Create an account");
 
         VBox beg = new VBox();
 
@@ -57,7 +63,7 @@ public class Appui extends Application {
         hBeg.setSpacing(10);
 
         beg.getChildren().addAll(gridBeginning,
-                failure, hBeg);
+                failureText, hBeg);
         beg.setPadding(new Insets(20, 20, 20, 20));
         beg.setSpacing(10);
 
@@ -66,29 +72,31 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Tunnusten luonti                                    Tunnusten luonti
         //---------------------------------------------------------------------
-        
-        Label tryNameText = new Label("Nimimerkki: ");
+        Label tryNameText = new Label("Nickname (max. 20 letters and numbers):");
         TextField tryNameField = new TextField();
-        Label tryPasswordText = new Label("Salasana: ");
-        Label tryPasswordText2 = new Label("Salasana uudelleen: ");
+        Label tryPasswordText = new Label("Password (max. 20 letters and numbers): ");
+        Label tryPasswordText2 = new Label("Retype password: ");
         PasswordField tryPasswordField = new PasswordField();
         PasswordField tryPasswordField2 = new PasswordField();
         Label nameAvailable = new Label("");
-        Button checkNameAvailabilityButton = new Button("Tarkista saatavuus");
-        Button createNewAccountButton = new Button("Luo tunnukset");
+        Button checkNameAvailabilityButton = new Button("Check availability");
+        Button createNewAccountButton = new Button("Create");
         Label passwordNotMatch = new Label("");
 
         VBox vCreateAccount = new VBox();
 
         GridPane gridCreateAccount1 = new GridPane();
-        gridCreateAccount1.addRow(0, tryNameText, tryNameField);
+        gridCreateAccount1.addRow(0, tryNameText);
+        gridCreateAccount1.addRow(1, tryNameField);
 
         gridCreateAccount1.setHgap(10);
         gridCreateAccount1.setVgap(10);
 
         GridPane gridCreateAccount2 = new GridPane();
-        gridCreateAccount2.addRow(0, tryPasswordText, tryPasswordField);
-        gridCreateAccount2.addRow(1, tryPasswordText2, tryPasswordField2);
+        gridCreateAccount2.addRow(0, tryPasswordText);
+        gridCreateAccount2.addRow(1, tryPasswordField);
+        gridCreateAccount2.addRow(2, tryPasswordText2);
+        gridCreateAccount2.addRow(3, tryPasswordField2);
 
         gridCreateAccount2.setHgap(10);
         gridCreateAccount2.setVgap(10);
@@ -116,13 +124,13 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Valikkonäkymä                                         Valikkonäkymä
         //---------------------------------------------------------------------
-        
-        Label menuText = new Label("Tervetuloa, (pelaaja)!");
-        Button playButton = new Button("Pelaa");
-        Button createButton = new Button("Luo tehtävä");
-        Button scoreButton = new Button("Pisteet");
-        Button playerInfoButton = new Button("Omat tiedot");
-        Button quitButton = new Button("Lopeta");
+        Label menuText = new Label("Welcome!");
+        Button playButton = new Button("Play");
+        Button createButton = new Button("Create");
+        Button scoreButton = new Button("Points");
+        Button playerInfoButton = new Button("My account");
+        Button logoutButton = new Button("Logout");
+        Button quitButton = new Button("Quit");
 
         VBox vMainMenu = new VBox();
 
@@ -132,7 +140,7 @@ public class Appui extends Application {
         h1Main.getChildren().addAll(playButton, createButton, scoreButton);
         h1Main.setSpacing(10);
 
-        h2Main.getChildren().addAll(playerInfoButton, quitButton);
+        h2Main.getChildren().addAll(playerInfoButton, logoutButton, quitButton);
         h2Main.setSpacing(10);
 
         vMainMenu.getChildren().addAll(menuText, h1Main, h2Main);
@@ -144,7 +152,6 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Pelinäkymä                                            Pelinäkymä
         //---------------------------------------------------------------------
-        
         Label exerciseText = new Label("Tehtävä: ");
         Label exerciseField = new Label("(tähän tehtävä)");
         TextField answerField = new TextField();
@@ -167,10 +174,9 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Oikea vastaus                                        Oikea vastaus
         //---------------------------------------------------------------------
-        
         Label headlineField = new Label("Vastaus oikein!");
         Label triesField = new Label("Yrityksiä: X");
-        Label timeSpent = new Label("Aikaa kului: X sekuntia");
+        Label timeSpent = new Label("Aikaa kului: NaN sekuntia");
         Button playAgainButton = new Button("Pelaa uudelleen");
         Button mainMenuButton = new Button("Valikko");
 
@@ -190,23 +196,19 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Tehtävien luonti                                   Tehtävien luonti
         //---------------------------------------------------------------------
-        
-        Label formulaText = new Label("Lauseke: ");
+        Label formulaText = new Label("Lauseke (enintään 50 merkkiä): ");
         TextField formulaField = new TextField();
+        Label formulaErrorText = new Label("");
         Button submitButton = new Button("Lisää");
         Button createReturnButton = new Button("Palaa päävalikkoon");
 
         VBox vCreate = new VBox();
 
-        GridPane gridCreate = new GridPane();
-        gridCreate.add(submitButton, 0, 0);
-        gridCreate.add(createReturnButton, 1, 0);
+        HBox hCreate = new HBox();
+        hCreate.getChildren().addAll(submitButton, createReturnButton);
+        hCreate.setSpacing(10);
 
-        gridCreate.setHgap(10);
-        gridCreate.setVgap(10);
-        gridCreate.setPadding(new Insets(10, 10, 10, 10));
-
-        vCreate.getChildren().addAll(formulaText, formulaField, gridCreate);
+        vCreate.getChildren().addAll(formulaText, formulaField, formulaErrorText, hCreate);
 
         vCreate.setPadding(new Insets(20, 20, 20, 20));
         vCreate.setSpacing(10);
@@ -216,7 +218,6 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Scoreboard                                            Scoreboard
         //---------------------------------------------------------------------
-        
         Label scoreHeader = new Label("Pistetilanne");
         Button scoreReturnButton = new Button("Palaa päävalikkoon");
 
@@ -232,7 +233,6 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Pelaajan tiedot                                      Pelaajan tiedot
         //---------------------------------------------------------------------
-        
         Label playerHeader = new Label("Omat tiedot");
         Button playerReturnButton = new Button("Palaa päävalikkoon");
 
@@ -248,7 +248,6 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Logout                                                    Logout
         //---------------------------------------------------------------------
-        
         BorderPane logoutBorder = new BorderPane();
 
         Label message = new Label("Olet kirjautunut ulos. \nIkkuna sulkeutuu automaattisesti.");
@@ -260,13 +259,12 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Painikkeet                                            Painikkeet
         //---------------------------------------------------------------------
-        
         //openScene
         loginButton.setOnAction((event) -> {
             //tarkasta, että nimi ja salasana eivät ole tyhjiä tai epäkelpoisia
             if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
-                failure.setText("Tarkista tunnus ja salasana!");
-                failure.setTextFill(Color.rgb(210, 39, 30));
+                failureText.setText("Tarkista tunnus ja salasana!");
+                failureText.setTextFill(Color.rgb(210, 39, 30));
                 return;
             }
 
@@ -280,13 +278,13 @@ public class Appui extends Application {
 
         //createAccountScene
         checkNameAvailabilityButton.setOnAction((event) -> {
-            //käytä metodia!!!
+
             String name = tryNameField.getText().trim();
-            
+
             if (name.length() == 0) {
                 nameAvailable.setText("Anna nimimerkki!");
                 nameAvailable.setTextFill(Color.rgb(210, 39, 30));
-            } else if (!name.equals(tryNameField.getText())) {
+            } else if (!name.equals(tryNameField.getText()) || name.length() > 20) {
                 nameAvailable.setText("Tarkista nimimerkki!");
                 nameAvailable.setTextFill(Color.rgb(210, 39, 30));
             } else if (!manage.checkNameAvailability(name)) {
@@ -299,23 +297,30 @@ public class Appui extends Application {
         });
 
         //createAccountScene
+        tryNameField.setOnKeyTyped((event) -> {
+            nameAvailable.setText("");
+        });
+
+        //createAccountScene
         createNewAccountButton.setOnAction((event) -> {
 
             String ps1 = tryPasswordField.getText();
             String ps2 = tryPasswordField2.getText();
 
-            if (ps1.trim().length() == 0 || ps2.trim().length() == 0) {
-                passwordNotMatch.setText("Syötä salasana!");
-                passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
-            } else if (!manage.checkPasswordEntry(ps1, ps2)) {
-                passwordNotMatch.setText("Salasanat eivät täsmää!");
+            if (!(manage.checkPasswordLength(ps1, ps2) || manage.checkPasswordEntry(ps1, ps2))) {
+                passwordNotMatch.setText("Salasana virheellinen!");
                 passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
             } else {
-                //luo tunnukset!
                 String name = tryNameField.getText();
                 if (nameAvailable.getText().equals("Nimimerkki vapaa!")) {
-                    manage.createAccount(name, ps1);
-                    window.setScene(mainMenuScene);
+                    if (manage.createAccount(name, ps1)) {
+                        failureText.setText("");
+                        nameField.clear();
+                        passwordField.clear();
+                        window.setScene(openScene);
+                    } else {
+                        passwordNotMatch.setText("Something went wrong. Try again.");
+                    }
                 } else {
                     passwordNotMatch.setText("Tarkista nimimerkin saatavuus!");
                     passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
@@ -383,6 +388,13 @@ public class Appui extends Application {
         });
 
         //mainMenuScene
+        logoutButton.setOnAction((event) -> {
+            nameField.clear();
+            passwordField.clear();
+            window.setScene(openScene);
+        });
+
+        //mainMenuScene
         AnimationTimer timer = new AnimationTimer() {
             long edellinen = 0;
             long counter = 0;
@@ -400,8 +412,6 @@ public class Appui extends Application {
                 this.edellinen = nykyhetki;
             }
         };
-
-        //mainMenuScene
         quitButton.setOnAction((event) -> {
             manage.quit();
             window.setScene(logoutScene);

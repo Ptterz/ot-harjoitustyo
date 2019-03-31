@@ -1,6 +1,7 @@
 
 package appen.dao;
 
+import appen.database.Database;
 import appen.domain.Exercise;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,32 +9,25 @@ import java.util.List;
 
 public class FileExerciseDao implements ExerciseDao {
     public List<Exercise> exercises;
+    private Database db;
     
-    public FileExerciseDao() throws SQLException {       
+    public FileExerciseDao(Database db) throws SQLException {       
         this.exercises = new ArrayList<>();
-        
-        try {
-            //Lue tietokanta
-        } catch (Exception e) {
-            //Luo tietokanta, koska ei olemassa!
-        }
+        this.db = db;
     }
     
-    private void uploadNewExercise(Exercise exercise) {
+    private void saveExercises(Exercise exercise) {
         //lataa tietokantaan
+    }
+    
+    private int generateId() {
+        return exercises.size() + 1;
     }
     
     @Override
     public void createNewExercise(String question, String answer) {
         Exercise exercise = new Exercise(question, answer);
         exercises.add(exercise);
-        
-        try {
-            uploadNewExercise(exercise);
-        } catch (Exception e) {
-            //Error!
-        }
-        
     }
     
     @Override

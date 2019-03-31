@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface PlayerDao {
     
-    void createNewPlayer(String nickname, String password) throws Exception;
+    boolean createNewPlayer(String nickname, String password) throws Exception;
     
     List<Player> listAllPlayers() throws Exception;
+    
+    boolean quit() throws Exception;
     
 }
