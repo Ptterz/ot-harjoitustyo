@@ -16,10 +16,6 @@ public class Player{
         return nickname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -27,17 +23,25 @@ public class Player{
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Player)) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        
-        Player other = (Player) obj;
-        return nickname.equals(other.nickname) && password.equals(other.password);
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Player other = (Player) obj;
+        if (!Objects.equals(this.nickname, other.nickname)) {
+            return false;
+        }
+        return true;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 3;

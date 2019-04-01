@@ -21,13 +21,4 @@ public class PlayerDaoTest {
         db.init();
         pd = new PlayerDao(db);
     }
-
-    @Test
-    public void createAndReadWorkCorrectly() throws SQLException {
-        Player p = new Player("Test", "1234");
-        assertEquals(null, pd.read("Test"));
-        pd.create(p);
-        Player o = pd.read("Test");
-        assertTrue(p.equals(o));
-    }
 }

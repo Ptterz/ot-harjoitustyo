@@ -29,13 +29,29 @@ public class Exercise {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.question);
+        hash = 53 * hash + Objects.hashCode(this.answer);
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Exercise)) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        
-        Exercise other = (Exercise) obj;
-        return question.equals(other.question);
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Exercise other = (Exercise) obj;
+        if (!Objects.equals(this.question, other.question)) {
+            return false;
+        }
+        return true;
     }
     
 }
