@@ -33,9 +33,4 @@ public class PlayerTest {
     public void passwordCorrect() {
         assertEquals(player.getPassword(),"password");
     }
-    
-    @Test
-    public void changedCorrect() {
-        assertFalse(player.isChanged());
-    }
 }

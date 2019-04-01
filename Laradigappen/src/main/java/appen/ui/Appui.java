@@ -1,21 +1,14 @@
 package appen.ui;
 
-import appen.dao.FileExerciseDao;
-import appen.dao.FilePlayerDao;
-import appen.database.Database;
-import appen.domain.Management;
+import appen.dao.*;
+import appen.database.*;
+import appen.domain.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -27,9 +20,9 @@ public class Appui extends Application {
     @Override
     public void init() throws Exception {
         Database db = new Database("jdbc:sqlite:laradigappen.db");
-//        db.init();
-        FilePlayerDao fpd = new FilePlayerDao(db);
-        FileExerciseDao fed = new FileExerciseDao(db);
+        db.init();
+        PlayerDao fpd = new PlayerDao(db);
+        ExerciseDao fed = new ExerciseDao(db);
         this.manage = new Management(fpd, fed);
     }
 
@@ -81,6 +74,7 @@ public class Appui extends Application {
         Label nameAvailable = new Label("");
         Button checkNameAvailabilityButton = new Button("Check availability");
         Button createNewAccountButton = new Button("Create");
+        Button backToLoginButton = new Button("Back");
         Label passwordNotMatch = new Label("");
 
         VBox vCreateAccount = new VBox();
@@ -108,7 +102,7 @@ public class Appui extends Application {
         gridCreateAccount3.setVgap(10);
 
         GridPane gridCreateAccount4 = new GridPane();
-        gridCreateAccount4.addRow(0, createNewAccountButton, passwordNotMatch);
+        gridCreateAccount4.addRow(0, createNewAccountButton, backToLoginButton, passwordNotMatch);
 
         gridCreateAccount4.setHgap(10);
         gridCreateAccount4.setVgap(10);
@@ -263,7 +257,7 @@ public class Appui extends Application {
         loginButton.setOnAction((event) -> {
             //tarkasta, että nimi ja salasana eivät ole tyhjiä tai epäkelpoisia
             if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
-                failureText.setText("Tarkista tunnus ja salasana!");
+                failureText.setText("Invalid nickname or password!");
                 failureText.setTextFill(Color.rgb(210, 39, 30));
                 return;
             }
@@ -281,17 +275,14 @@ public class Appui extends Application {
 
             String name = tryNameField.getText().trim();
 
-            if (name.length() == 0) {
-                nameAvailable.setText("Anna nimimerkki!");
-                nameAvailable.setTextFill(Color.rgb(210, 39, 30));
-            } else if (!name.equals(tryNameField.getText()) || name.length() > 20) {
-                nameAvailable.setText("Tarkista nimimerkki!");
+            if (!(name.length() == 0 || name.equals(tryNameField.getText()) || name.length() > 20)) {
+                nameAvailable.setText("Invalid nickname!");
                 nameAvailable.setTextFill(Color.rgb(210, 39, 30));
             } else if (!manage.checkNameAvailability(name)) {
-                nameAvailable.setText("Nimimerkki on jo käytössä!");
+                nameAvailable.setText("Nickname already taken!");
                 nameAvailable.setTextFill(Color.rgb(210, 39, 30));
             } else {
-                nameAvailable.setText("Nimimerkki vapaa!");
+                nameAvailable.setText("Nickname available!");
                 nameAvailable.setTextFill(Color.rgb(21, 117, 84));
             }
         });
@@ -307,12 +298,12 @@ public class Appui extends Application {
             String ps1 = tryPasswordField.getText();
             String ps2 = tryPasswordField2.getText();
 
-            if (!(manage.checkPasswordLength(ps1, ps2) || manage.checkPasswordEntry(ps1, ps2))) {
-                passwordNotMatch.setText("Salasana virheellinen!");
+            if (!(manage.checkPasswordEntry(ps1, ps2))) {
+                passwordNotMatch.setText("Invalid password!");
                 passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
             } else {
                 String name = tryNameField.getText();
-                if (nameAvailable.getText().equals("Nimimerkki vapaa!")) {
+                if (nameAvailable.getText().equals("Nickname available!")) {
                     if (manage.createAccount(name, ps1)) {
                         failureText.setText("");
                         nameField.clear();
@@ -322,10 +313,18 @@ public class Appui extends Application {
                         passwordNotMatch.setText("Something went wrong. Try again.");
                     }
                 } else {
-                    passwordNotMatch.setText("Tarkista nimimerkin saatavuus!");
+                    passwordNotMatch.setText("Check if nickname available!");
                     passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
                 }
             }
+        });
+
+        //createAccountScene
+        backToLoginButton.setOnAction((event) -> {
+            failureText.setText("");
+            nameField.clear();
+            passwordField.clear();
+            window.setScene(openScene);
         });
 
         //mainMenuScene
