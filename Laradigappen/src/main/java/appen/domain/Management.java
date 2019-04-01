@@ -16,6 +16,18 @@ public class Management {
         this.ed = ed;
     }
 
+    public Calculator getCalc() {
+        return calc;
+    }
+
+    public PlayerDao getPd() {
+        return pd;
+    }
+
+    public ExerciseDao getEd() {
+        return ed;
+    }
+
     private boolean checkChars(String pw) {
         for (int i = 0; i < pw.length(); i++) {
             int ascii = (int) pw.charAt(i);
@@ -33,7 +45,7 @@ public class Management {
         }
         ps = ps.trim();
 
-        if (ps.length() == 0 || ps.length() > 20) {
+        if (ps.length() == 0) {
             return false;
         }
         return true;
@@ -52,10 +64,11 @@ public class Management {
         
         try {
             Player o = pd.read(name);
-            if (!p.equals(o)) {
-                return false;
+            if (p.getNickname().equals(o.getNickname()) && 
+                    p.getPassword().equals(o.getPassword())) {
+                return true;
             }
-            return true;
+            return false;
         } catch (Exception e) {
             return false;
         }
@@ -83,7 +96,10 @@ public class Management {
     }
 
     public boolean checkPasswordEntry(String ps1, String ps2) {
-        if (!(ps1.equals(ps2) || checkEntry(ps1) || checkEntry(ps2))) {
+        if (!ps1.equals(ps2)) {
+            return false;
+        }
+        if (!checkEntry(ps1)) {
             return false;
         }
         return true;

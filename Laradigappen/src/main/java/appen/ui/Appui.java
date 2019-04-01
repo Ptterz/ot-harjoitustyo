@@ -146,55 +146,53 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Pelinäkymä                                            Pelinäkymä
         //---------------------------------------------------------------------
-        Label exerciseText = new Label("Tehtävä: ");
-        Label exerciseField = new Label("(tähän tehtävä)");
+        Label exerciseText = new Label("Solve: ");
+        Label exerciseField = new Label("(not yet functioning)");
         TextField answerField = new TextField();
         Label wrongAnswer = new Label("");
-        Button checkAnswerButton = new Button("Tarkista");
+        Button checkAnswerButton = new Button("Submit your answer");
+        
+        VBox vGame = new VBox();
+        
+        HBox h1Game = new HBox();
+        h1Game.getChildren().addAll(exerciseText, exerciseField);
+        h1Game.setSpacing(10);
+        
+        vGame.getChildren().addAll(h1Game, answerField, wrongAnswer, checkAnswerButton);
+        vGame.setPadding(new Insets(20, 20, 20, 20));
+        vGame.setSpacing(10);
 
-        GridPane gridGame = new GridPane();
-        gridGame.add(exerciseText, 0, 0);
-        gridGame.add(exerciseField, 1, 0);
-        gridGame.add(answerField, 1, 1);
-        gridGame.add(wrongAnswer, 1, 2);
-        gridGame.add(checkAnswerButton, 1, 3);
-
-        gridGame.setHgap(10);
-        gridGame.setVgap(10);
-        gridGame.setPadding(new Insets(20, 20, 20, 20));
-
-        Scene gameScene = new Scene(gridGame, 400, 300);
+        Scene gameScene = new Scene(vGame, 400, 300);
 
         //---------------------------------------------------------------------
         //Oikea vastaus                                        Oikea vastaus
         //---------------------------------------------------------------------
-        Label headlineField = new Label("Vastaus oikein!");
-        Label triesField = new Label("Yrityksiä: X");
-        Label timeSpent = new Label("Aikaa kului: NaN sekuntia");
-        Button playAgainButton = new Button("Pelaa uudelleen");
-        Button mainMenuButton = new Button("Valikko");
+        Label headlineField = new Label("Correct answer!");
+        Label triesField = new Label("Tries: X");
+        Label timeSpent = new Label("Time spent: NaN sec");
+        Button playAgainButton = new Button("Play again");
+        Button mainMenuButton = new Button("Main menu");
 
-        GridPane gridRightAnswer = new GridPane();
-        gridRightAnswer.add(headlineField, 0, 0);
-        gridRightAnswer.add(triesField, 0, 1);
-        gridRightAnswer.add(timeSpent, 0, 2);
-        gridRightAnswer.add(playAgainButton, 0, 3);
-        gridRightAnswer.add(mainMenuButton, 1, 3);
+        VBox vRightAnswer = new VBox();
+        
+        HBox hRightAnswer = new HBox();
+        hRightAnswer.getChildren().addAll(playAgainButton, mainMenuButton);
+        hRightAnswer.setSpacing(10);
+        
+        vRightAnswer.getChildren().addAll(headlineField, triesField, timeSpent, hRightAnswer);
+        vRightAnswer.setPadding(new Insets(20, 20, 20, 20));
+        vRightAnswer.setSpacing(10);
 
-        gridRightAnswer.setHgap(10);
-        gridRightAnswer.setVgap(10);
-        gridRightAnswer.setPadding(new Insets(20, 20, 20, 20));
-
-        Scene rightAnswerScene = new Scene(gridRightAnswer, 400, 300);
+        Scene rightAnswerScene = new Scene(vRightAnswer, 400, 300);
 
         //---------------------------------------------------------------------
         //Tehtävien luonti                                   Tehtävien luonti
         //---------------------------------------------------------------------
-        Label formulaText = new Label("Lauseke (enintään 50 merkkiä): ");
+        Label formulaText = new Label("Formula (max 50 characters): ");
         TextField formulaField = new TextField();
         Label formulaErrorText = new Label("");
-        Button submitButton = new Button("Lisää");
-        Button createReturnButton = new Button("Palaa päävalikkoon");
+        Button submitButton = new Button("Submit");
+        Button createReturnButton = new Button("Back");
 
         VBox vCreate = new VBox();
 
@@ -212,8 +210,8 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Scoreboard                                            Scoreboard
         //---------------------------------------------------------------------
-        Label scoreHeader = new Label("Pistetilanne");
-        Button scoreReturnButton = new Button("Palaa päävalikkoon");
+        Label scoreHeader = new Label("Scoreboard");
+        Button scoreReturnButton = new Button("Back");
 
         VBox vScoreBoard = new VBox();
 
@@ -227,8 +225,8 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Pelaajan tiedot                                      Pelaajan tiedot
         //---------------------------------------------------------------------
-        Label playerHeader = new Label("Omat tiedot");
-        Button playerReturnButton = new Button("Palaa päävalikkoon");
+        Label playerHeader = new Label("Player info");
+        Button playerReturnButton = new Button("Back");
 
         VBox vPlayer = new VBox();
 
@@ -244,7 +242,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         BorderPane logoutBorder = new BorderPane();
 
-        Label message = new Label("Olet kirjautunut ulos. \nIkkuna sulkeutuu automaattisesti.");
+        Label message = new Label("You have logged out. \nWindow will close in few seconds.");
 
         logoutBorder.setCenter(message);
 
