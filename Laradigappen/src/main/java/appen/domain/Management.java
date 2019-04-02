@@ -9,11 +9,15 @@ public class Management {
     private Calculator calc;
     private PlayerDao pd;
     private ExerciseDao ed;
+    private Random r;
+    private Exercise lastExe;
+    private Player playerIn;
 
     public Management(PlayerDao pd, ExerciseDao ed) {
         this.calc = new Calculator();
         this.pd = pd;
         this.ed = ed;
+        this.r = new Random();
     }
 
     public Calculator getCalc() {
@@ -28,9 +32,9 @@ public class Management {
         return ed;
     }
 
-    private boolean checkChars(String pw) {
-        for (int i = 0; i < pw.length(); i++) {
-            int ascii = (int) pw.charAt(i);
+    private boolean checkCharsNickname(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            int ascii = (int) s.charAt(i);
             if (!((ascii >= 48 && ascii <= 57) || (ascii >= 65 && ascii <= 90)
                     || (ascii >= 97 && ascii <= 128))) {
                 return false;
@@ -39,33 +43,61 @@ public class Management {
         return true;
     }
 
-    private boolean checkLength(String ps) {
-        if (ps.length() == 0 || ps.length() > 20) {
+    private boolean checkCharsFormula(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            int ascii = (int) s.charAt(i);
+            if (!((ascii >= 47 && ascii <= 57) || (ascii >= 40 && ascii <= 43)
+                    || ascii == 45)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkLengthNickname(String s) {
+        if (s.length() == 0 || s.length() > 20) {
             return false;
         }
-        ps = ps.trim();
+        s = s.trim();
 
-        if (ps.length() == 0) {
+        if (s.length() == 0) {
             return false;
         }
         return true;
     }
-    
-    private boolean checkEntry(String s) {
-        return checkChars(s) && checkLength(s);
+
+    private boolean checkLengthFormula(String s) {
+        if (s.length() == 0 || s.length() > 50) {
+            return false;
+        }
+        s = s.trim();
+
+        if (s.length() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkEntryNickname(String s) {
+        return checkCharsNickname(s) && checkLengthNickname(s);
+    }
+
+    private boolean checkEntryFormula(String s) {
+        return checkCharsFormula(s) && checkLengthFormula(s);
     }
 
     public boolean checkLoginEntry(String name, String password) {
-        if (!(checkEntry(name) || checkEntry(password))) {
+        if (!(checkEntryNickname(name) || checkEntryNickname(password))) {
             return false;
         }
-        
+
         Player p = new Player(name, password);
-        
+
         try {
             Player o = pd.read(name);
-            if (p.getNickname().equals(o.getNickname()) && 
-                    p.getPassword().equals(o.getPassword())) {
+            if (p.getNickname().equals(o.getNickname())
+                    && p.getPassword().equals(o.getPassword())) {
+                playerIn = p;
                 return true;
             }
             return false;
@@ -75,18 +107,18 @@ public class Management {
     }
 
     public boolean checkNameAvailability(String name) {
-        if (!checkEntry(name)) {
+        if (!checkEntryNickname(name)) {
             return false;
         }
-        
+
         List<Player> players = new ArrayList<>();
-        
+
         try {
             players = pd.list();
         } catch (Exception e) {
             return false;
         }
-        
+
         for (Player p : players) {
             if (p.getNickname().equals(name)) {
                 return false;
@@ -99,7 +131,7 @@ public class Management {
         if (!ps1.equals(ps2)) {
             return false;
         }
-        if (!checkEntry(ps1)) {
+        if (!checkEntryNickname(ps1)) {
             return false;
         }
         return true;
@@ -109,10 +141,54 @@ public class Management {
         Player p = new Player(name, password);
         try {
             pd.create(p);
-            return true;
         } catch (Exception e) {
             return false;
         }
+        return true;
+    }
+
+    public boolean checkSubmittedFormula(String s) {
+        return checkEntryFormula(s);
+    }
+
+    public boolean calculate(String s) {
+        long answer = 0;
+        try {
+            answer = calc.calculate(s);
+        } catch (Exception e) {
+            return false;
+        }
+        String a = "" + answer;
+        if (a.length() > 30) {
+            return false;
+        }
+        return createExercise(s, a);
+    }
+
+    public boolean createExercise(String question, String answer) {
+        Exercise exercise = new Exercise(question, answer);
+        try {
+            ed.create(exercise);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public String getExercise() {
+        List<Exercise> exes;
+        try {
+            exes = ed.list();
+        } catch (Exception e) {
+            return "Something went wrong.";
+        }
+        int index = r.nextInt(exes.size());
+        lastExe = exes.get(index);
+        return lastExe.getQuestion();
+    }
+    
+    public String getAnswer() {
+        return lastExe.getAnswer();
     }
 
     public void quit() {

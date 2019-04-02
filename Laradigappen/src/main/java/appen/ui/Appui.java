@@ -146,19 +146,15 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Pelinäkymä                                            Pelinäkymä
         //---------------------------------------------------------------------
-        Label exerciseText = new Label("Solve: ");
-        Label exerciseField = new Label("(not yet functioning)");
+        String solve = "Solve: " + manage.getExercise();
+        Label exerciseText = new Label(solve);
         TextField answerField = new TextField();
         Label wrongAnswer = new Label("");
         Button checkAnswerButton = new Button("Submit your answer");
-        
+
         VBox vGame = new VBox();
-        
-        HBox h1Game = new HBox();
-        h1Game.getChildren().addAll(exerciseText, exerciseField);
-        h1Game.setSpacing(10);
-        
-        vGame.getChildren().addAll(h1Game, answerField, wrongAnswer, checkAnswerButton);
+
+        vGame.getChildren().addAll(exerciseText, answerField, wrongAnswer, checkAnswerButton);
         vGame.setPadding(new Insets(20, 20, 20, 20));
         vGame.setSpacing(10);
 
@@ -174,11 +170,11 @@ public class Appui extends Application {
         Button mainMenuButton = new Button("Main menu");
 
         VBox vRightAnswer = new VBox();
-        
+
         HBox hRightAnswer = new HBox();
         hRightAnswer.getChildren().addAll(playAgainButton, mainMenuButton);
         hRightAnswer.setSpacing(10);
-        
+
         vRightAnswer.getChildren().addAll(headlineField, triesField, timeSpent, hRightAnswer);
         vRightAnswer.setPadding(new Insets(20, 20, 20, 20));
         vRightAnswer.setSpacing(10);
@@ -188,7 +184,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Tehtävien luonti                                   Tehtävien luonti
         //---------------------------------------------------------------------
-        Label formulaText = new Label("Formula (max 50 characters): ");
+        Label formulaText = new Label("Max-value of the formula is 9,999...*10^29\n\nFormula (max 50 characters): ");
         TextField formulaField = new TextField();
         Label formulaErrorText = new Label("");
         Button submitButton = new Button("Submit");
@@ -337,13 +333,21 @@ public class Appui extends Application {
 
         //gameScene
         checkAnswerButton.setOnAction((event) -> {
-            //Varmennus!
-            window.setScene(rightAnswerScene);
+            String answer = manage.getAnswer();
+            if (answerField.getText().equals(answer)) {
+                String newExe = "Solve: " + manage.getExercise();
+                exerciseText.setText(newExe);
+                answerField.clear();
+                wrongAnswer.setText("");
+                window.setScene(rightAnswerScene);
+            } else {
+                wrongAnswer.setText("Answer is not correct.");
+                wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
+            }
         });
 
         //rightAnswerScene
         playAgainButton.setOnAction((event) -> {
-            //Varmista, että kysymys vaihdettu ja vastauskenttä tyhjä
             window.setScene(gameScene);
         });
 
@@ -355,7 +359,20 @@ public class Appui extends Application {
         //createScene
         submitButton.setOnAction((event) -> {
             //lisää tehtävä talteen ja tarkasta se(?)
-            formulaField.clear();
+            String s = formulaField.getText();
+            if (manage.checkSubmittedFormula(s)) {
+                if (manage.calculate(s)) {
+                    formulaErrorText.setText("Exercise succesfully submitted!");
+                    formulaErrorText.setTextFill(Color.rgb(21, 117, 84));
+                    formulaField.clear();
+                } else {
+                    formulaErrorText.setText("Something went wrong! Try again.");
+                    formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
+                }
+            } else {
+                formulaErrorText.setText("Invalid formula!");
+                formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
+            }
         });
 
         //createScene
