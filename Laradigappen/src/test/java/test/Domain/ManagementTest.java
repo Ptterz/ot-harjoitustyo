@@ -26,6 +26,8 @@ public class ManagementTest {
     @Before
     public void setUp() throws SQLException {
         db = new Database("jdbc:sqlite:test.db");
+        db.init();
+        db.reset();
         pd = new PlayerDao(db);
         ed = new ExerciseDao(db);
         mg = new Management(pd, ed);
@@ -49,48 +51,37 @@ public class ManagementTest {
     @Test
     public void exerciseDaoExists() {
         assertTrue(mg.getEd() != null);
+    }   
+
+    @Test
+    public void createAccount() {
+        assertTrue(mg.createAccount("Pete", "salasana"));
     }
 
     @Test
-    public void checkLoginEntryWithInvalidParameters() {
-        assertFalse(mg.checkLoginEntry(" --", "AA1234"));
+    public void createAccountIncorrectAddress() {
+        assertFalse(mg2.createAccount("Pete", "123"));
+    }
+
+    @Test
+    public void checkLoginEntry() {
+        assertFalse(mg.checkLoginEntry(" ", "/"));
+        assertFalse(mg.checkLoginEntry("/", "&"));
+        assertFalse(mg.checkLoginEntry("@", "{}"));
         assertFalse(mg.checkLoginEntry("", "000011110000111100001"));
-        assertFalse(mg.checkLoginEntry(" ", "  "));
-        assertFalse(mg.checkLoginEntry("00001111000011110000&", "aa11{"));
-        assertFalse(mg.checkLoginEntry("1@", "1/"));
-        assertFalse(mg.checkLoginEntry("Pete", "123"));
-        assertFalse(mg.checkLoginEntry("Pet", "1234"));
-    }
-
-    @Test
-    public void checkLoginEntryWithValidParameters() {
-        assertTrue(mg.checkLoginEntry("Pete", "1234"));
     }
 
     @Test
     public void checkNameAvailability() {
-        assertFalse(mg.checkNameAvailability("Pete"));
-        assertFalse(mg2.checkNameAvailability("Pete"));
-        assertFalse(mg.checkNameAvailability("Pete@"));
-        assertTrue(mg.checkNameAvailability("Petteri"));
+        assertTrue(mg.checkNameAvailability("Pete"));
     }
 
     @Test
-    public void checkPasswordEntry() {
+    public void checkPasswordsEquals() {
         assertFalse(mg.checkPasswordEntry("aaa", "vb"));
         assertFalse(mg.checkPasswordEntry("1234@", "123"));
         assertFalse(mg.checkPasswordEntry("1234@", "1234@"));
         assertFalse(mg.checkPasswordEntry("1234", "123+"));
         assertTrue(mg.checkPasswordEntry("salasana", "salasana"));
-    }
-
-    @Test
-    public void createAccount() {
-        mg.createAccount("Petter", "salasana");
-    }
-
-    @Test
-    public void createAccountIncorrectAddress() {
-        mg2.createAccount("Pete", "123");
     }
 }

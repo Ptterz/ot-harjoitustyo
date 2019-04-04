@@ -282,8 +282,8 @@ public class Appui extends Application {
         });
 
         //createAccountScene
-        tryNameField.setOnKeyTyped((event) -> {
-            nameAvailable.setText("");
+        answerField.setOnKeyTyped((event) -> {
+            wrongAnswer.setText("");
         });
 
         //createAccountScene
@@ -344,6 +344,11 @@ public class Appui extends Application {
                 wrongAnswer.setText("Answer is not correct.");
                 wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
             }
+        });
+        
+        //gameScene
+        tryNameField.setOnKeyTyped((event) -> {
+            nameAvailable.setText("");
         });
 
         //rightAnswerScene

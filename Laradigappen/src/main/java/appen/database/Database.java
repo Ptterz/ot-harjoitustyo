@@ -33,7 +33,7 @@ public class Database {
     
     public void reset() throws SQLException {
         Connection connex = getConnection();
-        connex.prepareStatement("DROP TABLE Player IF EXISTS");
-        connex.prepareStatement("DROP TABLE Exercise IF EXISTS");
+        connex.prepareStatement("DELETE FROM Players").executeUpdate();
+        connex.prepareStatement("DELETE FROM Exercises").executeUpdate();
     }
 }
