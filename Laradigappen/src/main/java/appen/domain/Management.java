@@ -12,12 +12,19 @@ public class Management {
     private Random r;
     private Exercise lastExe;
     private Player playerIn;
+    private int selectedLevel;
+    private Map<Integer, List<Exercise>> exes;
 
     public Management(PlayerDao pd, ExerciseDao ed) {
         this.calc = new Calculator();
         this.pd = pd;
         this.ed = ed;
         this.r = new Random();
+        exes = new HashMap<>();
+        exes.put(0, new ArrayList<>());
+        exes.put(1, new ArrayList<>());
+        exes.put(2, new ArrayList<>());
+        exes.put(3, new ArrayList<>());
     }
 
     public Calculator getCalc() {
@@ -30,6 +37,10 @@ public class Management {
 
     public ExerciseDao getEd() {
         return ed;
+    }
+    
+    public void setSelectedLevel(int level) {
+        this.selectedLevel = level;
     }
 
     private boolean checkCharsNickname(String s) {
@@ -149,8 +160,9 @@ public class Management {
         return createExercise(s, String.valueOf(answer));
     }
 
-    private boolean createExercise(String question, String answer) {
-        Exercise exercise = new Exercise(question, answer);
+    private boolean createExercise(String question, String answer, int lvl) {
+        Exercise exercise = new Exercise(question, answer, -1);
+        exes.get(lvl).add(exercise);
         try {
             ed.create(exercise);
         } catch (Exception e) {
@@ -158,24 +170,35 @@ public class Management {
         }
         return true;
     }
+    
+    private boolean getExercises() {
+        try {
+            exes.put(0, ed.list());
+            if (selectedLevel != 0) {
+                for (Exercise e : exes.get(0)) {
+                    if (e.getLevel() == selectedLevel) {
+                        exes.get(selectedLevel).add(e);
+                    }
+                }
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public String getExercise() {
-        List<Exercise> exes;
-        try {
-            exes = ed.list();
-        } catch (Exception e) {
-            return "Something went wrong.";
+        if (exes.get(selectedLevel).isEmpty()) {
+            if (!getExercises()) {
+                return "Something went wrong!";
+            }
         }
         int index = r.nextInt(exes.size());
-        lastExe = exes.get(index);
+        lastExe = exes.get(selectedLevel).get(index);
         return lastExe.getQuestion();
     }
 
     public String getAnswer() {
         return lastExe.getAnswer();
-    }
-
-    public void quit() {
-        //Tallenna listoissa olevat tiedot tietokantoihin molemmissa Daoissa
     }
 }

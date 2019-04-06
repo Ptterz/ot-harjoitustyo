@@ -6,10 +6,12 @@ import java.util.Objects;
 public class Exercise {
     private String question;
     private String answer;
+    private int level;
 
-    public Exercise(String question, String answer) {
+    public Exercise(String question, String answer, int level) {
         this.question = question;
         this.answer = answer;
+        this.level = level;
     }
 
     public String getQuestion() {
@@ -28,11 +30,16 @@ public class Exercise {
         this.answer = answer;
     }
 
+    public int getLevel() {
+        return level;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.question);
-        hash = 53 * hash + Objects.hashCode(this.answer);
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.question);
+        hash = 47 * hash + Objects.hashCode(this.answer);
+        hash = 47 * hash + this.level;
         return hash;
     }
 

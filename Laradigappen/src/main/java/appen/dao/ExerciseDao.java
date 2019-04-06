@@ -26,10 +26,11 @@ public class ExerciseDao implements Dao<Exercise, Integer> {
         Connection connex = db.getConnection();
 
         PreparedStatement stmt = connex.prepareStatement("INSERT INTO Exercises"
-                + " (question, answer)"
-                + " VALUES (?, ?)");
+                + " (question, answer, level)"
+                + " VALUES (?, ?, ?)");
         stmt.setString(1, e.getQuestion());
         stmt.setString(2, e.getAnswer());
+        stmt.setInt(3, e.getLevel());
 
         stmt.executeUpdate();
         stmt.close();
@@ -60,7 +61,8 @@ public class ExerciseDao implements Dao<Exercise, Integer> {
             while (rs.next()) {
                 String question = rs.getString("question");
                 String answer = rs.getString("answer");
-                Exercise e = new Exercise(question, answer);
+                int level = rs.getInt("level");
+                Exercise e = new Exercise(question, answer, level);
                 exes.add(e);
             }
         }

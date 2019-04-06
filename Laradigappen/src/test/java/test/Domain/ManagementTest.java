@@ -236,9 +236,4 @@ public class ManagementTest {
         mg.getExercise();
         assertEquals("4", mg.getAnswer());
     }
-    
-    @Test
-    public void test() {
-        mg.quit();
-    }
 }

@@ -17,6 +17,7 @@ public class Appui extends Application {
     private Stage window;
     private Management manage;
     private int tries;
+    private int selectedLevel;
 
     @Override
     public void init() throws Exception {
@@ -148,12 +149,29 @@ public class Appui extends Application {
         vMainMenu.setSpacing(10);
 
         Scene mainMenuScene = new Scene(vMainMenu, 400, 300);
+        
+        //---------------------------------------------------------------------
+        //Tasovalinta                                           Tasovalinta
+        //---------------------------------------------------------------------
+        
+        Label chooseLevel = new Label("Choose a level.");
+        Button level1Button = new Button("Basics");
+        Button level2Button = new Button("Functions");
+        Button level3Button = new Button("Equations");
+        Button allButton = new Button("Bring it on!");
+        
+        VBox vChooseLevel = new VBox();
+        vChooseLevel.getChildren().addAll(level1Button, level2Button, level3Button, allButton);
+        vChooseLevel.setPadding(new Insets(20, 20, 20, 20));
+        vChooseLevel.setSpacing(10);
+        
+        Scene chooseLevelScene = new Scene(vChooseLevel, 400, 300);
 
         //---------------------------------------------------------------------
         //Pelinäkymä                                            Pelinäkymä
         //---------------------------------------------------------------------
-        String solve = "Solve: " + manage.getExercise();
-        Label exerciseText = new Label(solve);
+        
+        Label exerciseText = new Label("");
         TextField answerField = new TextField();
         Label wrongAnswer = new Label("");
         Button checkAnswerButton = new Button("Submit your answer");
@@ -339,6 +357,22 @@ public class Appui extends Application {
 
         //mainMenuScene
         playButton.setOnAction((event) -> {
+            window.setScene(chooseLevelScene);
+        });
+        
+        //chooseLevelScene
+        level1Button.setOnAction((event) -> {
+            manage.setSelectedLevel(1);
+            String solve = "Solve: " + manage.getExercise();
+            exerciseText.setText(solve);
+            window.setScene(gameScene);
+        });
+        
+        //chooseLevelScene
+        allButton.setOnAction((event) -> {
+            manage.setSelectedLevel(0);
+            String solve = "Solve: " + manage.getExercise();
+            exerciseText.setText(solve);
             window.setScene(gameScene);
         });
 
@@ -451,7 +485,6 @@ public class Appui extends Application {
             }
         };
         quitButton.setOnAction((event) -> {
-            manage.quit();
             window.setScene(logoutScene);
             timer.start();
         });
