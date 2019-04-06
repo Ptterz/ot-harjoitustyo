@@ -12,17 +12,11 @@ import java.util.List;
 public class ExerciseDao implements Dao<Exercise, Integer> {
 
     private Database db;
-    private int id;
     private List<Exercise> exes;
 
     public ExerciseDao(Database db) throws SQLException {
         this.db = db;
-        this.id = 1;
         this.exes = new ArrayList<>();
-    }
-
-    private int generateId() {
-        return id++;
     }
 
     @Override
@@ -32,11 +26,10 @@ public class ExerciseDao implements Dao<Exercise, Integer> {
         Connection connex = db.getConnection();
 
         PreparedStatement stmt = connex.prepareStatement("INSERT INTO Exercises"
-                + " (id, question, answer)"
-                + " VALUES (?, ?, ?)");
-        stmt.setInt(1, generateId());
-        stmt.setString(2, e.getQuestion());
-        stmt.setString(3, e.getAnswer());
+                + " (question, answer)"
+                + " VALUES (?, ?)");
+        stmt.setString(1, e.getQuestion());
+        stmt.setString(2, e.getAnswer());
 
         stmt.executeUpdate();
         stmt.close();

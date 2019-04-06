@@ -16,6 +16,7 @@ public class Appui extends Application {
 
     private Stage window;
     private Management manage;
+    private int tries;
 
     @Override
     public void init() throws Exception {
@@ -28,6 +29,7 @@ public class Appui extends Application {
         manage.calculate("12*(150-25+75)");
         manage.calculate("12*20");
         manage.calculate("12*22+15");
+        this.tries = 0;
     }
 
     @Override
@@ -168,8 +170,8 @@ public class Appui extends Application {
         //Oikea vastaus                                        Oikea vastaus
         //---------------------------------------------------------------------
         Label headlineField = new Label("Correct answer!");
-        Label triesField = new Label("Tries: X");
-        Label timeSpent = new Label("Time spent: NaN sec");
+        Label triesField = new Label("Tries: ");
+        Label timeSpent = new Label("Time spent: ");
         Button playAgainButton = new Button("Play again");
         Button mainMenuButton = new Button("Main menu");
 
@@ -353,8 +355,11 @@ public class Appui extends Application {
                 exerciseText.setText(newExe);
                 answerField.clear();
                 wrongAnswer.setText("");
+                triesField.setText("Tries: " + tries);
+                tries = 0;
                 window.setScene(rightAnswerScene);
             } else {
+                tries++;
                 wrongAnswer.setText("Answer is not correct.");
                 wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
             }
