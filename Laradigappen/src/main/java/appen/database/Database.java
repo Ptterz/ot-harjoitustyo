@@ -27,7 +27,7 @@ public class Database {
         connex.prepareStatement("CREATE TABLE IF NOT EXISTS Exercises ("
                 + "id INTEGER PRIMARY KEY,"
                 + "question VARCHAR(50),"
-                + "answer VARCHAR(30));"
+                + "answer VARCHAR(20));"
         ).executeUpdate();
     }
     

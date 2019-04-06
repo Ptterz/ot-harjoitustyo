@@ -36,7 +36,7 @@ public class Management {
         for (int i = 0; i < s.length(); i++) {
             int ascii = (int) s.charAt(i);
             if (!((ascii >= 48 && ascii <= 57) || (ascii >= 65 && ascii <= 90)
-                    || (ascii >= 97 && ascii <= 128))) {
+                    || (ascii >= 97 && ascii <= 122))) {
                 return false;
             }
         }
@@ -58,11 +58,10 @@ public class Management {
         if (s.length() == 0 || s.length() > 20) {
             return false;
         }
-        s = s.trim();
 
-        if (s.length() == 0) {
-            return false;
-        }
+//        if (s.trim().length() == 0) {
+//            return false;
+//        }
         return true;
     }
 
@@ -70,15 +69,14 @@ public class Management {
         if (s.length() == 0 || s.length() > 50) {
             return false;
         }
-        s = s.trim();
 
-        if (s.length() == 0) {
-            return false;
-        }
+//        if (s.trim().length() == 0) {
+//            return false;
+//        }
         return true;
     }
 
-    private boolean checkEntryNickname(String s) {
+    public boolean checkEntryNickname(String s) {
         return checkCharsNickname(s) && checkLengthNickname(s);
     }
 
@@ -87,10 +85,6 @@ public class Management {
     }
 
     public boolean checkLoginEntry(String name, String password) {
-        if (!(checkEntryNickname(name) || checkEntryNickname(password))) {
-            return false;
-        }
-
         Player p = new Player(name, password);
 
         try {
@@ -107,10 +101,6 @@ public class Management {
     }
 
     public boolean checkNameAvailability(String name) {
-        if (!checkEntryNickname(name)) {
-            return false;
-        }
-
         List<Player> players = new ArrayList<>();
 
         try {
@@ -131,10 +121,7 @@ public class Management {
         if (!ps1.equals(ps2)) {
             return false;
         }
-        if (!checkEntryNickname(ps1)) {
-            return false;
-        }
-        return true;
+        return checkEntryNickname(ps1);
     }
 
     public boolean createAccount(String name, String password) {
@@ -153,19 +140,16 @@ public class Management {
 
     public boolean calculate(String s) {
         long answer = 0;
+        //If the calculated answer is over or under Max/Min values (19-20 chars), calculator throws an exception
         try {
             answer = calc.calculate(s);
         } catch (Exception e) {
             return false;
         }
-        String a = "" + answer;
-        if (a.length() > 30) {
-            return false;
-        }
-        return createExercise(s, a);
+        return createExercise(s, String.valueOf(answer));
     }
 
-    public boolean createExercise(String question, String answer) {
+    private boolean createExercise(String question, String answer) {
         Exercise exercise = new Exercise(question, answer);
         try {
             ed.create(exercise);
@@ -186,7 +170,7 @@ public class Management {
         lastExe = exes.get(index);
         return lastExe.getQuestion();
     }
-    
+
     public String getAnswer() {
         return lastExe.getAnswer();
     }

@@ -24,6 +24,10 @@ public class Appui extends Application {
         PlayerDao fpd = new PlayerDao(db);
         ExerciseDao fed = new ExerciseDao(db);
         this.manage = new Management(fpd, fed);
+        manage.calculate("12*(4+6)");
+        manage.calculate("12*(150-25+75)");
+        manage.calculate("12*20");
+        manage.calculate("12*22+15");
     }
 
     @Override
@@ -184,7 +188,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Tehtävien luonti                                   Tehtävien luonti
         //---------------------------------------------------------------------
-        Label formulaText = new Label("Max-value of the formula is 9,999...*10^29\n\nFormula (max 50 characters): ");
+        Label formulaText = new Label("The value of the formula should be max 30 characters: ");
         TextField formulaField = new TextField();
         Label formulaErrorText = new Label("");
         Button submitButton = new Button("Submit");
@@ -267,9 +271,9 @@ public class Appui extends Application {
         //createAccountScene
         checkNameAvailabilityButton.setOnAction((event) -> {
 
-            String name = tryNameField.getText().trim();
+            String name = tryNameField.getText();
 
-            if (!(name.length() == 0 || name.equals(tryNameField.getText()) || name.length() > 20)) {
+            if (!manage.checkEntryNickname(name)) {
                 nameAvailable.setText("Invalid nickname!");
                 nameAvailable.setTextFill(Color.rgb(210, 39, 30));
             } else if (!manage.checkNameAvailability(name)) {
@@ -284,6 +288,16 @@ public class Appui extends Application {
         //createAccountScene
         answerField.setOnKeyTyped((event) -> {
             wrongAnswer.setText("");
+        });
+        
+        //createAccountScene
+        tryPasswordField.setOnKeyTyped((event) -> {
+            passwordNotMatch.setText("");
+        });
+        
+        //createAccountScene
+        tryPasswordField2.setOnKeyTyped((event) -> {
+            passwordNotMatch.setText("");
         });
 
         //createAccountScene
