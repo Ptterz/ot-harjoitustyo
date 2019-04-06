@@ -4,8 +4,8 @@ ratkaisua. Käyttääkseen sovellusta on luotava käyttäjätunnukset.
 Sovellus on toteutettu osana Ohjelmistotekniikka-kurssia.
 
 ## Dokumentaatio
-
-Sovelluksen tekoon käytetyn ajan erittely löytyy tiedostosta [Tuntikirjanpito](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
+[Vaatimusmäärittely](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/maarittelydoc.md)
+[Työaikakirjanpito](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
 
 ## Komentorivitoiminnot
 
@@ -16,8 +16,10 @@ mvn compile exec:java -Dexec.mainClass=appen.ui.Start
 ```
 
 ### Testaus
-Saat ajettua testit ja testikattavuus raportin
+Saat ajettua testit ja luotua testikattavuusraportin
 ```
 mvn test jacoco:report
 ```
+
+
 
