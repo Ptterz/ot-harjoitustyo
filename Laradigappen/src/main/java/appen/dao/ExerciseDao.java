@@ -12,17 +12,13 @@ import java.util.List;
 public class ExerciseDao implements Dao<Exercise, Integer> {
 
     private Database db;
-    private List<Exercise> exes;
 
     public ExerciseDao(Database db) throws SQLException {
         this.db = db;
-        this.exes = new ArrayList<>();
     }
 
     @Override
     public void create(Exercise e) throws SQLException {
-        this.exes.add(e);
-        
         Connection connex = db.getConnection();
 
         PreparedStatement stmt = connex.prepareStatement("INSERT INTO Exercises"
@@ -53,19 +49,20 @@ public class ExerciseDao implements Dao<Exercise, Integer> {
 
     @Override
     public List<Exercise> list() throws SQLException {
-        if (this.exes.isEmpty()) {
-            Connection connex = db.getConnection();
-            PreparedStatement stmt = connex.prepareStatement("SELECT * FROM Exercises");
-            ResultSet rs = stmt.executeQuery();
+        List<Exercise> exes = new ArrayList<>();
 
-            while (rs.next()) {
-                String question = rs.getString("question");
-                String answer = rs.getString("answer");
-                int level = rs.getInt("level");
-                Exercise e = new Exercise(question, answer, level);
-                exes.add(e);
-            }
+        Connection connex = db.getConnection();
+        PreparedStatement stmt = connex.prepareStatement("SELECT * FROM Exercises");
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String question = rs.getString("question");
+            String answer = rs.getString("answer");
+            int level = rs.getInt("level");
+            Exercise e = new Exercise(question, answer, level);
+            exes.add(e);
         }
+
         return exes;
     }
 }

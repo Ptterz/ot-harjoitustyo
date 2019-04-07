@@ -21,4 +21,22 @@ public class PlayerDaoTest {
         db.init();
         pd = new PlayerDao(db);
     }
+    
+    @Test
+    public void update() throws SQLException {
+        Player p = new Player("Pete", "1234");
+        pd.create(p);
+        p.setPassword("0000");
+        pd.update(p);
+        assertEquals("0000", pd.read(p.getNickname()).getPassword());
+    }
+    
+    @Test
+    public void delete() throws SQLException {
+        Player p = new Player("Pete", "1234");
+        pd.create(p);
+        assertEquals(p, pd.read(p.getNickname()));
+        pd.delete(p.getNickname());
+        assertEquals(null, pd.read(p.getNickname()));
+    }
 }

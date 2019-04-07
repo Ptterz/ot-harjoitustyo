@@ -51,21 +51,21 @@ public class PlayerDao implements Dao<Player, String> {
         PreparedStatement stmt = connex.prepareStatement("UPDATE Players SET password = ? WHERE nickname = ?");
         stmt.setString(1, p.getPassword());
         stmt.setString(2, p.getNickname());
-        ResultSet rs = stmt.executeQuery();
-        
-        if(!rs.next()) {
-            return null;
-        }
+        stmt.executeUpdate();
         
         stmt.close();
-        rs.close();
         
         return p;
     }
 
     @Override
     public void delete(String key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        Connection connex = db.getConnection();
+        PreparedStatement stmt = connex.prepareStatement("DELETE FROM Players WHERE nickname = ?");
+        stmt.setString(1, key);
+        stmt.executeUpdate();
+        
+        stmt.close();
     }
 
     @Override

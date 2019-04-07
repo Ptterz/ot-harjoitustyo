@@ -23,13 +23,9 @@ public class Appui extends Application {
     public void init() throws Exception {
         Database db = new Database("jdbc:sqlite:laradigappen.db");
         db.init();
-        PlayerDao fpd = new PlayerDao(db);
-        ExerciseDao fed = new ExerciseDao(db);
-        this.manage = new Management(fpd, fed);
-        manage.calculate("12*(4+6)");
-        manage.calculate("12*(150-25+75)");
-        manage.calculate("12*20");
-        manage.calculate("12*22+15");
+        PlayerDao pd = new PlayerDao(db);
+        ExerciseDao ed = new ExerciseDao(db);
+        this.manage = new Management(pd, ed);
         this.tries = 0;
     }
 
@@ -362,7 +358,7 @@ public class Appui extends Application {
         
         //chooseLevelScene
         level1Button.setOnAction((event) -> {
-            manage.setSelectedLevel(1);
+            manage.setSelectedPlayLevel(1);
             String solve = "Solve: " + manage.getExercise();
             exerciseText.setText(solve);
             window.setScene(gameScene);
@@ -370,7 +366,7 @@ public class Appui extends Application {
         
         //chooseLevelScene
         allButton.setOnAction((event) -> {
-            manage.setSelectedLevel(0);
+            manage.setSelectedPlayLevel(0);
             String solve = "Solve: " + manage.getExercise();
             exerciseText.setText(solve);
             window.setScene(gameScene);

@@ -8,6 +8,12 @@ public class Exercise {
     private String answer;
     private int level;
 
+    public Exercise(String question, String answer) {
+        this.question = question;
+        this.answer = answer;
+        this.level = 0;
+    }
+    
     public Exercise(String question, String answer, int level) {
         this.question = question;
         this.answer = answer;
@@ -32,6 +38,10 @@ public class Exercise {
 
     public int getLevel() {
         return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     @Override

@@ -12,19 +12,17 @@ public class Management {
     private Random r;
     private Exercise lastExe;
     private Player playerIn;
-    private int selectedLevel;
-    private Map<Integer, List<Exercise>> exes;
+    private int selectedPlayLevel;
+    private int selectedCreateLevel;
+    private Map<Integer, List<Exercise>> exesMap;
 
     public Management(PlayerDao pd, ExerciseDao ed) {
         this.calc = new Calculator();
         this.pd = pd;
         this.ed = ed;
         this.r = new Random();
-        exes = new HashMap<>();
-        exes.put(0, new ArrayList<>());
-        exes.put(1, new ArrayList<>());
-        exes.put(2, new ArrayList<>());
-        exes.put(3, new ArrayList<>());
+        this.selectedCreateLevel = 0;
+        this.selectedPlayLevel = 0;
     }
 
     public Calculator getCalc() {
@@ -38,9 +36,13 @@ public class Management {
     public ExerciseDao getEd() {
         return ed;
     }
-    
-    public void setSelectedLevel(int level) {
-        this.selectedLevel = level;
+
+    public void setSelectedPlayLevel(int level) {
+        this.selectedPlayLevel = level;
+    }
+
+    public void setSelectedCreateLevel(int level) {
+        this.selectedCreateLevel = level;
     }
 
     private boolean checkCharsNickname(String s) {
@@ -100,8 +102,7 @@ public class Management {
 
         try {
             Player o = pd.read(name);
-            if (p.getNickname().equals(o.getNickname())
-                    && p.getPassword().equals(o.getPassword())) {
+            if (p.getPassword().equals(o.getPassword())) {
                 playerIn = p;
                 return true;
             }
@@ -157,12 +158,11 @@ public class Management {
         } catch (Exception e) {
             return false;
         }
-        return createExercise(s, String.valueOf(answer));
+        return createExercise(s, String.valueOf(answer), selectedCreateLevel);
     }
 
     private boolean createExercise(String question, String answer, int lvl) {
-        Exercise exercise = new Exercise(question, answer, -1);
-        exes.get(lvl).add(exercise);
+        Exercise exercise = new Exercise(question, answer, lvl);
         try {
             ed.create(exercise);
         } catch (Exception e) {
@@ -170,31 +170,24 @@ public class Management {
         }
         return true;
     }
-    
-    private boolean getExercises() {
-        try {
-            exes.put(0, ed.list());
-            if (selectedLevel != 0) {
-                for (Exercise e : exes.get(0)) {
-                    if (e.getLevel() == selectedLevel) {
-                        exes.get(selectedLevel).add(e);
-                    }
-                }
-            }
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     public String getExercise() {
-        if (exes.get(selectedLevel).isEmpty()) {
-            if (!getExercises()) {
-                return "Something went wrong!";
+        List<Exercise> list = new ArrayList<>();
+        try {
+            for (Exercise ex : ed.list()) {
+                if (ex.getLevel() == selectedPlayLevel || selectedPlayLevel == 0) {
+                    list.add(ex);
+                }
             }
+        } catch (Exception e) {
+            return "";
         }
-        int index = r.nextInt(exes.size());
-        lastExe = exes.get(selectedLevel).get(index);
+        if (list.isEmpty()) {
+            return "";
+        }
+
+        int index = r.nextInt(list.size());
+        lastExe = list.get(index);
         return lastExe.getQuestion();
     }
 

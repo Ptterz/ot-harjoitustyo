@@ -16,7 +16,7 @@ public class ExerciseTest {
     
     @Before
     public void setUp() {
-        exercise = new Exercise("2+2","4");
+        exercise = new Exercise("2+2","4", 1);
     }
     
     @Test
@@ -44,6 +44,17 @@ public class ExerciseTest {
     public void setAnswer() {
         exercise.setAnswer("2");
         assertEquals("2", exercise.getAnswer());
+    }
+    
+    @Test
+    public void getLevel() {
+        assertEquals(1, exercise.getLevel());
+    }
+    
+    @Test
+    public void setLevel() {
+        exercise.setLevel(0);
+        assertEquals(0, exercise.getLevel());
     }
     
     @Test

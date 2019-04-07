@@ -30,7 +30,10 @@ public class ManagementTest {
         db.reset();
         pd = new PlayerDao(db);
         ed = new ExerciseDao(db);
+        ed.create(new Exercise("2+2","4",1));
         mg = new Management(pd, ed);
+        mg.setSelectedPlayLevel(1);
+        mg.setSelectedCreateLevel(1);
 
         db2 = new Database("");
         pd2 = new PlayerDao(db2);
@@ -220,20 +223,35 @@ public class ManagementTest {
     }
     
     @Test
-    public void getExerciseTrue() {
-        mg.calculate("2+2");
+    public void getExerciseTrue1() {
         assertEquals("2+2", mg.getExercise());
     }
     
     @Test
-    public void getExerciseFalse() {
-        assertEquals("Something went wrong.", mg2.getExercise());
+    public void getExerciseTrue2() {
+        mg.setSelectedPlayLevel(0);
+        assertEquals("2+2", mg.getExercise());
     }
     
     @Test
-    public void getAnswer() {
-        mg.calculate("2+2");
+    public void getExerciseFalse1() {
+        assertEquals("", mg2.getExercise());
+    }
+    
+    @Test
+    public void getExerciseFalse2() {
+        mg.setSelectedPlayLevel(2);
+        assertEquals("", mg.getExercise());
+    }
+    
+    @Test
+    public void getAnswerTrue() {
         mg.getExercise();
         assertEquals("4", mg.getAnswer());
+    }
+    
+    @Test
+    public void getAnswerFalse() {
+        assertEquals("", mg2.getExercise());
     }
 }
