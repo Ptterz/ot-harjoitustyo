@@ -8,3 +8,4 @@
 |31.3|2|SQL:n lisäämistä|
 |1.4|6|Testien luomista, Management korjaamista jne.|
 |4.4|2|Sekalaista|
+|9.4|2|Viikkopisteiden täyttyminen|
