@@ -145,45 +145,48 @@ public class Appui extends Application {
         vMainMenu.setSpacing(10);
 
         Scene mainMenuScene = new Scene(vMainMenu, 400, 300);
-        
+
         //---------------------------------------------------------------------
-        //Tasovalinta                                           Tasovalinta
+        //Tasovalinta - Game                                Tasovalinta - Game
         //---------------------------------------------------------------------
-        
-        Label chooseLevel = new Label("Choose a level.");
-        Button level1Button = new Button("Basics");
-        Button level2Button = new Button("Functions");
-        Button level3Button = new Button("Equations");
-        Button allButton = new Button("Bring it on!");
-        
-        VBox vChooseLevel = new VBox();
-        vChooseLevel.getChildren().addAll(level1Button, level2Button, level3Button, allButton);
-        vChooseLevel.setPadding(new Insets(20, 20, 20, 20));
-        vChooseLevel.setSpacing(10);
-        
-        Scene chooseLevelScene = new Scene(vChooseLevel, 400, 300);
+        Label choosePlayLevel = new Label("Choose a level.");
+        Button playLevel1Button = new Button("Basics");
+        Button playLevel2Button = new Button("Functions");
+        Button playLevel3Button = new Button("Equations");
+        Button playAllButton = new Button("Bring it on!");
+
+        VBox vChoosePlayLevel = new VBox();
+        vChoosePlayLevel.getChildren().addAll(choosePlayLevel, playLevel1Button, playLevel2Button, playLevel3Button, playAllButton);
+        vChoosePlayLevel.setPadding(new Insets(20, 20, 20, 20));
+        vChoosePlayLevel.setSpacing(10);
+
+        Scene choosePlayLevelScene = new Scene(vChoosePlayLevel, 400, 300);
 
         //---------------------------------------------------------------------
         //Pelinäkymä                                            Pelinäkymä
         //---------------------------------------------------------------------
-        
         Label exerciseText = new Label("");
         TextField answerField = new TextField();
         Label wrongAnswer = new Label("");
         Button checkAnswerButton = new Button("Submit your answer");
+        Button forfeitButton = new Button("Forfeit");
 
         VBox vGame = new VBox();
+        HBox hGame = new HBox();
 
-        vGame.getChildren().addAll(exerciseText, answerField, wrongAnswer, checkAnswerButton);
+        hGame.getChildren().addAll(checkAnswerButton, forfeitButton);
+        hGame.setSpacing(10);
+
+        vGame.getChildren().addAll(exerciseText, answerField, wrongAnswer, hGame);
         vGame.setPadding(new Insets(20, 20, 20, 20));
         vGame.setSpacing(10);
 
         Scene gameScene = new Scene(vGame, 400, 300);
 
         //---------------------------------------------------------------------
-        //Oikea vastaus                                        Oikea vastaus
+        //Vastaus                                                   Vastaus
         //---------------------------------------------------------------------
-        Label headlineField = new Label("Correct answer!");
+        Label headlineField = new Label("");
         Label triesField = new Label("Tries: ");
         Label timeSpent = new Label("Time spent: ");
         Button playAgainButton = new Button("Play again");
@@ -199,12 +202,12 @@ public class Appui extends Application {
         vRightAnswer.setPadding(new Insets(20, 20, 20, 20));
         vRightAnswer.setSpacing(10);
 
-        Scene rightAnswerScene = new Scene(vRightAnswer, 400, 300);
+        Scene answerScene = new Scene(vRightAnswer, 400, 300);
 
         //---------------------------------------------------------------------
         //Tehtävien luonti                                   Tehtävien luonti
         //---------------------------------------------------------------------
-        Label formulaText = new Label("The value of the formula should be max 30 characters: ");
+        Label formulaText = new Label("The value of the formula should be 30 characters at most.\nFormula: ");
         TextField formulaField = new TextField();
         Label formulaErrorText = new Label("");
         Button submitButton = new Button("Submit");
@@ -222,6 +225,22 @@ public class Appui extends Application {
         vCreate.setSpacing(10);
 
         Scene createScene = new Scene(vCreate, 400, 300);
+        
+        //---------------------------------------------------------------------
+        //Tasovalinta - Create                             Tasovalinta - Create
+        //---------------------------------------------------------------------
+        Label chooseCreteLevel = new Label("Choose a level.");
+        Button createLevel1Button = new Button("Basics");
+        Button createLevel2Button = new Button("Functions");
+        Button createLevel3Button = new Button("Equations");
+        Button createLevelAllButton = new Button("Bring it on!");
+
+        VBox vChooseCreateLevel = new VBox();
+        vChooseCreateLevel.getChildren().addAll(createLevel1Button, createLevel2Button, createLevel3Button, createLevelAllButton);
+        vChooseCreateLevel.setPadding(new Insets(20, 20, 20, 20));
+        vChooseCreateLevel.setSpacing(10);
+
+        Scene chooseCreateLevelScene = new Scene(vChooseCreateLevel, 400, 300);
 
         //---------------------------------------------------------------------
         //Scoreboard                                            Scoreboard
@@ -305,12 +324,12 @@ public class Appui extends Application {
         answerField.setOnKeyTyped((event) -> {
             wrongAnswer.setText("");
         });
-        
+
         //createAccountScene
         tryPasswordField.setOnKeyTyped((event) -> {
             passwordNotMatch.setText("");
         });
-        
+
         //createAccountScene
         tryPasswordField2.setOnKeyTyped((event) -> {
             passwordNotMatch.setText("");
@@ -353,19 +372,19 @@ public class Appui extends Application {
 
         //mainMenuScene
         playButton.setOnAction((event) -> {
-            window.setScene(chooseLevelScene);
+            window.setScene(choosePlayLevelScene);
         });
-        
-        //chooseLevelScene
-        level1Button.setOnAction((event) -> {
+
+        //choosePlayLevelScene
+        playLevel1Button.setOnAction((event) -> {
             manage.setSelectedPlayLevel(1);
             String solve = "Solve: " + manage.getExercise();
             exerciseText.setText(solve);
             window.setScene(gameScene);
         });
-        
-        //chooseLevelScene
-        allButton.setOnAction((event) -> {
+
+        //choosePlayLevelScene
+        playAllButton.setOnAction((event) -> {
             manage.setSelectedPlayLevel(0);
             String solve = "Solve: " + manage.getExercise();
             exerciseText.setText(solve);
@@ -374,6 +393,30 @@ public class Appui extends Application {
 
         //mainMenuScene
         createButton.setOnAction((event) -> {
+            window.setScene(chooseCreateLevelScene);
+        });
+        
+        //chooseCreateLevelScene
+        createLevel1Button.setOnAction((event) -> {
+            manage.setSelectedCreateLevel(1);
+            window.setScene(createScene);
+        });
+        
+        //chooseCreateLevelScene
+        createLevel2Button.setOnAction((event) -> {
+            manage.setSelectedCreateLevel(2);
+            window.setScene(createScene);
+        });
+        
+        //chooseCreateLevelScene
+        createLevel3Button.setOnAction((event) -> {
+            manage.setSelectedCreateLevel(3);
+            window.setScene(createScene);
+        });
+        
+        //chooseCreateLevelScene
+        createLevelAllButton.setOnAction((event) -> {
+            manage.setSelectedCreateLevel(0);
             window.setScene(createScene);
         });
 
@@ -384,17 +427,30 @@ public class Appui extends Application {
                 String newExe = "Solve: " + manage.getExercise();
                 exerciseText.setText(newExe);
                 answerField.clear();
+                headlineField.setText("Correct answer!");
                 wrongAnswer.setText("");
                 triesField.setText("Tries: " + tries);
                 tries = 0;
-                window.setScene(rightAnswerScene);
+                window.setScene(answerScene);
             } else {
                 tries++;
                 wrongAnswer.setText("Answer is not correct.");
                 wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
             }
         });
-        
+
+        //gameScene
+        forfeitButton.setOnAction((event) -> {
+            String newExe = "Solve: " + manage.getExercise();
+            exerciseText.setText(newExe);
+            answerField.clear();
+            headlineField.setText("You should try harder!");
+            wrongAnswer.setText("");
+            triesField.setText("Tries: ");
+            tries = 0;
+            window.setScene(answerScene);
+        });
+
         //gameScene
         tryNameField.setOnKeyTyped((event) -> {
             nameAvailable.setText("");

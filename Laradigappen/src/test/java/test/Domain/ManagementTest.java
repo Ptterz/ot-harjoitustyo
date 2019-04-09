@@ -235,13 +235,13 @@ public class ManagementTest {
     
     @Test
     public void getExerciseFalse1() {
-        assertEquals("", mg2.getExercise());
+        assertEquals("Something went wrong!", mg2.getExercise());
     }
     
     @Test
     public void getExerciseFalse2() {
         mg.setSelectedPlayLevel(2);
-        assertEquals("", mg.getExercise());
+        assertEquals("No exercises to solve!", mg.getExercise());
     }
     
     @Test
@@ -252,6 +252,6 @@ public class ManagementTest {
     
     @Test
     public void getAnswerFalse() {
-        assertEquals("", mg2.getExercise());
+        assertEquals("Something went wrong!", mg2.getExercise());
     }
 }

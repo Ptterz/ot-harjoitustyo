@@ -180,10 +180,10 @@ public class Management {
                 }
             }
         } catch (Exception e) {
-            return "";
+            return "Something went wrong!";
         }
         if (list.isEmpty()) {
-            return "";
+            return "No exercises to solve!";
         }
 
         int index = r.nextInt(list.size());
