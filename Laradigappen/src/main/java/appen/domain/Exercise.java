@@ -1,9 +1,9 @@
-
 package appen.domain;
 
 import java.util.Objects;
 
 public class Exercise {
+
     private String question;
     private String answer;
     private int level;
@@ -13,7 +13,7 @@ public class Exercise {
         this.answer = answer;
         this.level = 0;
     }
-    
+
     public Exercise(String question, String answer, int level) {
         this.question = question;
         this.answer = answer;
@@ -70,5 +70,5 @@ public class Exercise {
         }
         return true;
     }
-    
+
 }

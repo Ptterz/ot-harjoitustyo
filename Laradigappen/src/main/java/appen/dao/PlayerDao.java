@@ -6,8 +6,9 @@ import java.sql.*;
 import java.util.*;
 
 public class PlayerDao implements Dao<Player, String> {
+
     private Database db;
-    
+
     public PlayerDao(Database db) {
         this.db = db;
     }
@@ -15,10 +16,10 @@ public class PlayerDao implements Dao<Player, String> {
     @Override
     public void create(Player p) throws SQLException {
         Connection connex = db.getConnection();
-        
+
         PreparedStatement stmt = connex.prepareStatement("INSERT INTO Players"
-            + " (nickname, password)"
-            + " VALUES (?, ?)");
+                + " (nickname, password)"
+                + " VALUES (?, ?)");
         stmt.setString(1, p.getNickname());
         stmt.setString(2, p.getPassword());
 
@@ -32,8 +33,8 @@ public class PlayerDao implements Dao<Player, String> {
         PreparedStatement stmt = connex.prepareStatement("SELECT * FROM Players WHERE nickname = ?");
         stmt.setString(1, key);
         ResultSet rs = stmt.executeQuery();
-        
-        if(!rs.next()) {
+
+        if (!rs.next()) {
             return null;
         }
 
@@ -52,9 +53,9 @@ public class PlayerDao implements Dao<Player, String> {
         stmt.setString(1, p.getPassword());
         stmt.setString(2, p.getNickname());
         stmt.executeUpdate();
-        
+
         stmt.close();
-        
+
         return p;
     }
 
@@ -64,27 +65,26 @@ public class PlayerDao implements Dao<Player, String> {
         PreparedStatement stmt = connex.prepareStatement("DELETE FROM Players WHERE nickname = ?");
         stmt.setString(1, key);
         stmt.executeUpdate();
-        
+
         stmt.close();
     }
 
     @Override
     public List<Player> list() throws SQLException {
         List<Player> plays = new ArrayList<>();
-        
+
         Connection connex = db.getConnection();
         PreparedStatement stmt = connex.prepareStatement("SELECT * FROM Players");
         ResultSet rs = stmt.executeQuery();
-        
+
         while (rs.next()) {
             String nickname = rs.getString("nickname");
             String password = rs.getString("password");
             Player p = new Player(nickname, password);
             plays.add(p);
         }
-        
+
         return plays;
     }
-    
-    
+
 }
