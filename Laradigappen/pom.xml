@@ -38,7 +38,7 @@
                 <version>0.8.0</version>
                 <configuration>
                     <excludes>
-                        <exclude>Laradigappen/ui/*</exclude>
+                        <exclude>appen/ui/*</exclude>
                     </excludes>
                 </configuration> 
                 <executions>
