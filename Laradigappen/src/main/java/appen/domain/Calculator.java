@@ -2,6 +2,13 @@ package appen.domain;
 
 public class Calculator {
 
+    /**
+     * A recursive method to calculate the value of a given formula.
+     *
+     * @param formula The formula to be calculated
+     * @return Return the value of the given formula
+     * @since 1.0
+     */
     public long calculate(String formula) {
 
         if (formula.contains("(")) {
