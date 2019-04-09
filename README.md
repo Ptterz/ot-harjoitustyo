@@ -13,7 +13,7 @@ Sovellus on toteutettu osana Ohjelmistotekniikka-kurssia.
 
 ## Komentorivitoiminnot
 
-### Suoritettavan jarin generointi
+### Jar
 
 Komento
 ```
@@ -45,5 +45,11 @@ Komento suorittaa tiedostossa [checkstyle.xml](https://github.com/Ptterz/ot-harj
 Tarkempi yhteenveto mahdollisista virheistä löytyy target/site/checkstyle.html. 
 Tarkastelun ulkopuolelle on jätetty käyttöliittymä ja rekursiivinen laskurimetodi, joka pituutensa vuoksi tuottaa virheilmoituksen. 
 
+### JavaDoc
 
+JavaDocin voit luoda komennolla 
+```
+mvn javadoc:javadoc
+```
+Tämän tarkastelu onnistuu avaamalla selaimessa target/site/apidocs/index.html.
 
