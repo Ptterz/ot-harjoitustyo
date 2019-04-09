@@ -1,13 +1,17 @@
 package appen.domain;
 
 import java.util.Objects;
-
+/**
+ * @author Pete
+ * @version 1.0
+ * @since 1.0
+ */
 public class Exercise {
 
     private String question;
     private String answer;
     private int level;
-
+    
     public Exercise(String question, String answer) {
         this.question = question;
         this.answer = answer;
