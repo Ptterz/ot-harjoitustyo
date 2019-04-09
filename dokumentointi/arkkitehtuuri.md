@@ -1,1 +1,1 @@
-![arkkitehtuuri](https://yuml.me/4911d7ae.png)
+![arkkitehtuuri](http://yuml.me/ace69284.png)
