@@ -17,20 +17,15 @@ public class Management {
     private Random r;
     private Exercise lastExe;
     private Player playerIn;
-    /**
-     * Tells which level player chose to play on.
-     */
     private int selectedPlayLevel;
-    /**
-     * Tells which level player chose to create on.
-     */
     private int selectedCreateLevel;
-    /**
-     * Chosen level acts as a key and value is a list of exercises for the level
-     * equal to the key.
-     */
     private Map<Integer, List<Exercise>> exesMap;
 
+    /**
+     * 
+     * @param pd PlayerDao linked to a specific database.
+     * @param ed ExerciseDao linked to a specific database.
+     */
     public Management(PlayerDao pd, ExerciseDao ed) {
         this.calc = new Calculator();
         this.pd = pd;
@@ -169,8 +164,9 @@ public class Management {
     /**
      * Validates whether or not the given string is acceptable.
      * <p>
-     * Uses methods {@link #checkCharsNickname(java.lang.String)} and
-     * {@link #checkLengthNickname(java.lang.String)} in validation.
+     * Method uses ASCII values of characters to validate the string. Accepted
+     * characters are a-z, A-Z and 0-9. The lenght of the string is supposed to
+     * be equal or greater than 1 and equal or less than 20.
      * </p>
      *
      * @param s String to be validated.
@@ -185,8 +181,9 @@ public class Management {
     /**
      * Validates whether or not the given string is acceptable.
      * <p>
-     * Uses methods {@link #checkCharsFormula(java.lang.String)} and
-     * {@link #checkLengthExercise(java.lang.String)} in validation.
+     * Method uses ASCII values of characters to validate the string. Accepted
+     * characters are +, -, *, / and numbers 0-9. The lenght of the string is
+     * supposed to be equal or greater than 1 and equal or less than 50.
      * </p>
      *
      * @param s String to be validated.
@@ -201,8 +198,10 @@ public class Management {
     /**
      * Validates whether or not the given string is acceptable.
      * <p>
-     * Uses methods {@link #checkCharsFunction(java.lang.String)} and
-     * {@link #checkLengthExercise(java.lang.String)} in validation.
+     * Method uses ASCII values of characters to validate the string. Accepted
+     * characters are +, -, *, /, letter 'x' and numbers 0-9. The lenght of the
+     * string is supposed to be equal or greater than 1 and equal or less than
+     * 50.
      * </p>
      *
      * @param s String to be validated.
@@ -263,6 +262,18 @@ public class Management {
         }
     }
 
+    /**
+     * Validates whether or not the given nickname is already in use.
+     * <p>
+     * Method fetch all players from the database and compares the given name to
+     * each player.
+     * </p>
+     *
+     * @param name Name to be checked.
+     * @return Returns true if players were fetched successfully and there was
+     * no match between the given name and any existing player.
+     * @since 1.0
+     */
     public boolean checkNameAvailability(String name) {
         List<Player> players = new ArrayList<>();
 
@@ -280,6 +291,20 @@ public class Management {
         return true;
     }
 
+    /**
+     * Validates whether or not the two strings match.
+     * <p>
+     * First, the method compares if the two given strings match. It then checks
+     * the general requirements with the method
+     * {@link #checkEntryNickname(java.lang.String)}.
+     * </p>
+     *
+     * @param ps1 A given string to be compared.
+     * @param ps2 Another given string to be compared.
+     * @return Returns true if the two strings are a match that it meets general
+     * requirements.
+     * @since 1.0
+     */
     public boolean checkPasswordEntry(String ps1, String ps2) {
         if (!ps1.equals(ps2)) {
             return false;
@@ -287,6 +312,17 @@ public class Management {
         return checkEntryNickname(ps1);
     }
 
+    /**
+     * Use to create a new player.
+     * <p>
+     * Method calls for Create method of PlayerDao class.
+     * </p>
+     *
+     * @param name The nickname of the new player.
+     * @param password The password for given nickname.
+     * @return Returns true if the player is successfully added to the database.
+     * @since 1.0
+     */
     public boolean createAccount(String name, String password) {
         Player p = new Player(name, password);
         try {
