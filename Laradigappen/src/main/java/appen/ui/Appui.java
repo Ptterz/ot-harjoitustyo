@@ -70,7 +70,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         Label tryNameText = new Label("Nickname (max. 20 letters and numbers):");
         TextField tryNameField = new TextField();
-        Label tryPasswordText = new Label("Password (max. 20 letters and numbers): ");
+        Label tryPasswordText = new Label("Password (max. 20 letters and numbers):");
         Label tryPasswordText2 = new Label("Retype password: ");
         PasswordField tryPasswordField = new PasswordField();
         PasswordField tryPasswordField2 = new PasswordField();

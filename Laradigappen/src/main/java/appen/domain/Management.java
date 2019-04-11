@@ -4,6 +4,11 @@ import appen.dao.*;
 import appen.database.*;
 import java.util.*;
 
+/**
+ * @author Pete
+ * @version 1.0
+ * @since 1.0
+ */
 public class Management {
 
     private Calculator calc;
@@ -12,8 +17,18 @@ public class Management {
     private Random r;
     private Exercise lastExe;
     private Player playerIn;
+    /**
+     * Tells which level player chose to play on.
+     */
     private int selectedPlayLevel;
+    /**
+     * Tells which level player chose to create on.
+     */
     private int selectedCreateLevel;
+    /**
+     * Chosen level acts as a key and value is a list of exercises for the level
+     * equal to the key.
+     */
     private Map<Integer, List<Exercise>> exesMap;
 
     public Management(PlayerDao pd, ExerciseDao ed) {
@@ -49,6 +64,17 @@ public class Management {
         return playerIn.getNickname();
     }
 
+    /**
+     * Validates whether or not the string contains accepted characters.
+     * <p>
+     * Method uses ASCII values of characters to validate the string. Accepted
+     * characters are a-z, A-Z and 0-9.
+     * </p>
+     *
+     * @param s String to be validated.
+     * @return Returns true only if each characther meets requirements.
+     * @since 1.0
+     */
     private boolean checkCharsNickname(String s) {
         for (int i = 0; i < s.length(); i++) {
             int ascii = (int) s.charAt(i);
@@ -60,6 +86,17 @@ public class Management {
         return true;
     }
 
+    /**
+     * Validates whether or not the string contains accepted characters.
+     * <p>
+     * Method uses ASCII values of characters to validate the string. Accepted
+     * characters are +, -, *, / and numbers 0-9.
+     * </p>
+     *
+     * @param s String to be validated.
+     * @return Returns true only if each characther meets requirements.
+     * @since 1.0
+     */
     private boolean checkCharsFormula(String s) {
         for (int i = 0; i < s.length(); i++) {
             int ascii = (int) s.charAt(i);
@@ -71,6 +108,17 @@ public class Management {
         return true;
     }
 
+    /**
+     * Validates whether or not the string contains accepted characters.
+     * <p>
+     * Method uses ASCII values of characters to validate the string. Accepted
+     * characters are +, -, *, /, letter 'x' and numbers 0-9.
+     * </p>
+     *
+     * @param s String to be validated.
+     * @return Returns true only if each characther meets requirements.
+     * @since 1.0
+     */
     private boolean checkCharsFunction(String s) {
         for (int i = 0; i < s.length(); i++) {
             int ascii = (int) s.charAt(i);
@@ -82,6 +130,17 @@ public class Management {
         return true;
     }
 
+    /**
+     * Validates whether or not the string exceeds length limits.
+     * <p>
+     * The lenght of the string is supposed to be equal or greater than 1 and
+     * equal or less than 20.
+     * </p>
+     *
+     * @param s String to be validated.
+     * @return Returns true if length limits are met.
+     * @since 1.0
+     */
     private boolean checkLengthNickname(String s) {
         if (s.length() == 0 || s.length() > 20) {
             return false;
@@ -89,6 +148,17 @@ public class Management {
         return true;
     }
 
+    /**
+     * Validates whether or not the string exceeds length limits.
+     * <p>
+     * The lenght of the string is supposed to be equal or greater than 1 and
+     * equal or less than 50.
+     * </p>
+     *
+     * @param s String to be validated.
+     * @return Returns true if length limits are met.
+     * @since 1.0
+     */
     private boolean checkLengthExercise(String s) {
         if (s.length() == 0 || s.length() > 50) {
             return false;
@@ -96,18 +166,65 @@ public class Management {
         return true;
     }
 
+    /**
+     * Validates whether or not the given string is acceptable.
+     * <p>
+     * Uses methods {@link #checkCharsNickname(java.lang.String)} and
+     * {@link #checkLengthNickname(java.lang.String)} in validation.
+     * </p>
+     *
+     * @param s String to be validated.
+     * @return Returns true if string does not contain invalid characters and
+     * meets the length limits.
+     * @since 1.0
+     */
     public boolean checkEntryNickname(String s) {
         return checkCharsNickname(s) && checkLengthNickname(s);
     }
 
+    /**
+     * Validates whether or not the given string is acceptable.
+     * <p>
+     * Uses methods {@link #checkCharsFormula(java.lang.String)} and
+     * {@link #checkLengthExercise(java.lang.String)} in validation.
+     * </p>
+     *
+     * @param s String to be validated.
+     * @return Returns true if string does not contain invalid characters and
+     * meets the length limits.
+     * @since 1.0
+     */
     private boolean checkEntryFormula(String s) {
         return checkCharsFormula(s) && checkLengthExercise(s);
     }
 
+    /**
+     * Validates whether or not the given string is acceptable.
+     * <p>
+     * Uses methods {@link #checkCharsFunction(java.lang.String)} and
+     * {@link #checkLengthExercise(java.lang.String)} in validation.
+     * </p>
+     *
+     * @param s String to be validated.
+     * @return Returns true if string does not contain invalid characters and
+     * meets the length limits.
+     * @since 1.0
+     */
     private boolean checkEntryFunction(String s) {
         return checkCharsFunction(s) && checkLengthExercise(s);
     }
 
+    /**
+     * Validates whether or not the given string is acceptable.
+     * <p>
+     * Method checks that the given string can be casted as a number.
+     * </p>
+     *
+     * @param s String to be validated.
+     * @return Returns true if the string can be casted as Long variable and
+     * meets length limits.
+     * @since 1.0
+     */
     private boolean checkEntryValue(String s) {
         try {
             long i = Long.parseLong(s);
@@ -117,6 +234,20 @@ public class Management {
         return checkLengthExercise(s);
     }
 
+    /**
+     * Validates whether or not the given nickname and password match up any
+     * existing user.
+     * <p>
+     * Method fetch a player from the database that matches the given name and
+     * then compares its password to the given one.
+     * </p>
+     *
+     * @param name Name to be checked.
+     * @param password Password to be compared.
+     * @return Returns true if a player of the given name exists and passwords
+     * match.
+     * @since 1.0
+     */
     public boolean checkLoginEntry(String name, String password) {
         Player p = new Player(name, password);
 
