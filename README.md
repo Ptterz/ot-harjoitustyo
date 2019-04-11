@@ -1,6 +1,8 @@
 # Laradigappen
-Sovelluksella on tarkoitus harjoitella muun muassa matemaattisten yhtälöiden
-ratkaisua. Käyttääkseen sovellusta on luotava käyttäjätunnukset.
+Sovelluksella on tarkoitus harjoitella erilaisia tehtäviä, joiden aihealue ja vaikeustaso riippuu valinnoista. 
+Käyttääkseen sovellusta on luotava käyttäjätunnukset (nimimerkki + salasana). 
+Sovelluksessa ei ole valmiina tehtäviä. Tehtäviä luodessa käyttäjän tarvitsee antaa vain tehtävänannon kannalta oleelliset tiedot. 
+Sovelluksen sisään toteutettu laskin hoitaa vastauksen laskemisen!
 Sovellus on toteutettu osana Ohjelmistotekniikka-kurssia.
 
 ## Dokumentaatio
