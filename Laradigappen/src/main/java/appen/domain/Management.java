@@ -45,6 +45,10 @@ public class Management {
         this.selectedCreateLevel = level;
     }
 
+    public String getPlayerNick() {
+        return playerIn.getNickname();
+    }
+
     private boolean checkCharsNickname(String s) {
         for (int i = 0; i < s.length(); i++) {
             int ascii = (int) s.charAt(i);
@@ -67,25 +71,28 @@ public class Management {
         return true;
     }
 
+    private boolean checkCharsFunction(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            int ascii = (int) s.charAt(i);
+            if (!((ascii >= 47 && ascii <= 57) || (ascii >= 40 && ascii <= 43)
+                    || ascii == 45 || ascii == 120)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     private boolean checkLengthNickname(String s) {
         if (s.length() == 0 || s.length() > 20) {
             return false;
         }
-
-//        if (s.trim().length() == 0) {
-//            return false;
-//        }
         return true;
     }
 
-    private boolean checkLengthFormula(String s) {
+    private boolean checkLengthExercise(String s) {
         if (s.length() == 0 || s.length() > 50) {
             return false;
         }
-
-//        if (s.trim().length() == 0) {
-//            return false;
-//        }
         return true;
     }
 
@@ -94,7 +101,20 @@ public class Management {
     }
 
     private boolean checkEntryFormula(String s) {
-        return checkCharsFormula(s) && checkLengthFormula(s);
+        return checkCharsFormula(s) && checkLengthExercise(s);
+    }
+
+    private boolean checkEntryFunction(String s) {
+        return checkCharsFunction(s) && checkLengthExercise(s);
+    }
+
+    private boolean checkEntryValue(String s) {
+        try {
+            long i = Long.parseLong(s);
+        } catch (Exception ex) {
+            return false;
+        }
+        return checkLengthExercise(s);
     }
 
     public boolean checkLoginEntry(String name, String password) {
@@ -150,6 +170,10 @@ public class Management {
         return checkEntryFormula(s);
     }
 
+    public boolean checkSubmittedFunction(String f, String v) {
+        return checkEntryFunction(f) && checkEntryValue(v);
+    }
+
     public boolean calculate(String s) {
         long answer = 0;
         //If the calculated answer is over or under Max/Min values (19-20 chars), calculator throws an exception
@@ -159,6 +183,26 @@ public class Management {
             return false;
         }
         return createExercise(s, String.valueOf(answer), selectedCreateLevel);
+    }
+
+    public boolean calculateFunction(String f, String v) {
+        String newF = "";
+        for (int i = 0; i < f.length(); i++) {
+            int ascii = (int) f.charAt(i);
+            if (ascii == 120) {
+                newF += v;
+            } else {
+                newF += f.charAt(i);
+            }
+        }
+        long answer = 0;
+        try {
+            answer = calc.calculate(newF);
+        } catch (Exception e) {
+            return false;
+        }
+        String exercise = "f(x) = " + f + ", x = " + v;
+        return createExercise(exercise, String.valueOf(answer), selectedCreateLevel);
     }
 
     private boolean createExercise(String question, String answer, int lvl) {

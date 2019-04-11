@@ -9,3 +9,4 @@
 |1.4|6|Testien luomista, Management korjaamista jne.|
 |4.4|2|Sekalaista|
 |9.4|2|Viikkopisteiden täyttyminen|
+|11.4|3|Funktioiden luonti ja laskeminen|

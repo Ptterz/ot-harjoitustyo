@@ -147,7 +147,7 @@ public class Appui extends Application {
         Scene mainMenuScene = new Scene(vMainMenu, 400, 300);
 
         //---------------------------------------------------------------------
-        //Tasovalinta - Game                                Tasovalinta - Game
+        //Level - Game                                          Level - Game
         //---------------------------------------------------------------------
         Label choosePlayLevel = new Label("Choose a level.");
         Button playLevel1Button = new Button("Basics");
@@ -163,7 +163,7 @@ public class Appui extends Application {
         Scene choosePlayLevelScene = new Scene(vChoosePlayLevel, 400, 300);
 
         //---------------------------------------------------------------------
-        //Pelinäkymä                                            Pelinäkymä
+        //Game                                                      Game
         //---------------------------------------------------------------------
         Label exerciseText = new Label("");
         TextField answerField = new TextField();
@@ -184,7 +184,7 @@ public class Appui extends Application {
         Scene gameScene = new Scene(vGame, 400, 300);
 
         //---------------------------------------------------------------------
-        //Vastaus                                                   Vastaus
+        //Answer                                                   Answer
         //---------------------------------------------------------------------
         Label headlineField = new Label("");
         Label triesField = new Label("Tries: ");
@@ -203,54 +203,85 @@ public class Appui extends Application {
         vRightAnswer.setSpacing(10);
 
         Scene answerScene = new Scene(vRightAnswer, 400, 300);
-
-        //---------------------------------------------------------------------
-        //Tehtävien luonti                                   Tehtävien luonti
-        //---------------------------------------------------------------------
-        Label formulaText = new Label("The value of the formula should be 30 characters at most.\nFormula: ");
-        TextField formulaField = new TextField();
-        Label formulaErrorText = new Label("");
-        Button submitButton = new Button("Submit");
-        Button createReturnButton = new Button("Back");
-
-        VBox vCreate = new VBox();
-
-        HBox hCreate = new HBox();
-        hCreate.getChildren().addAll(submitButton, createReturnButton);
-        hCreate.setSpacing(10);
-
-        vCreate.getChildren().addAll(formulaText, formulaField, formulaErrorText, hCreate);
-
-        vCreate.setPadding(new Insets(20, 20, 20, 20));
-        vCreate.setSpacing(10);
-
-        Scene createScene = new Scene(vCreate, 400, 300);
         
         //---------------------------------------------------------------------
-        //Tasovalinta - Create                             Tasovalinta - Create
+        //Level - Create                                        Level - Create
         //---------------------------------------------------------------------
         Label chooseCreteLevel = new Label("Choose a level.");
         Button createLevel1Button = new Button("Basics");
         Button createLevel2Button = new Button("Functions");
         Button createLevel3Button = new Button("Equations");
-        Button createLevelAllButton = new Button("Bring it on!");
 
         VBox vChooseCreateLevel = new VBox();
-        vChooseCreateLevel.getChildren().addAll(createLevel1Button, createLevel2Button, createLevel3Button, createLevelAllButton);
+        vChooseCreateLevel.getChildren().addAll(createLevel1Button, createLevel2Button, createLevel3Button);
         vChooseCreateLevel.setPadding(new Insets(20, 20, 20, 20));
         vChooseCreateLevel.setSpacing(10);
 
         Scene chooseCreateLevelScene = new Scene(vChooseCreateLevel, 400, 300);
 
         //---------------------------------------------------------------------
+        //Create 1                                                  Create 1
+        //---------------------------------------------------------------------
+        Label formulaText = new Label("The value of the formula should be 30 characters at most.\nFormula: ");
+        TextField formulaField = new TextField();
+        Label formulaErrorText = new Label("");
+        Button submitFormulaButton = new Button("Submit");
+        Button create1ReturnButton = new Button("Back");
+
+        VBox vCreate1 = new VBox();
+
+        HBox hCreate1 = new HBox();
+        hCreate1.getChildren().addAll(submitFormulaButton, create1ReturnButton);
+        hCreate1.setSpacing(10);
+
+        vCreate1.getChildren().addAll(formulaText, formulaField, formulaErrorText, hCreate1);
+
+        vCreate1.setPadding(new Insets(20, 20, 20, 20));
+        vCreate1.setSpacing(10);
+
+        Scene create1Scene = new Scene(vCreate1, 400, 300);
+        
+        //---------------------------------------------------------------------
+        //Create 2                                                  Create 2
+        //---------------------------------------------------------------------
+        Label create2Text = new Label("The value of the function should be 30 characters at most.");
+        Label functionText = new Label("f(x) =");
+        Label functionValueText = new Label("x =");
+        TextField functionField = new TextField();
+        TextField functionValueField = new TextField();
+        Label functionErrorText = new Label("");
+        Button submitFunctionButton = new Button("Submit");
+        Button create2ReturnButton = new Button("Back");
+
+        VBox vCreate2 = new VBox();
+
+        GridPane gridCreate2 = new GridPane();
+        gridCreate2.addRow(0, functionText, functionField);
+        gridCreate2.addRow(1, functionValueText, functionValueField);
+        gridCreate2.setHgap(10);
+        gridCreate2.setVgap(10);
+        
+        HBox hCreate2 = new HBox();
+        hCreate2.getChildren().addAll(submitFunctionButton, create2ReturnButton);
+        hCreate2.setSpacing(10);
+
+        vCreate2.getChildren().addAll(create2Text, gridCreate2, functionErrorText, hCreate2);
+
+        vCreate2.setPadding(new Insets(20, 20, 20, 20));
+        vCreate2.setSpacing(10);
+
+        Scene create2Scene = new Scene(vCreate2, 400, 300);
+
+        //---------------------------------------------------------------------
         //Scoreboard                                            Scoreboard
         //---------------------------------------------------------------------
         Label scoreHeader = new Label("Scoreboard");
+        Label scoreMessage = new Label("Functionality will be added in future versions.");
         Button scoreReturnButton = new Button("Back");
 
         VBox vScoreBoard = new VBox();
 
-        vScoreBoard.getChildren().addAll(scoreHeader, scoreReturnButton);
+        vScoreBoard.getChildren().addAll(scoreHeader, scoreMessage, scoreReturnButton);
 
         vScoreBoard.setPadding(new Insets(20, 20, 20, 20));
         vScoreBoard.setSpacing(10);
@@ -258,14 +289,20 @@ public class Appui extends Application {
         Scene scoreScene = new Scene(vScoreBoard, 400, 300);
 
         //---------------------------------------------------------------------
-        //Pelaajan tiedot                                      Pelaajan tiedot
+        //Player info                                           Player info
         //---------------------------------------------------------------------
         Label playerHeader = new Label("Player info");
+        playerHeader.setPadding(new Insets(0,0,20,0));
+        Button playerSetPasswordButton = new Button("Change password");
         Button playerReturnButton = new Button("Back");
 
         VBox vPlayer = new VBox();
+        HBox hPlayer = new HBox();
+        
+        hPlayer.getChildren().addAll(playerSetPasswordButton, playerReturnButton);
+        hPlayer.setSpacing(10);
 
-        vPlayer.getChildren().addAll(playerHeader, playerReturnButton);
+        vPlayer.getChildren().addAll(playerHeader, hPlayer);
 
         vPlayer.setPadding(new Insets(20, 20, 20, 20));
         vPlayer.setSpacing(10);
@@ -284,11 +321,10 @@ public class Appui extends Application {
         Scene logoutScene = new Scene(logoutBorder, 400, 300);
 
         //---------------------------------------------------------------------
-        //Painikkeet                                            Painikkeet
+        //Button functions                                    Button functions 
         //---------------------------------------------------------------------
         //openScene
         loginButton.setOnAction((event) -> {
-            //tarkasta, että nimi ja salasana eivät ole tyhjiä tai epäkelpoisia
             if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
                 failureText.setText("Invalid nickname or password!");
                 failureText.setTextFill(Color.rgb(210, 39, 30));
@@ -399,25 +435,19 @@ public class Appui extends Application {
         //chooseCreateLevelScene
         createLevel1Button.setOnAction((event) -> {
             manage.setSelectedCreateLevel(1);
-            window.setScene(createScene);
+            window.setScene(create1Scene);
         });
         
         //chooseCreateLevelScene
         createLevel2Button.setOnAction((event) -> {
             manage.setSelectedCreateLevel(2);
-            window.setScene(createScene);
+            window.setScene(create2Scene);
         });
         
         //chooseCreateLevelScene
         createLevel3Button.setOnAction((event) -> {
             manage.setSelectedCreateLevel(3);
-            window.setScene(createScene);
-        });
-        
-        //chooseCreateLevelScene
-        createLevelAllButton.setOnAction((event) -> {
-            manage.setSelectedCreateLevel(0);
-            window.setScene(createScene);
+//            window.setScene(create3Scene);
         });
 
         //gameScene
@@ -466,8 +496,8 @@ public class Appui extends Application {
             window.setScene(mainMenuScene);
         });
 
-        //createScene
-        submitButton.setOnAction((event) -> {
+        //create1Scene
+        submitFormulaButton.setOnAction((event) -> {
             //lisää tehtävä talteen ja tarkasta se(?)
             String s = formulaField.getText();
             if (manage.checkSubmittedFormula(s)) {
@@ -476,7 +506,7 @@ public class Appui extends Application {
                     formulaErrorText.setTextFill(Color.rgb(21, 117, 84));
                     formulaField.clear();
                 } else {
-                    formulaErrorText.setText("Something went wrong! Try again.");
+                    formulaErrorText.setText("Invalid formula!");
                     formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
                 }
             } else {
@@ -484,10 +514,37 @@ public class Appui extends Application {
                 formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
             }
         });
+        
+        //create2Scene
+        submitFunctionButton.setOnAction((event) -> {
+            String f = functionField.getText();
+            String v = functionValueField.getText();
+            if (manage.checkSubmittedFunction(f, v)) {
+                if (manage.calculateFunction(f, v)) {
+                    functionErrorText.setText("Exercise succesfully submitted!");
+                    functionErrorText.setTextFill(Color.rgb(21, 117, 84));
+                    functionField.clear();
+                    functionValueField.clear();
+                } else {
+                    functionErrorText.setText("Invalid function and/or value!");
+                    functionErrorText.setTextFill(Color.rgb(210, 39, 30));
+                }
+            } else {
+                functionErrorText.setText("Invalid function and/or value!");
+                functionErrorText.setTextFill(Color.rgb(210, 39, 30));
+            }
+        });
 
         //createScene
-        createReturnButton.setOnAction((event) -> {
+        create1ReturnButton.setOnAction((event) -> {
             formulaField.clear();
+            window.setScene(mainMenuScene);
+        });
+        
+        //createScene
+        create2ReturnButton.setOnAction((event) -> {
+            functionField.clear();
+            functionValueField.clear();
             window.setScene(mainMenuScene);
         });
 
@@ -503,6 +560,7 @@ public class Appui extends Application {
 
         //mainMenuScene
         playerInfoButton.setOnAction((event) -> {
+            playerHeader.setText(manage.getPlayerNick());
             window.setScene(playerInfoScene);
         });
 
