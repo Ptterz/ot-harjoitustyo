@@ -294,14 +294,29 @@ public class Appui extends Application {
         playerHeader.setPadding(new Insets(0, 0, 20, 0));
         Button playerSetPasswordButton = new Button("Change password");
         Button playerReturnButton = new Button("Back");
+        Label oldPassword = new Label("Old password: ");
+        Label newPassword1 = new Label("New password: ");
+        Label newPassword2 = new Label("Retype password: ");
+        TextField oldPasswordField = new TextField();
+        TextField newPasswordField1 = new TextField();
+        TextField newPasswordField2 = new TextField();
+        Label changePasswordError = new Label("");
 
         VBox vPlayer = new VBox();
-        HBox hPlayer = new HBox();
+        HBox h1Player = new HBox();
+        GridPane gPlayer = new GridPane();
 
-        hPlayer.getChildren().addAll(playerSetPasswordButton, playerReturnButton);
-        hPlayer.setSpacing(10);
+        h1Player.getChildren().addAll(playerSetPasswordButton, playerReturnButton);
+        h1Player.setSpacing(10);
+        
+        gPlayer.addColumn(0, oldPassword, newPassword1, newPassword2);
+        gPlayer.addColumn(1, oldPasswordField, newPasswordField1, newPasswordField2);
+        gPlayer.setHgap(10);
+        gPlayer.setVgap(10);
+        gPlayer.setPadding(new Insets(20, 0, 0, 0));
 
-        vPlayer.getChildren().addAll(playerHeader, hPlayer);
+        vPlayer.getChildren().addAll(playerHeader, h1Player, gPlayer, 
+                changePasswordError);
 
         vPlayer.setPadding(new Insets(20, 20, 20, 20));
         vPlayer.setSpacing(10);
@@ -366,6 +381,11 @@ public class Appui extends Application {
                 nameAvailable.setText("Nickname available!");
                 nameAvailable.setTextFill(Color.rgb(21, 117, 84));
             }
+        });
+        
+        //createAccountScene
+        tryNameField.setOnKeyTyped((event) -> {
+            nameAvailable.setText("");
         });
 
         //createAccountScene
@@ -501,6 +521,27 @@ public class Appui extends Application {
         });
 
         //gameScene
+        answerField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                String answer = manage.getAnswer();
+                if (answerField.getText().equals(answer)) {
+                    String newExe = "Solve: " + manage.getExercise();
+                    exerciseText.setText(newExe);
+                    answerField.clear();
+                    headlineField.setText("Correct answer!");
+                    wrongAnswer.setText("");
+                    triesField.setText("Tries: " + tries);
+                    tries = 0;
+                    window.setScene(answerScene);
+                } else {
+                    tries++;
+                    wrongAnswer.setText("Answer is not correct.");
+                    wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
+                }
+            }
+        });
+
+        //gameScene
         forfeitButton.setOnAction((event) -> {
             String newExe = "Solve: " + manage.getExercise();
             exerciseText.setText(newExe);
@@ -511,10 +552,12 @@ public class Appui extends Application {
             tries = 0;
             window.setScene(answerScene);
         });
-
-        //gameScene
-        tryNameField.setOnKeyTyped((event) -> {
-            nameAvailable.setText("");
+        
+        //rightAnswerScene
+        playAgainButton.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                window.setScene(gameScene);
+            }
         });
 
         //rightAnswerScene
@@ -525,6 +568,13 @@ public class Appui extends Application {
         //rightAnswerScene
         mainMenuButton.setOnAction((event) -> {
             window.setScene(mainMenuScene);
+        });
+        
+        //rightAnswerScene
+        mainMenuButton.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                window.setScene(mainMenuScene);
+            }
         });
 
         //create1Scene
