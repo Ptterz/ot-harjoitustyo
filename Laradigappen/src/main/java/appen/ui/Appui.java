@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -321,6 +322,19 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Button functions                                    Button functions 
         //---------------------------------------------------------------------
+        //openScene
+        passwordField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
+                    failureText.setText("Invalid nickname or password!");
+                    failureText.setTextFill(Color.rgb(210, 39, 30));
+                    return;
+                }
+
+                window.setScene(mainMenuScene);
+            }
+        });
+
         //openScene
         loginButton.setOnAction((event) -> {
             if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
