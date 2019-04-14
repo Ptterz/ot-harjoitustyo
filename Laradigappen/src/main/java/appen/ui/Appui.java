@@ -128,19 +128,12 @@ public class Appui extends Application {
         Button playerInfoButton = new Button("My account");
         Button logoutButton = new Button("Logout");
         Button quitButton = new Button("Quit");
+        Label versionLabel = new Label("Version 1.0");
 
         VBox vMainMenu = new VBox();
 
-        HBox h1Main = new HBox();
-        HBox h2Main = new HBox();
-
-        h1Main.getChildren().addAll(playButton, createButton, scoreButton);
-        h1Main.setSpacing(10);
-
-        h2Main.getChildren().addAll(playerInfoButton, logoutButton, quitButton);
-        h2Main.setSpacing(10);
-
-        vMainMenu.getChildren().addAll(menuText, h1Main, h2Main);
+        vMainMenu.getChildren().addAll(menuText, playButton, createButton, scoreButton,
+                playerInfoButton, logoutButton, quitButton, versionLabel);
         vMainMenu.setPadding(new Insets(20, 20, 20, 20));
         vMainMenu.setSpacing(10);
 
@@ -154,9 +147,12 @@ public class Appui extends Application {
         Button playLevel2Button = new Button("Functions");
         Button playLevel3Button = new Button("Equations");
         Button playAllButton = new Button("Bring it on!");
+        Label choosePlayLevelError = new Label("");
 
         VBox vChoosePlayLevel = new VBox();
-        vChoosePlayLevel.getChildren().addAll(choosePlayLevel, playLevel1Button, playLevel2Button, playLevel3Button, playAllButton);
+        vChoosePlayLevel.getChildren().addAll(choosePlayLevel, playLevel1Button,
+                playLevel2Button, playLevel3Button,
+                playAllButton, choosePlayLevelError);
         vChoosePlayLevel.setPadding(new Insets(20, 20, 20, 20));
         vChoosePlayLevel.setSpacing(10);
 
@@ -203,7 +199,7 @@ public class Appui extends Application {
         vRightAnswer.setSpacing(10);
 
         Scene answerScene = new Scene(vRightAnswer, 400, 300);
-        
+
         //---------------------------------------------------------------------
         //Level - Create                                        Level - Create
         //---------------------------------------------------------------------
@@ -211,9 +207,11 @@ public class Appui extends Application {
         Button createLevel1Button = new Button("Basics");
         Button createLevel2Button = new Button("Functions");
         Button createLevel3Button = new Button("Equations");
+        Label chooseCreateLevelError = new Label("");
 
         VBox vChooseCreateLevel = new VBox();
-        vChooseCreateLevel.getChildren().addAll(createLevel1Button, createLevel2Button, createLevel3Button);
+        vChooseCreateLevel.getChildren().addAll(createLevel1Button,
+                createLevel2Button, createLevel3Button, chooseCreateLevelError);
         vChooseCreateLevel.setPadding(new Insets(20, 20, 20, 20));
         vChooseCreateLevel.setSpacing(10);
 
@@ -240,7 +238,7 @@ public class Appui extends Application {
         vCreate1.setSpacing(10);
 
         Scene create1Scene = new Scene(vCreate1, 400, 300);
-        
+
         //---------------------------------------------------------------------
         //Create 2                                                  Create 2
         //---------------------------------------------------------------------
@@ -260,7 +258,7 @@ public class Appui extends Application {
         gridCreate2.addRow(1, functionValueText, functionValueField);
         gridCreate2.setHgap(10);
         gridCreate2.setVgap(10);
-        
+
         HBox hCreate2 = new HBox();
         hCreate2.getChildren().addAll(submitFunctionButton, create2ReturnButton);
         hCreate2.setSpacing(10);
@@ -276,7 +274,7 @@ public class Appui extends Application {
         //Scoreboard                                            Scoreboard
         //---------------------------------------------------------------------
         Label scoreHeader = new Label("Scoreboard");
-        Label scoreMessage = new Label("Functionality will be added in future versions.");
+        Label scoreMessage = new Label("Scoreboard will be featured in upcoming versions.\nPlease, be patient.");
         Button scoreReturnButton = new Button("Back");
 
         VBox vScoreBoard = new VBox();
@@ -292,13 +290,13 @@ public class Appui extends Application {
         //Player info                                           Player info
         //---------------------------------------------------------------------
         Label playerHeader = new Label("Player info");
-        playerHeader.setPadding(new Insets(0,0,20,0));
+        playerHeader.setPadding(new Insets(0, 0, 20, 0));
         Button playerSetPasswordButton = new Button("Change password");
         Button playerReturnButton = new Button("Back");
 
         VBox vPlayer = new VBox();
         HBox hPlayer = new HBox();
-        
+
         hPlayer.getChildren().addAll(playerSetPasswordButton, playerReturnButton);
         hPlayer.setSpacing(10);
 
@@ -413,6 +411,7 @@ public class Appui extends Application {
 
         //choosePlayLevelScene
         playLevel1Button.setOnAction((event) -> {
+            choosePlayLevelError.setText("");
             manage.setSelectedPlayLevel(1);
             String solve = "Solve: " + manage.getExercise();
             exerciseText.setText(solve);
@@ -420,7 +419,23 @@ public class Appui extends Application {
         });
 
         //choosePlayLevelScene
+        playLevel2Button.setOnAction((event) -> {
+            choosePlayLevelError.setText("");
+            manage.setSelectedPlayLevel(2);
+            String solve = "Solve: " + manage.getExercise();
+            exerciseText.setText(solve);
+            window.setScene(gameScene);
+        });
+
+        //choosePlayLevelScene
+        playLevel3Button.setOnAction((event) -> {
+            choosePlayLevelError.setText("The option is not yet supported.");
+            choosePlayLevelError.setTextFill(Color.rgb(210, 39, 30));
+        });
+
+        //choosePlayLevelScene
         playAllButton.setOnAction((event) -> {
+            choosePlayLevelError.setText("");
             manage.setSelectedPlayLevel(0);
             String solve = "Solve: " + manage.getExercise();
             exerciseText.setText(solve);
@@ -431,23 +446,25 @@ public class Appui extends Application {
         createButton.setOnAction((event) -> {
             window.setScene(chooseCreateLevelScene);
         });
-        
+
         //chooseCreateLevelScene
         createLevel1Button.setOnAction((event) -> {
+            chooseCreateLevelError.setText("");
             manage.setSelectedCreateLevel(1);
             window.setScene(create1Scene);
         });
-        
+
         //chooseCreateLevelScene
         createLevel2Button.setOnAction((event) -> {
+            chooseCreateLevelError.setText("");
             manage.setSelectedCreateLevel(2);
             window.setScene(create2Scene);
         });
-        
+
         //chooseCreateLevelScene
         createLevel3Button.setOnAction((event) -> {
-            manage.setSelectedCreateLevel(3);
-//            window.setScene(create3Scene);
+            chooseCreateLevelError.setText("The option is not yet supported.");
+            chooseCreateLevelError.setTextFill(Color.rgb(210, 39, 30));
         });
 
         //gameScene
@@ -514,7 +531,7 @@ public class Appui extends Application {
                 formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
             }
         });
-        
+
         //create2Scene
         submitFunctionButton.setOnAction((event) -> {
             String f = functionField.getText();
@@ -540,7 +557,7 @@ public class Appui extends Application {
             formulaField.clear();
             window.setScene(mainMenuScene);
         });
-        
+
         //createScene
         create2ReturnButton.setOnAction((event) -> {
             functionField.clear();
