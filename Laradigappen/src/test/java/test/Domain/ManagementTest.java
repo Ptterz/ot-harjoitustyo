@@ -261,6 +261,13 @@ public class ManagementTest {
         mg.checkLoginEntry("Pete", "1234");
         assertEquals("Pete", mg.getPlayerNick());
     }
+    
+    @Test
+    public void getPassword() {
+        mg.createAccount("Pete", "1234");
+        mg.checkLoginEntry("Pete", "1234");
+        assertEquals("1234", mg.getPlayerPassword());
+    }
 
     @Test
     public void checkInvalidFunction1() {
@@ -310,5 +317,20 @@ public class ManagementTest {
     @Test
     public void calculateFunctionFalse() {
         assertFalse(mg.calculateFunction("9223372036854775808*x", "5"));
+    }
+    
+    @Test
+    public void changePasswordTrue() {
+        mg.createAccount("Pete", "1234");
+        mg.checkLoginEntry("Pete", "1234");
+        assertTrue(mg.changePassword("0000"));
+    }
+    
+    @Test
+    public void changePasswordFalse() throws SQLException {
+        mg.createAccount("Pete", "1234");
+        mg.checkLoginEntry("Pete", "1234");
+        mg.getPd().delete("Pete");
+        assertFalse(mg.changePassword("0000"));
     }
 }

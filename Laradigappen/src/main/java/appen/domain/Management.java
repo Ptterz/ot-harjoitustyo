@@ -341,10 +341,10 @@ public class Management {
         playerIn.setPassword(password);
         try {
             pd.update(playerIn);
+            return true;
         } catch (Exception e) {
             return false;
         }
-        return true;
     }
 
     public boolean checkSubmittedFormula(String s) {

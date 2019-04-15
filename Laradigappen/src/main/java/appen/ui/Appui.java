@@ -655,6 +655,7 @@ public class Appui extends Application {
 
         //playerInfoScene
         playerSetPasswordButton.setOnAction((event) -> {
+            playerMessagePassword.setText("");
             oldPassword.setVisible(true);
             newPassword1.setVisible(true);
             newPassword2.setVisible(true);

@@ -52,7 +52,12 @@ public class PlayerDao implements Dao<Player, String> {
         PreparedStatement stmt = connex.prepareStatement("UPDATE Players SET password = ? WHERE nickname = ?");
         stmt.setString(1, p.getPassword());
         stmt.setString(2, p.getNickname());
-        stmt.executeUpdate();
+        int i = stmt.executeUpdate();
+        
+        if (i == 0) {
+            //There was no rows updated
+            throw new SQLException();
+        }
 
         stmt.close();
 

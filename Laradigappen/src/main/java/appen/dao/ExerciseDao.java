@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseDao implements Dao<Exercise, Integer> {
+public class ExerciseDao implements Dao<Exercise, String> {
 
     private Database db;
 
@@ -33,18 +33,37 @@ public class ExerciseDao implements Dao<Exercise, Integer> {
     }
 
     @Override
-    public Exercise read(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Exercise read(String key) throws SQLException {
+        Connection connex = db.getConnection();
+        PreparedStatement stmt = connex.prepareStatement("SELECT * FROM Exercises WHERE question = ?");
+        stmt.setString(1, key);
+        ResultSet rs = stmt.executeQuery();
+        
+        if (!rs.next()) {
+            return null;
+        }
+
+        Exercise e = new Exercise(rs.getString("question"), rs.getString("answer"), rs.getInt("level"));
+
+        stmt.close();
+        rs.close();
+
+        return e;
     }
 
     @Override
-    public Exercise update(Exercise object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Exercise update(Exercise e) throws SQLException {
+        return e;
     }
 
     @Override
-    public void delete(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void delete(String key) throws SQLException {
+        Connection connex = db.getConnection();
+        PreparedStatement stmt = connex.prepareStatement("DELETE FROM Exercises WHERE question = ?");
+        stmt.setString(1, key);
+        stmt.executeUpdate();
+
+        stmt.close();
     }
 
     @Override
