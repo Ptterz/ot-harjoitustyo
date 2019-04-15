@@ -11,3 +11,4 @@
 |9.4|2|Viikkopisteiden täyttyminen|
 |11.4|3|Funktioiden luonti ja laskeminen|
 |14.4|2|Sekvenssikaavio, visuaalisia muutoksia ja versionotaatioita|
+|15.4|2|Salasanan vaihto|
