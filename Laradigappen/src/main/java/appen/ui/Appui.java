@@ -291,16 +291,25 @@ public class Appui extends Application {
         //Player info                                           Player info
         //---------------------------------------------------------------------
         Label playerHeader = new Label("Player info");
-        playerHeader.setPadding(new Insets(0, 0, 20, 0));
         Button playerSetPasswordButton = new Button("Change password");
         Button playerReturnButton = new Button("Back");
+        Label playerMessagePassword = new Label("");
+        playerMessagePassword.setTextFill(Color.rgb(21, 117, 84));
+
         Label oldPassword = new Label("Old password: ");
+        oldPassword.setVisible(false);
         Label newPassword1 = new Label("New password: ");
+        newPassword1.setVisible(false);
         Label newPassword2 = new Label("Retype password: ");
-        TextField oldPasswordField = new TextField();
-        TextField newPasswordField1 = new TextField();
-        TextField newPasswordField2 = new TextField();
-        Label changePasswordError = new Label("");
+        newPassword2.setVisible(false);
+        PasswordField oldPasswordField = new PasswordField();
+        oldPasswordField.setVisible(false);
+        PasswordField newPasswordField1 = new PasswordField();
+        newPasswordField1.setVisible(false);
+        PasswordField newPasswordField2 = new PasswordField();
+        newPasswordField2.setVisible(false);
+        Button submitNewPasswordButton = new Button("Submit changes");
+        submitNewPasswordButton.setVisible(false);
 
         VBox vPlayer = new VBox();
         HBox h1Player = new HBox();
@@ -308,15 +317,14 @@ public class Appui extends Application {
 
         h1Player.getChildren().addAll(playerSetPasswordButton, playerReturnButton);
         h1Player.setSpacing(10);
-        
+
         gPlayer.addColumn(0, oldPassword, newPassword1, newPassword2);
         gPlayer.addColumn(1, oldPasswordField, newPasswordField1, newPasswordField2);
         gPlayer.setHgap(10);
         gPlayer.setVgap(10);
-        gPlayer.setPadding(new Insets(20, 0, 0, 0));
 
-        vPlayer.getChildren().addAll(playerHeader, h1Player, gPlayer, 
-                changePasswordError);
+        vPlayer.getChildren().addAll(playerHeader, h1Player, playerMessagePassword,
+                gPlayer, submitNewPasswordButton);
 
         vPlayer.setPadding(new Insets(20, 20, 20, 20));
         vPlayer.setSpacing(10);
@@ -382,7 +390,7 @@ public class Appui extends Application {
                 nameAvailable.setTextFill(Color.rgb(21, 117, 84));
             }
         });
-        
+
         //createAccountScene
         tryNameField.setOnKeyTyped((event) -> {
             nameAvailable.setText("");
@@ -552,7 +560,7 @@ public class Appui extends Application {
             tries = 0;
             window.setScene(answerScene);
         });
-        
+
         //rightAnswerScene
         playAgainButton.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -569,7 +577,7 @@ public class Appui extends Application {
         mainMenuButton.setOnAction((event) -> {
             window.setScene(mainMenuScene);
         });
-        
+
         //rightAnswerScene
         mainMenuButton.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -646,7 +654,60 @@ public class Appui extends Application {
         });
 
         //playerInfoScene
+        playerSetPasswordButton.setOnAction((event) -> {
+            oldPassword.setVisible(true);
+            newPassword1.setVisible(true);
+            newPassword2.setVisible(true);
+            oldPasswordField.setVisible(true);
+            newPasswordField1.setVisible(true);
+            newPasswordField2.setVisible(true);
+            submitNewPasswordButton.setVisible(true);
+        });
+
+        //playerInfoScene
+        submitNewPasswordButton.setOnAction((event) -> {
+            if (manage.getPlayerPassword().equals(oldPasswordField.getText())) {
+                if (manage.checkPasswordEntry(newPasswordField1.getText(), newPasswordField2.getText())) {
+                    if (manage.changePassword(newPasswordField1.getText())) {
+                        oldPassword.setVisible(false);
+                        newPassword1.setVisible(false);
+                        newPassword2.setVisible(false);
+                        oldPasswordField.setVisible(false);
+                        newPasswordField1.setVisible(false);
+                        newPasswordField2.setVisible(false);
+                        submitNewPasswordButton.setVisible(false);
+                        oldPasswordField.clear();
+                        newPasswordField1.clear();
+                        newPasswordField2.clear();
+                        playerMessagePassword.setText("Password changed!");
+                        playerMessagePassword.setTextFill(Color.rgb(21, 117, 84));
+                    } else {
+                        playerMessagePassword.setText("Something went wrong. Please try again.");
+                        playerMessagePassword.setTextFill(Color.rgb(210, 39, 30));
+                    }
+                } else {
+                    playerMessagePassword.setText("Passwords don't match!");
+                    playerMessagePassword.setTextFill(Color.rgb(210, 39, 30));
+                }
+            } else {
+                playerMessagePassword.setText("Invalid password!");
+                playerMessagePassword.setTextFill(Color.rgb(210, 39, 30));
+            }
+        });
+
+        //playerInfoScene
         playerReturnButton.setOnAction((event) -> {
+            oldPassword.setVisible(false);
+            newPassword1.setVisible(false);
+            newPassword2.setVisible(false);
+            oldPasswordField.setVisible(false);
+            newPasswordField1.setVisible(false);
+            newPasswordField2.setVisible(false);
+            submitNewPasswordButton.setVisible(false);
+            oldPasswordField.clear();
+            newPasswordField1.clear();
+            newPasswordField2.clear();
+            playerMessagePassword.setText("");
             window.setScene(mainMenuScene);
         });
 

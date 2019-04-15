@@ -58,6 +58,10 @@ public class Management {
     public String getPlayerNick() {
         return playerIn.getNickname();
     }
+    
+    public String getPlayerPassword() {
+        return playerIn.getPassword();
+    }
 
     /**
      * Validates whether or not the string contains accepted characters.
@@ -327,6 +331,16 @@ public class Management {
         Player p = new Player(name, password);
         try {
             pd.create(p);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean changePassword(String password) {
+        playerIn.setPassword(password);
+        try {
+            pd.update(playerIn);
         } catch (Exception e) {
             return false;
         }
