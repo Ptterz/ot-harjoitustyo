@@ -125,7 +125,6 @@ public class Appui extends Application {
         Label menuText = new Label("Welcome!");
         Button playButton = new Button("Play");
         Button createButton = new Button("Create");
-        Button scoreButton = new Button("Points");
         Button playerInfoButton = new Button("My account");
         Button logoutButton = new Button("Logout");
         Button quitButton = new Button("Quit");
@@ -133,7 +132,7 @@ public class Appui extends Application {
 
         VBox vMainMenu = new VBox();
 
-        vMainMenu.getChildren().addAll(menuText, playButton, createButton, scoreButton,
+        vMainMenu.getChildren().addAll(menuText, playButton, createButton,
                 playerInfoButton, logoutButton, quitButton, versionLabel);
         vMainMenu.setPadding(new Insets(20, 20, 20, 20));
         vMainMenu.setSpacing(10);
@@ -270,22 +269,6 @@ public class Appui extends Application {
         vCreate2.setSpacing(10);
 
         Scene create2Scene = new Scene(vCreate2, 400, 300);
-
-        //---------------------------------------------------------------------
-        //Scoreboard                                            Scoreboard
-        //---------------------------------------------------------------------
-        Label scoreHeader = new Label("Scoreboard");
-        Label scoreMessage = new Label("Scoreboard will be featured in upcoming versions.\nPlease, be patient.");
-        Button scoreReturnButton = new Button("Back");
-
-        VBox vScoreBoard = new VBox();
-
-        vScoreBoard.getChildren().addAll(scoreHeader, scoreMessage, scoreReturnButton);
-
-        vScoreBoard.setPadding(new Insets(20, 20, 20, 20));
-        vScoreBoard.setSpacing(10);
-
-        Scene scoreScene = new Scene(vScoreBoard, 400, 300);
 
         //---------------------------------------------------------------------
         //Player info                                           Player info
@@ -634,16 +617,6 @@ public class Appui extends Application {
         create2ReturnButton.setOnAction((event) -> {
             functionField.clear();
             functionValueField.clear();
-            window.setScene(mainMenuScene);
-        });
-
-        //mainMenuScene
-        scoreButton.setOnAction((event) -> {
-            window.setScene(scoreScene);
-        });
-
-        //scoreScene
-        scoreReturnButton.setOnAction((event) -> {
             window.setScene(mainMenuScene);
         });
 
