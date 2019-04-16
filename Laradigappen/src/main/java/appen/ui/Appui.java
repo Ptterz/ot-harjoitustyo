@@ -19,6 +19,8 @@ public class Appui extends Application {
     private Management manage;
     private int tries;
     private int selectedLevel;
+    private long gameBegin;
+    private long gameEnd;
 
     @Override
     public void init() throws Exception {
@@ -183,8 +185,8 @@ public class Appui extends Application {
         //Answer                                                   Answer
         //---------------------------------------------------------------------
         Label headlineField = new Label("");
-        Label triesField = new Label("Tries: ");
-        Label timeSpent = new Label("Time spent: ");
+        Label triesField = new Label("");
+        Label timeSpent = new Label("");
         Button playAgainButton = new Button("Play again");
         Button mainMenuButton = new Button("Main menu");
 
@@ -436,6 +438,7 @@ public class Appui extends Application {
 
         //choosePlayLevelScene
         playLevel1Button.setOnAction((event) -> {
+            gameBegin = System.currentTimeMillis();
             choosePlayLevelError.setText("");
             manage.setSelectedPlayLevel(1);
             String solve = "Solve: " + manage.getExercise();
@@ -445,6 +448,7 @@ public class Appui extends Application {
 
         //choosePlayLevelScene
         playLevel2Button.setOnAction((event) -> {
+            gameBegin = System.currentTimeMillis();
             choosePlayLevelError.setText("");
             manage.setSelectedPlayLevel(2);
             String solve = "Solve: " + manage.getExercise();
@@ -454,12 +458,14 @@ public class Appui extends Application {
 
         //choosePlayLevelScene
         playLevel3Button.setOnAction((event) -> {
+            gameBegin = System.currentTimeMillis();
             choosePlayLevelError.setText("The option is not yet supported.");
             choosePlayLevelError.setTextFill(Color.rgb(210, 39, 30));
         });
 
         //choosePlayLevelScene
         playAllButton.setOnAction((event) -> {
+            gameBegin = System.currentTimeMillis();
             choosePlayLevelError.setText("");
             manage.setSelectedPlayLevel(0);
             String solve = "Solve: " + manage.getExercise();
@@ -496,11 +502,13 @@ public class Appui extends Application {
         checkAnswerButton.setOnAction((event) -> {
             String answer = manage.getAnswer();
             if (answerField.getText().equals(answer)) {
+                gameEnd = System.currentTimeMillis();
                 String newExe = "Solve: " + manage.getExercise();
                 exerciseText.setText(newExe);
                 answerField.clear();
                 headlineField.setText("Correct answer!");
                 wrongAnswer.setText("");
+                timeSpent.setText(manage.timeSpent(gameBegin, gameEnd));
                 triesField.setText("Tries: " + tries);
                 tries = 0;
                 window.setScene(answerScene);
@@ -516,11 +524,13 @@ public class Appui extends Application {
             if (event.getCode() == KeyCode.ENTER) {
                 String answer = manage.getAnswer();
                 if (answerField.getText().equals(answer)) {
+                    gameEnd = System.currentTimeMillis();
                     String newExe = "Solve: " + manage.getExercise();
                     exerciseText.setText(newExe);
                     answerField.clear();
                     headlineField.setText("Correct answer!");
                     wrongAnswer.setText("");
+                    timeSpent.setText(manage.timeSpent(gameBegin, gameEnd));
                     triesField.setText("Tries: " + tries);
                     tries = 0;
                     window.setScene(answerScene);
@@ -540,6 +550,7 @@ public class Appui extends Application {
             headlineField.setText("You should try harder!");
             wrongAnswer.setText("");
             triesField.setText("Tries: ");
+            timeSpent.setText("Time spent: ");
             tries = 0;
             window.setScene(answerScene);
         });

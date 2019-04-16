@@ -477,4 +477,20 @@ public class Management {
     public String getAnswer() {
         return lastExe.getAnswer();
     }
+    
+    public String timeSpent(long a, long b) {
+        long deltaSec = (b - a)/1000;
+        String minutes = "";
+        String secs = "";
+        
+        if (deltaSec/60 == 0) {
+            minutes += 0;
+            secs += deltaSec;
+        } else {
+            minutes += deltaSec/60;
+            deltaSec -= (deltaSec/60)*60;
+            secs += deltaSec;
+        }
+        return "Time spent: " + minutes + " min " + secs + " sec";
+    }
 }
