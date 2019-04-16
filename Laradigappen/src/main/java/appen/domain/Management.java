@@ -5,6 +5,8 @@ import appen.database.*;
 import java.util.*;
 
 /**
+ * A class to handle all the logic behind the application.
+ * 
  * @author Pete
  * @version 1.0
  * @since 1.0
@@ -22,6 +24,7 @@ public class Management {
     private Map<Integer, List<Exercise>> exesMap;
 
     /**
+     * A constructor for management.
      * 
      * @param pd PlayerDao linked to a specific database.
      * @param ed ExerciseDao linked to a specific database.
@@ -58,7 +61,7 @@ public class Management {
     public String getPlayerNick() {
         return playerIn.getNickname();
     }
-    
+
     public String getPlayerPassword() {
         return playerIn.getPassword();
     }
@@ -336,7 +339,14 @@ public class Management {
         }
         return true;
     }
-    
+
+    /**
+     * Changes player's password.
+     *
+     * @param password Player's new password.
+     * @return Return true if password is updated successfully to the database.
+     * @since 1.0
+     */
     public boolean changePassword(String password) {
         playerIn.setPassword(password);
         try {
@@ -347,14 +357,37 @@ public class Management {
         }
     }
 
+    /**
+     * Validates a given string.
+     *
+     * @param s A string to be validated.
+     * @return true if the string given is valid.
+     * @since 1.0
+     */
     public boolean checkSubmittedFormula(String s) {
         return checkEntryFormula(s);
     }
 
+    /**
+     * Validates given strings.
+     *
+     * @param f A formula to be validated.
+     * @param v A value of variable x to be validated.
+     * @return Returns true if both parameters are acceptable.
+     * @since 1.0
+     */
     public boolean checkSubmittedFunction(String f, String v) {
         return checkEntryFunction(f) && checkEntryValue(v);
     }
-
+    
+    /**
+     * Calculates the answer for the given formula.
+     * 
+     * @param s A formula to be calculated.
+     * @return Return true only if the answer is a acceptable value and 
+     * {@link #createExercise(java.lang.String, java.lang.String, int)} returns true.
+     * @since 1.0
+     */
     public boolean calculate(String s) {
         long answer = 0;
         //If the calculated answer is over or under Max/Min values (19-20 chars), calculator throws an exception
@@ -365,7 +398,22 @@ public class Management {
         }
         return createExercise(s, String.valueOf(answer), selectedCreateLevel);
     }
-
+    
+    /**
+     * Calculates the answer for the given function.
+     * 
+     * <p>
+     * First, the variable x in the given function is substituted with the  
+     * given value of x. Then the calculation method of {@link #calc} is called
+     * to calculate the value.
+     * </p>
+     * 
+     * @param f A function to be calculated.
+     * @param v The value of x for given function.
+     * @return Return true only if the answer is a acceptable value and 
+     * {@link #createExercise(java.lang.String, java.lang.String, int)} returns true.
+     * @since 1.0
+     */
     public boolean calculateFunction(String f, String v) {
         String newF = "";
         for (int i = 0; i < f.length(); i++) {
@@ -395,7 +443,13 @@ public class Management {
         }
         return true;
     }
-
+    
+    /**
+     * Creates a list of exercises suited for selected level and randomly 
+     * picks one of them.
+     * @return Returns a exercise randomly selected from the created list.
+     * @since 1.0
+     */
     public String getExercise() {
         List<Exercise> list = new ArrayList<>();
         try {
@@ -415,7 +469,11 @@ public class Management {
         lastExe = list.get(index);
         return lastExe.getQuestion();
     }
-
+    
+    /**
+     * Returns the answer of the current exercise.
+     * @return Returns the answer of the current exercise.
+     */
     public String getAnswer() {
         return lastExe.getAnswer();
     }
