@@ -13,6 +13,8 @@ Sovellus on toteutettu osana Ohjelmistotekniikka-kurssia.
 
 [Työaikakirjanpito](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
 
+[Julkaisut](https://github.com/Ptterz/ot-harjoitustyo/releases)
+
 ## Komentorivitoiminnot
 
 ### Jar
