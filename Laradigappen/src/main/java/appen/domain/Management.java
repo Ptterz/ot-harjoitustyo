@@ -473,11 +473,19 @@ public class Management {
     /**
      * Returns the answer of the current exercise.
      * @return Returns the answer of the current exercise.
+     * @since 1.0
      */
     public String getAnswer() {
         return lastExe.getAnswer();
     }
     
+    /**
+     * Returns a string that tells how much time got spent. 
+     * @param a Time when a game started.
+     * @param b Time when a game ended.
+     * @return Returns time spent in minutes and seconds.
+     * @since 1.0
+     */
     public String timeSpent(long a, long b) {
         long deltaSec = (b - a)/1000;
         String minutes = "";
