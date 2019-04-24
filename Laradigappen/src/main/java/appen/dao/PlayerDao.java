@@ -8,7 +8,12 @@ import java.util.*;
 public class PlayerDao implements Dao<Player, String> {
 
     private Database db;
-
+    
+    /**
+     * Contructor for PlayerDao.
+     * @param db Initalized database
+     * @since 1.0
+     */
     public PlayerDao(Database db) {
         this.db = db;
     }

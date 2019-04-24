@@ -6,7 +6,12 @@ public class Player {
 
     private String nickname;
     private String password;
-
+    
+    /**
+     * A constructor of a player variable.
+     * @param nickname Name of the player
+     * @param password Password attached to the name
+     */
     public Player(String nickname, String password) {
         this.nickname = nickname;
         this.password = password;

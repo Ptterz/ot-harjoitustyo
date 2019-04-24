@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * A class to handle all the logic behind the application.
- * 
+ *
  * @author Pete
  * @version 1.0
  * @since 1.0
@@ -25,7 +25,7 @@ public class Management {
 
     /**
      * A constructor for management.
-     * 
+     *
      * @param pd PlayerDao linked to a specific database.
      * @param ed ExerciseDao linked to a specific database.
      */
@@ -68,14 +68,6 @@ public class Management {
 
     /**
      * Validates whether or not the string contains accepted characters.
-     * <p>
-     * Method uses ASCII values of characters to validate the string. Accepted
-     * characters are a-z, A-Z and 0-9.
-     * </p>
-     *
-     * @param s String to be validated.
-     * @return Returns true only if each characther meets requirements.
-     * @since 1.0
      */
     private boolean checkCharsNickname(String s) {
         for (int i = 0; i < s.length(); i++) {
@@ -90,14 +82,6 @@ public class Management {
 
     /**
      * Validates whether or not the string contains accepted characters.
-     * <p>
-     * Method uses ASCII values of characters to validate the string. Accepted
-     * characters are +, -, *, / and numbers 0-9.
-     * </p>
-     *
-     * @param s String to be validated.
-     * @return Returns true only if each characther meets requirements.
-     * @since 1.0
      */
     private boolean checkCharsFormula(String s) {
         for (int i = 0; i < s.length(); i++) {
@@ -112,14 +96,6 @@ public class Management {
 
     /**
      * Validates whether or not the string contains accepted characters.
-     * <p>
-     * Method uses ASCII values of characters to validate the string. Accepted
-     * characters are +, -, *, /, letter 'x' and numbers 0-9.
-     * </p>
-     *
-     * @param s String to be validated.
-     * @return Returns true only if each characther meets requirements.
-     * @since 1.0
      */
     private boolean checkCharsFunction(String s) {
         for (int i = 0; i < s.length(); i++) {
@@ -134,14 +110,6 @@ public class Management {
 
     /**
      * Validates whether or not the string exceeds length limits.
-     * <p>
-     * The lenght of the string is supposed to be equal or greater than 1 and
-     * equal or less than 20.
-     * </p>
-     *
-     * @param s String to be validated.
-     * @return Returns true if length limits are met.
-     * @since 1.0
      */
     private boolean checkLengthNickname(String s) {
         if (s.length() == 0 || s.length() > 20) {
@@ -152,14 +120,6 @@ public class Management {
 
     /**
      * Validates whether or not the string exceeds length limits.
-     * <p>
-     * The lenght of the string is supposed to be equal or greater than 1 and
-     * equal or less than 50.
-     * </p>
-     *
-     * @param s String to be validated.
-     * @return Returns true if length limits are met.
-     * @since 1.0
      */
     private boolean checkLengthExercise(String s) {
         if (s.length() == 0 || s.length() > 50) {
@@ -187,16 +147,6 @@ public class Management {
 
     /**
      * Validates whether or not the given string is acceptable.
-     * <p>
-     * Method uses ASCII values of characters to validate the string. Accepted
-     * characters are +, -, *, / and numbers 0-9. The lenght of the string is
-     * supposed to be equal or greater than 1 and equal or less than 50.
-     * </p>
-     *
-     * @param s String to be validated.
-     * @return Returns true if string does not contain invalid characters and
-     * meets the length limits.
-     * @since 1.0
      */
     private boolean checkEntryFormula(String s) {
         return checkCharsFormula(s) && checkLengthExercise(s);
@@ -204,17 +154,6 @@ public class Management {
 
     /**
      * Validates whether or not the given string is acceptable.
-     * <p>
-     * Method uses ASCII values of characters to validate the string. Accepted
-     * characters are +, -, *, /, letter 'x' and numbers 0-9. The lenght of the
-     * string is supposed to be equal or greater than 1 and equal or less than
-     * 50.
-     * </p>
-     *
-     * @param s String to be validated.
-     * @return Returns true if string does not contain invalid characters and
-     * meets the length limits.
-     * @since 1.0
      */
     private boolean checkEntryFunction(String s) {
         return checkCharsFunction(s) && checkLengthExercise(s);
@@ -222,14 +161,6 @@ public class Management {
 
     /**
      * Validates whether or not the given string is acceptable.
-     * <p>
-     * Method checks that the given string can be casted as a number.
-     * </p>
-     *
-     * @param s String to be validated.
-     * @return Returns true if the string can be casted as Long variable and
-     * meets length limits.
-     * @since 1.0
      */
     private boolean checkEntryValue(String s) {
         try {
@@ -379,13 +310,14 @@ public class Management {
     public boolean checkSubmittedFunction(String f, String v) {
         return checkEntryFunction(f) && checkEntryValue(v);
     }
-    
+
     /**
      * Calculates the answer for the given formula.
-     * 
+     *
      * @param s A formula to be calculated.
-     * @return Return true only if the answer is a acceptable value and 
-     * {@link #createExercise(java.lang.String, java.lang.String, int)} returns true.
+     * @return Return true only if the answer is a acceptable value and
+     * {@link #createExercise(java.lang.String, java.lang.String, int)} returns
+     * true.
      * @since 1.0
      */
     public boolean calculate(String s) {
@@ -398,20 +330,21 @@ public class Management {
         }
         return createExercise(s, String.valueOf(answer), selectedCreateLevel);
     }
-    
+
     /**
      * Calculates the answer for the given function.
-     * 
+     *
      * <p>
-     * First, the variable x in the given function is substituted with the  
-     * given value of x. Then the calculation method of {@link #calc} is called
-     * to calculate the value.
+     * First, the variable x in the given function is substituted with the given
+     * value of x. Then the calculation method of {@link #calc} is called to
+     * calculate the value.
      * </p>
-     * 
+     *
      * @param f A function to be calculated.
      * @param v The value of x for given function.
-     * @return Return true only if the answer is a acceptable value and 
-     * {@link #createExercise(java.lang.String, java.lang.String, int)} returns true.
+     * @return Return true only if the answer is a acceptable value and
+     * {@link #createExercise(java.lang.String, java.lang.String, int)} returns
+     * true.
      * @since 1.0
      */
     public boolean calculateFunction(String f, String v) {
@@ -443,10 +376,11 @@ public class Management {
         }
         return true;
     }
-    
+
     /**
-     * Creates a list of exercises suited for selected level and randomly 
-     * picks one of them.
+     * Creates a list of exercises suited for selected level and randomly picks
+     * one of them.
+     *
      * @return Returns a exercise randomly selected from the created list.
      * @since 1.0
      */
@@ -469,34 +403,36 @@ public class Management {
         lastExe = list.get(index);
         return lastExe.getQuestion();
     }
-    
+
     /**
      * Returns the answer of the current exercise.
+     *
      * @return Returns the answer of the current exercise.
      * @since 1.0
      */
     public String getAnswer() {
         return lastExe.getAnswer();
     }
-    
+
     /**
-     * Returns a string that tells how much time got spent. 
+     * Returns a string that tells how much time got spent.
+     *
      * @param a Time when a game started.
      * @param b Time when a game ended.
      * @return Returns time spent in minutes and seconds.
      * @since 1.0
      */
     public String timeSpent(long a, long b) {
-        long deltaSec = (b - a)/1000;
+        long deltaSec = (b - a) / 1000;
         String minutes = "";
         String secs = "";
-        
-        if (deltaSec/60 == 0) {
+
+        if (deltaSec / 60 == 0) {
             minutes += 0;
             secs += deltaSec;
         } else {
-            minutes += deltaSec/60;
-            deltaSec -= (deltaSec/60)*60;
+            minutes += deltaSec / 60;
+            deltaSec -= (deltaSec / 60) * 60;
             secs += deltaSec;
         }
         return "Time spent: " + minutes + " min " + secs + " sec";

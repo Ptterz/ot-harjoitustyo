@@ -2,6 +2,7 @@ package appen.domain;
 
 import java.util.Objects;
 /**
+ * A class to handle exercises.
  * @author Pete
  * @version 1.0
  * @since 1.0
@@ -12,12 +13,23 @@ public class Exercise {
     private String answer;
     private int level;
     
+    /**
+     * A constructor of an exercise variable when level is not known.
+     * @param question Question
+     * @param answer Answer
+     */
     public Exercise(String question, String answer) {
         this.question = question;
         this.answer = answer;
         this.level = 0;
     }
-
+    
+    /**
+     * A constructor of an exercise.
+     * @param question Question
+     * @param answer Answer
+     * @param level Level of an exercise
+     */
     public Exercise(String question, String answer, int level) {
         this.question = question;
         this.answer = answer;

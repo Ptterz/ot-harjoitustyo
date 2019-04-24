@@ -12,8 +12,13 @@ import java.util.List;
 public class ExerciseDao implements Dao<Exercise, String> {
 
     private Database db;
-
-    public ExerciseDao(Database db) throws SQLException {
+    
+    /**
+     * Contructor for ExerciseDao.
+     * @param db Initalized database
+     * @since 1.0
+     */
+    public ExerciseDao(Database db) {
         this.db = db;
     }
 
