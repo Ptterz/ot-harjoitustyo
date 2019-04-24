@@ -222,7 +222,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Create 1                                                  Create 1
         //---------------------------------------------------------------------
-        Label formulaText = new Label("The value of the formula should be 30 characters at most.\nFormula: ");
+        Label formulaText = new Label("Formula: ");
         TextField formulaField = new TextField();
         Label formulaErrorText = new Label("");
         Button submitFormulaButton = new Button("Submit");
@@ -244,7 +244,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         //Create 2                                                  Create 2
         //---------------------------------------------------------------------
-        Label create2Text = new Label("The value of the function should be 30 characters at most.");
+        Label create2Text = new Label("Enter both a function and a value for variable x.");
         Label functionText = new Label("f(x) =");
         Label functionValueText = new Label("x =");
         TextField functionField = new TextField();
