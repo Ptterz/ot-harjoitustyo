@@ -12,3 +12,5 @@
 |11.4|3|Funktioiden luonti ja laskeminen|
 |14.4|2|Sekvenssikaavio, visuaalisia muutoksia ja versionotaatioita|
 |15.4|4|Salasanan vaihto ja testejä|
+|16.4|2|Ajanlaskuri, scoreboard poisto|
+|24.4|3|JavaDoc, Checkstyle, ajastimen korjaus|
