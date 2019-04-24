@@ -558,12 +558,14 @@ public class Appui extends Application {
         //rightAnswerScene
         playAgainButton.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
+                gameBegin = System.currentTimeMillis();
                 window.setScene(gameScene);
             }
         });
 
         //rightAnswerScene
         playAgainButton.setOnAction((event) -> {
+            gameBegin = System.currentTimeMillis();
             window.setScene(gameScene);
         });
 
