@@ -61,7 +61,7 @@ public class Database {
                 + "id INTEGER PRIMARY KEY,"
                 + "playerid VARCHAR(20),"
                 + "exerciseid INTEGER,"
-                + "count INTEGER,"
+                + "score INTEGER,"
                 + "FOREIGN KEY (playerid) REFERENCES Players(nickname),"
                 + "FOREIGN KEY (exerciseid) REFERENCES Exercises(id));"
         ).executeUpdate();

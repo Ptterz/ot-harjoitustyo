@@ -1,6 +1,7 @@
 package appen.domain;
 
 import appen.dao.*;
+import java.sql.*;
 import java.util.*;
 
 /**
@@ -367,6 +368,11 @@ public class Management {
     private boolean createExercise(String question, String answer, int lvl) {
         Exercise exercise = new Exercise(question, answer, lvl);
         try {
+            for (Exercise exe : ed.list()) {
+                if (exe.equals(exercise)) {
+                    return false;
+                }
+            }
             ed.create(exercise);
         } catch (Exception e) {
             return false;
@@ -393,6 +399,7 @@ public class Management {
             return "Something went wrong!";
         }
         if (list.isEmpty()) {
+            lastExe = null;
             return "No exercises to solve! Create a few first.";
         }
 
@@ -408,6 +415,9 @@ public class Management {
      * @since 1.0
      */
     public String getAnswer() {
+        if (lastExe == null) {
+            return "No answer";
+        }
         return lastExe.getAnswer();
     }
 
@@ -435,8 +445,8 @@ public class Management {
         return "Time spent: " + minutes + " min " + secs + " sec";
     }
     
-    public void createNewPerformance(int count) {
-        Performance p = new Performance(playerIn, lastExe, count);
+    public void createNewPerformance(int count, long time) {
+        Performance p = new Performance(playerIn, lastExe, count, time);
         lastPerf = p;
         try {
             perfD.create(p);
@@ -445,8 +455,12 @@ public class Management {
         }
     }
     
-    public String getResult(int count) {
-        double result = perfD.getBetterThan(lastPerf);
-        return "You did better than " + result + "%.";
+    public String getResult() {
+        try {
+            double result = perfD.getBetterThan(lastPerf);
+            return "You scored better than " + result + "%.";
+        } catch (Exception e) {
+            return "Failed to get results.";
+        }
     }
 }

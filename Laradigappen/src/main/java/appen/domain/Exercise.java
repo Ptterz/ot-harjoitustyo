@@ -117,10 +117,7 @@ public class Exercise {
             return false;
         }
         final Exercise other = (Exercise) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.question, other.question)) {
+        if (!this.question.equals(other.question)) {
             return false;
         }
         return true;

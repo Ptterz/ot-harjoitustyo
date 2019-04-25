@@ -3,15 +3,16 @@ package appen.domain;
 public class Performance {
 
     private int id;
-    private Player p;
-    private Exercise e;
-    private int count;
+    private Player player;
+    private Exercise exercise;
+    private int score;
 
-    public Performance(Player p, Exercise e, int count) {
+    public Performance(Player p, Exercise e, int count, long time) {
         this.id = -1;
-        this.p = p;
-        this.e = e;
-        this.count = count;
+        this.player = p;
+        this.exercise = e;
+        int secs = (int) (time / 1000);
+        this.score = Math.abs(1000000 - 10000*count - 10000*secs);
     }
 
     public int getId() {
@@ -23,14 +24,14 @@ public class Performance {
     }
 
     public Player getPlayer() {
-        return p;
+        return player;
     }
 
     public Exercise getExercise() {
-        return e;
+        return exercise;
     }
 
-    public int getCount() {
-        return count;
+    public int getScore() {
+        return score;
     }
 }

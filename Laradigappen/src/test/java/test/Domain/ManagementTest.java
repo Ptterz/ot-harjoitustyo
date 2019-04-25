@@ -239,7 +239,7 @@ public class ManagementTest {
 
     @Test
     public void getExerciseFalse1() {
-        assertEquals("Something went wrong!", mg2.getExercise());
+        assertEquals("No exercises to solve! Create a few first.", mg2.getExercise());
     }
 
     @Test
@@ -256,7 +256,7 @@ public class ManagementTest {
 
     @Test
     public void getAnswerFalse() {
-        assertEquals("Something went wrong!", mg2.getExercise());
+        assertEquals("No answer", mg2.getAnswer());
     }
 
     @Test

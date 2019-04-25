@@ -24,7 +24,22 @@ public class ExerciseDao implements Dao<Exercise, String> {
     public ExerciseDao(Database db) {
         this.db = db;
         this.exes = new ArrayList<>();
-        this.idCounter = 1;
+        try {
+            Connection connex = db.getConnection();
+            PreparedStatement stmt = connex.prepareStatement("SELECT * FROM Exercises");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Exercise e = new Exercise(rs.getInt("id"), rs.getString("question"),
+                        rs.getString("answer"), rs.getInt("level"));
+                exes.add(e);
+            }
+
+            stmt.close();
+            rs.close();
+        } catch (Exception e) {
+        }
+        this.idCounter = exes.size() + 1;
     }
 
     private int generateId() {
@@ -34,6 +49,7 @@ public class ExerciseDao implements Dao<Exercise, String> {
     @Override
     public void create(Exercise e) throws SQLException {
         e.setId(generateId());
+        exes.add(e);
 
         Connection connex = db.getConnection();
 
@@ -49,7 +65,7 @@ public class ExerciseDao implements Dao<Exercise, String> {
         stmt.close();
     }
 
-    /* This method is not in use */
+    /* This method is not used in application */
     @Override
     public Exercise read(String question) throws SQLException {
         Connection connex = db.getConnection();
@@ -70,13 +86,13 @@ public class ExerciseDao implements Dao<Exercise, String> {
         return e;
     }
 
-    /* This method is not in use */
+    /* This method is not used in application */
     @Override
     public Exercise update(Exercise e) throws SQLException {
         return e;
     }
 
-    /* This method is not in use */
+    /* This method is not used in application */
     @Override
     public void delete(String question) throws SQLException {
         for (Exercise e : exes) {
@@ -95,18 +111,6 @@ public class ExerciseDao implements Dao<Exercise, String> {
 
     @Override
     public List<Exercise> list() throws SQLException {
-        exes = new ArrayList<>();
-
-        Connection connex = db.getConnection();
-        PreparedStatement stmt = connex.prepareStatement("SELECT * FROM Exercises");
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-            Exercise e = new Exercise(rs.getInt("id"), rs.getString("question"),
-                    rs.getString("answer"), rs.getInt("level"));
-            exes.add(e);
-        }
-
         return exes;
     }
 }

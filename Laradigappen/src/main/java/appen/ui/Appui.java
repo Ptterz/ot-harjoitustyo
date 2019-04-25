@@ -493,8 +493,8 @@ public class Appui extends Application {
                 wrongAnswer.setText("");
                 timeSpent.setText(manage.timeSpent(gameBegin, gameEnd));
                 triesField.setText("Tries: " + tries);
-                manage.createNewPerformance(tries);
-                statsRightAnswer.setText(manage.getResult(tries));
+                manage.createNewPerformance(tries, (gameEnd - gameBegin));
+                statsRightAnswer.setText(manage.getResult());
                 tries = 0;
                 window.setScene(answerScene);
             } else {
@@ -517,8 +517,8 @@ public class Appui extends Application {
                     wrongAnswer.setText("");
                     timeSpent.setText(manage.timeSpent(gameBegin, gameEnd));
                     triesField.setText("Tries: " + tries);
-                    manage.createNewPerformance(tries);
-                    statsRightAnswer.setText(manage.getResult(tries));
+                    manage.createNewPerformance(tries, (gameEnd - gameBegin));
+                    statsRightAnswer.setText(manage.getResult());
                     tries = 0;
                     window.setScene(answerScene);
                 } else {
