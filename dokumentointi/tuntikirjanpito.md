@@ -14,3 +14,4 @@
 |15.4|4|Salasanan vaihto ja testejä|
 |16.4|2|Ajanlaskuri, scoreboard poisto|
 |24.4|3|JavaDoc, Checkstyle, ajastimen korjaus|
+|25.4|2|Arkkitehtuurikuvaus|
