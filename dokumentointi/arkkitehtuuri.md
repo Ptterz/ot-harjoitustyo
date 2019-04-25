@@ -24,13 +24,26 @@ Luokassa Database määritellään tietokanta, sen taulut ja yhteydet valmiiksi.
 
 Matemaattisia tehtäviä varten sovelluksen käytössä on Calculator-luokka, jossa on vain yksi metodi: calculate(String s). Metodi laskee annetun lausekkeen arvon.
 
-Kaikki varsinainen toiminta löytyy luokasta Management, joka ohjaa kaikkea sovelluksen toimintaa. Kuten alla olevasta kuvasta ilmenee, Management toimii yhdessä UI:n kanssa ja hyödyntää sekä kaikkia appen.domain-pakkauksen luokkia
-että appen.dao-pakkauksen luokkia.
+Kaikki varsinainen toiminta löytyy luokasta Management, joka ohjaa kaikkea sovelluksen toimintaa. Kuten alla olevasta kuvasta ilmenee, Management toimii yhdessä UI:n kanssa ja hyödyntää sekä lähes kaikkia appen.domain-pakkauksen luokkia
+että appen.dao-pakkauksen luokkia. Management ei suoraan käytä Database luokkaa ja sen olioita, vaan se tapahtuu epäsuorasti Daojen välityksellä.
 
 ![arkkitehtuuri](http://yuml.me/e37a4183.png)
 
 ## Tietojen tallennus
 
+Appen.dao-pakkaus pitää sisällään luokat, jotka vastaavat tiedon tallentamisesta. Luokat on toteutettu ![Data Access Object](https://en.wikipedia.org/wiki/Data_access_object) -suunnittelumallilla.
+
+Sovelluksen tiedot tallennetaan tietokantaan, joka on määritelty Database-luokan oliolle sovelluksen käynnistyessä. Sekä tehtävät että käyttäjät tallennetaan samaan tietokantaan omiin tauluihin.
+
+Player-taulu koostuu vain kahdesta sarakkeesta: nimimerkki ja salasana. Player-taulun pääavaimena toimii käyttäjän nimimerkki, joka on uniikki.  
+
+Exercise-taulussa on kolme saraketta: kysymys, vastaus ja taso. Kysymys toimii pääavaimena, koska kahta identtisen näköistä kysymystä ei haluta tallentaa.
+
 ## Toiminnallisuuksista
+Alla olevassa kuvassa on esitelty sovelluksen käynnistys, kun muun muassa Management-luokan olio luodaan, ja calculate-metodin kutsu esimerkin omaisesti.
 
 ![SekvenssikaavioCreate](https://www.websequencediagrams.com/cgi-bin/cdraw?lz=VUktPipkYjogbmV3IERhdGFiYXNlKGxhcmFkaWdhcHBlbi5kYik7CgAjBXBkACIGUGxheWVyRGFvKAASCmUAFQdFeGVyY2lzZQAQDm1hbmFnZQBgBk0ABwVtZW50KHBkLCBlZCk7CgAaBi0-KmNhbGMAgQcGQ2FsY3VsYXRvcigpOwoAfAUrAD8IYwAVB2UoLi4uADQLKwA5BnRyeXsAFQ59AFoJLT5VSTogY2F0Y2h7cmV0dXJuIGZhbHNlfTsKY2FsYy0-LQCBJAgAFwdMb25nAIEXCgAOD2NyZWF0ZQCBbAgAfhBlZACBBQcAIQUoAIITDACBNAUpfTsKZWQtAEwKAIECFQCBLA0AgScFADEFAIEYEXRydWUAgkAKLVVJAAsPCg&s=default)
+
+## Parannettavaa
+
+Koko käyttöliittymä on toteutettu yhtenä suurena luokkana, jossa esiintyy paljon toistoa. Eri näkymien eriyttäminen vähintään omiksi metodeiksi parantaisi koodin luettavuutta ja ylläpitoa. 
