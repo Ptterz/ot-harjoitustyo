@@ -7,17 +7,19 @@ import java.util.*;
  * A class to handle all the logic behind the application.
  *
  * @author Pete
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  */
 public class Management {
 
-    private Calculator calc;
-    private PlayerDao pd;
-    private ExerciseDao ed;
-    private Random r;
+    private final Calculator calc;
+    private final PlayerDao pd;
+    private final ExerciseDao ed;
+    private final PerformanceDao perfD;
+    private final Random r;
     private Exercise lastExe;
     private Player playerIn;
+    private Performance lastPerf;
     private int selectedPlayLevel;
     private int selectedCreateLevel;
     private Map<Integer, List<Exercise>> exesMap;
@@ -27,11 +29,13 @@ public class Management {
      *
      * @param pd PlayerDao linked to a specific database.
      * @param ed ExerciseDao linked to a specific database.
+     * @param perfD PerformanceDao linked to a specific database.
      */
-    public Management(PlayerDao pd, ExerciseDao ed) {
+    public Management(PlayerDao pd, ExerciseDao ed, PerformanceDao perfD) {
         this.calc = new Calculator();
         this.pd = pd;
         this.ed = ed;
+        this.perfD = perfD;
         this.r = new Random();
         this.selectedCreateLevel = 0;
         this.selectedPlayLevel = 0;
@@ -47,6 +51,10 @@ public class Management {
 
     public ExerciseDao getEd() {
         return ed;
+    }
+
+    public Performance getLatestPerformance() {
+        return lastPerf;
     }
 
     public void setSelectedPlayLevel(int level) {
@@ -110,18 +118,8 @@ public class Management {
     /**
      * Validates whether or not the string exceeds length limits.
      */
-    private boolean checkLengthNickname(String s) {
+    private boolean checkLength(String s) {
         if (s.length() == 0 || s.length() > 20) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Validates whether or not the string exceeds length limits.
-     */
-    private boolean checkLengthExercise(String s) {
-        if (s.length() == 0 || s.length() > 50) {
             return false;
         }
         return true;
@@ -141,21 +139,21 @@ public class Management {
      * @since 1.0
      */
     public boolean checkEntryNickname(String s) {
-        return checkCharsNickname(s) && checkLengthNickname(s);
+        return checkCharsNickname(s) && checkLength(s);
     }
 
     /**
      * Validates whether or not the given string is acceptable.
      */
     private boolean checkEntryFormula(String s) {
-        return checkCharsFormula(s) && checkLengthExercise(s);
+        return checkCharsFormula(s) && checkLength(s);
     }
 
     /**
      * Validates whether or not the given string is acceptable.
      */
     private boolean checkEntryFunction(String s) {
-        return checkCharsFunction(s) && checkLengthExercise(s);
+        return checkCharsFunction(s) && checkLength(s);
     }
 
     /**
@@ -167,7 +165,7 @@ public class Management {
         } catch (Exception ex) {
             return false;
         }
-        return checkLengthExercise(s);
+        return checkLength(s);
     }
 
     /**
@@ -395,7 +393,7 @@ public class Management {
             return "Something went wrong!";
         }
         if (list.isEmpty()) {
-            return "No exercises to solve!";
+            return "No exercises to solve! Create a few first.";
         }
 
         int index = r.nextInt(list.size());
@@ -435,5 +433,20 @@ public class Management {
             secs += deltaSec;
         }
         return "Time spent: " + minutes + " min " + secs + " sec";
+    }
+    
+    public void createNewPerformance(int count) {
+        Performance p = new Performance(playerIn, lastExe, count);
+        lastPerf = p;
+        try {
+            perfD.create(p);
+        } catch (Exception e) {
+            System.out.println("");
+        }
+    }
+    
+    public String getResult(int count) {
+        double result = perfD.getBetterThan(lastPerf);
+        return "You did better than " + result + "%.";
     }
 }

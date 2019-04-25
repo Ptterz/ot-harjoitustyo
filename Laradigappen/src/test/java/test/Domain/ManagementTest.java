@@ -17,6 +17,8 @@ public class ManagementTest {
     PlayerDao pd2;
     ExerciseDao ed;
     ExerciseDao ed2;
+    PerformanceDao perD;
+    PerformanceDao perD2;
     Database db;
     Database db2;
     Management mg;
@@ -30,15 +32,17 @@ public class ManagementTest {
         db.reset();
         pd = new PlayerDao(db);
         ed = new ExerciseDao(db);
+        perD = new PerformanceDao(db);
         ed.create(new Exercise("2+2", "4", 1));
-        mg = new Management(pd, ed);
+        mg = new Management(pd, ed, perD);
         mg.setSelectedPlayLevel(1);
         mg.setSelectedCreateLevel(1);
 
         db2 = new Database("");
         pd2 = new PlayerDao(db2);
         ed2 = new ExerciseDao(db2);
-        mg2 = new Management(pd2, ed2);
+        perD2 = new PerformanceDao(db2);
+        mg2 = new Management(pd2, ed2, perD2);
     }
 
     @Test
@@ -241,7 +245,7 @@ public class ManagementTest {
     @Test
     public void getExerciseFalse2() {
         mg.setSelectedPlayLevel(2);
-        assertEquals("No exercises to solve!", mg.getExercise());
+        assertEquals("No exercises to solve! Create a few first.", mg.getExercise());
     }
 
     @Test
@@ -261,7 +265,7 @@ public class ManagementTest {
         mg.checkLoginEntry("Pete", "1234");
         assertEquals("Pete", mg.getPlayerNick());
     }
-    
+
     @Test
     public void getPassword() {
         mg.createAccount("Pete", "1234");
@@ -313,19 +317,19 @@ public class ManagementTest {
     public void calculateFunctionTrue() {
         assertTrue(mg.calculateFunction("(2+3)/x", "5"));
     }
-    
+
     @Test
     public void calculateFunctionFalse() {
         assertFalse(mg.calculateFunction("9223372036854775808*x", "5"));
     }
-    
+
     @Test
     public void changePasswordTrue() {
         mg.createAccount("Pete", "1234");
         mg.checkLoginEntry("Pete", "1234");
         assertTrue(mg.changePassword("0000"));
     }
-    
+
     @Test
     public void changePasswordFalse() throws SQLException {
         mg.createAccount("Pete", "1234");

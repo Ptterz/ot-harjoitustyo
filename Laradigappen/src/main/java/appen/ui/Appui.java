@@ -28,7 +28,8 @@ public class Appui extends Application {
         db.init();
         PlayerDao pd = new PlayerDao(db);
         ExerciseDao ed = new ExerciseDao(db);
-        this.manage = new Management(pd, ed);
+        PerformanceDao perD = new PerformanceDao(db);
+        this.manage = new Management(pd, ed, perD);
         this.tries = 0;
     }
 
@@ -187,6 +188,7 @@ public class Appui extends Application {
         Label headlineField = new Label("");
         Label triesField = new Label("");
         Label timeSpent = new Label("");
+        Label statsRightAnswer = new Label("");
         Button playAgainButton = new Button("Play again");
         Button mainMenuButton = new Button("Main menu");
 
@@ -196,7 +198,8 @@ public class Appui extends Application {
         hRightAnswer.getChildren().addAll(playAgainButton, mainMenuButton);
         hRightAnswer.setSpacing(10);
 
-        vRightAnswer.getChildren().addAll(headlineField, triesField, timeSpent, hRightAnswer);
+        vRightAnswer.getChildren().addAll(headlineField, triesField, timeSpent,
+                statsRightAnswer, hRightAnswer);
         vRightAnswer.setPadding(new Insets(20, 20, 20, 20));
         vRightAnswer.setSpacing(10);
 
@@ -478,26 +481,6 @@ public class Appui extends Application {
             window.setScene(chooseCreateLevelScene);
         });
 
-        //chooseCreateLevelScene
-        createLevel1Button.setOnAction((event) -> {
-            chooseCreateLevelError.setText("");
-            manage.setSelectedCreateLevel(1);
-            window.setScene(create1Scene);
-        });
-
-        //chooseCreateLevelScene
-        createLevel2Button.setOnAction((event) -> {
-            chooseCreateLevelError.setText("");
-            manage.setSelectedCreateLevel(2);
-            window.setScene(create2Scene);
-        });
-
-        //chooseCreateLevelScene
-        createLevel3Button.setOnAction((event) -> {
-            chooseCreateLevelError.setText("The option is not yet supported.");
-            chooseCreateLevelError.setTextFill(Color.rgb(210, 39, 30));
-        });
-
         //gameScene
         checkAnswerButton.setOnAction((event) -> {
             String answer = manage.getAnswer();
@@ -510,6 +493,8 @@ public class Appui extends Application {
                 wrongAnswer.setText("");
                 timeSpent.setText(manage.timeSpent(gameBegin, gameEnd));
                 triesField.setText("Tries: " + tries);
+                manage.createNewPerformance(tries);
+                statsRightAnswer.setText(manage.getResult(tries));
                 tries = 0;
                 window.setScene(answerScene);
             } else {
@@ -532,6 +517,8 @@ public class Appui extends Application {
                     wrongAnswer.setText("");
                     timeSpent.setText(manage.timeSpent(gameBegin, gameEnd));
                     triesField.setText("Tries: " + tries);
+                    manage.createNewPerformance(tries);
+                    statsRightAnswer.setText(manage.getResult(tries));
                     tries = 0;
                     window.setScene(answerScene);
                 } else {
@@ -579,6 +566,26 @@ public class Appui extends Application {
             if (event.getCode() == KeyCode.ENTER) {
                 window.setScene(mainMenuScene);
             }
+        });
+
+        //chooseCreateLevelScene
+        createLevel1Button.setOnAction((event) -> {
+            chooseCreateLevelError.setText("");
+            manage.setSelectedCreateLevel(1);
+            window.setScene(create1Scene);
+        });
+
+        //chooseCreateLevelScene
+        createLevel2Button.setOnAction((event) -> {
+            chooseCreateLevelError.setText("");
+            manage.setSelectedCreateLevel(2);
+            window.setScene(create2Scene);
+        });
+
+        //chooseCreateLevelScene
+        createLevel3Button.setOnAction((event) -> {
+            chooseCreateLevelError.setText("The option is not yet supported.");
+            chooseCreateLevelError.setTextFill(Color.rgb(210, 39, 30));
         });
 
         //create1Scene

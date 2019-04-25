@@ -17,11 +17,15 @@ public class PlayerDaoTest {
     @Before
     public void setUp() throws SQLException {
         db = new Database("jdbc:sqlite:test.db");
-        db.reset();
         db.init();
         pd = new PlayerDao(db);
     }
-    
+
+    @After
+    public void tearDown() throws SQLException {
+        db.reset();
+    }
+
     @Test
     public void update() throws SQLException {
         Player p = new Player("Pete", "1234");
@@ -30,7 +34,7 @@ public class PlayerDaoTest {
         pd.update(p);
         assertEquals("0000", pd.read(p.getNickname()).getPassword());
     }
-    
+
     @Test
     public void delete() throws SQLException {
         Player p = new Player("Pete", "1234");

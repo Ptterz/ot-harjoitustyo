@@ -12,43 +12,57 @@ import java.util.List;
 public class ExerciseDao implements Dao<Exercise, String> {
 
     private Database db;
-    
+    private List<Exercise> exes;
+    private int idCounter;
+
     /**
      * Contructor for ExerciseDao.
+     *
      * @param db Initalized database
      * @since 1.0
      */
     public ExerciseDao(Database db) {
         this.db = db;
+        this.exes = new ArrayList<>();
+        this.idCounter = 1;
+    }
+
+    private int generateId() {
+        return idCounter++;
     }
 
     @Override
     public void create(Exercise e) throws SQLException {
+        e.setId(generateId());
+
         Connection connex = db.getConnection();
 
         PreparedStatement stmt = connex.prepareStatement("INSERT INTO Exercises"
-                + " (question, answer, level)"
-                + " VALUES (?, ?, ?)");
-        stmt.setString(1, e.getQuestion());
-        stmt.setString(2, e.getAnswer());
-        stmt.setInt(3, e.getLevel());
+                + " (id, question, answer, level)"
+                + " VALUES (?, ?, ?, ?)");
+        stmt.setInt(1, e.getId());
+        stmt.setString(2, e.getQuestion());
+        stmt.setString(3, e.getAnswer());
+        stmt.setInt(4, e.getLevel());
 
         stmt.executeUpdate();
         stmt.close();
     }
 
+    /* This method is not in use */
     @Override
-    public Exercise read(String key) throws SQLException {
+    public Exercise read(String question) throws SQLException {
         Connection connex = db.getConnection();
         PreparedStatement stmt = connex.prepareStatement("SELECT * FROM Exercises WHERE question = ?");
-        stmt.setString(1, key);
+        stmt.setString(1, question);
         ResultSet rs = stmt.executeQuery();
-        
+
         if (!rs.next()) {
             return null;
         }
 
-        Exercise e = new Exercise(rs.getString("question"), rs.getString("answer"), rs.getInt("level"));
+        Exercise e = new Exercise(rs.getInt("id"), rs.getString("question"),
+                rs.getString("answer"), rs.getInt("level"));
 
         stmt.close();
         rs.close();
@@ -56,16 +70,24 @@ public class ExerciseDao implements Dao<Exercise, String> {
         return e;
     }
 
+    /* This method is not in use */
     @Override
     public Exercise update(Exercise e) throws SQLException {
         return e;
     }
 
+    /* This method is not in use */
     @Override
-    public void delete(String key) throws SQLException {
+    public void delete(String question) throws SQLException {
+        for (Exercise e : exes) {
+            if (e.getQuestion().equals(question)) {
+                exes.remove(e);
+            }
+        }
+
         Connection connex = db.getConnection();
         PreparedStatement stmt = connex.prepareStatement("DELETE FROM Exercises WHERE question = ?");
-        stmt.setString(1, key);
+        stmt.setString(1, question);
         stmt.executeUpdate();
 
         stmt.close();
@@ -73,17 +95,15 @@ public class ExerciseDao implements Dao<Exercise, String> {
 
     @Override
     public List<Exercise> list() throws SQLException {
-        List<Exercise> exes = new ArrayList<>();
+        exes = new ArrayList<>();
 
         Connection connex = db.getConnection();
         PreparedStatement stmt = connex.prepareStatement("SELECT * FROM Exercises");
         ResultSet rs = stmt.executeQuery();
 
         while (rs.next()) {
-            String question = rs.getString("question");
-            String answer = rs.getString("answer");
-            int level = rs.getInt("level");
-            Exercise e = new Exercise(question, answer, level);
+            Exercise e = new Exercise(rs.getInt("id"), rs.getString("question"),
+                    rs.getString("answer"), rs.getInt("level"));
             exes.add(e);
         }
 
