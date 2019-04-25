@@ -2,6 +2,7 @@
 ## Rakenne
 Sovellus on toteutettu kolmitasoisella arkkitehtuurilla. Rakenne on esitelty alla olevassa kuvassa.
 ![rakenne](http://yuml.me/d61edbcb.png)
+
 Pakkauksessa appen.domain on kaikki sovelluslogiikka ja tarvittavat luokat tietojen käsittelyyn.
 Pakkaus appen.ui sisältää JavaFX:llä tehdyn käyttöliittymän.
 Appen.dao-pakkauksen luokat vastaavat tiedon tallentamisesta tietokantaan.
