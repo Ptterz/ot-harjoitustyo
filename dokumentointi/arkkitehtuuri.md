@@ -31,7 +31,7 @@ että appen.dao-pakkauksen luokkia. Management ei suoraan käytä Database luokk
 
 ## Tietojen tallennus
 
-Appen.dao-pakkaus pitää sisällään luokat, jotka vastaavat tiedon tallentamisesta. Luokat on toteutettu ![Data Access Object](https://en.wikipedia.org/wiki/Data_access_object) -suunnittelumallilla.
+Appen.dao-pakkaus pitää sisällään luokat, jotka vastaavat tiedon tallentamisesta. Luokat on toteutettu [Data Access Object](https://en.wikipedia.org/wiki/Data_access_object) -suunnittelumallilla.
 
 Sovelluksen tiedot tallennetaan tietokantaan, joka on määritelty Database-luokan oliolle sovelluksen käynnistyessä. Sekä tehtävät että käyttäjät tallennetaan samaan tietokantaan omiin tauluihin.
 
