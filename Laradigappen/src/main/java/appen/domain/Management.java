@@ -1,7 +1,6 @@
 package appen.domain;
 
 import appen.dao.*;
-import appen.database.*;
 import java.util.*;
 
 /**

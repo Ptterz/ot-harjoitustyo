@@ -2,7 +2,7 @@
 package test.Dao;
 
 import appen.dao.ExerciseDao;
-import appen.database.Database;
+import appen.domain.Database;
 import appen.domain.Exercise;
 import java.sql.Connection;
 import java.sql.SQLException;

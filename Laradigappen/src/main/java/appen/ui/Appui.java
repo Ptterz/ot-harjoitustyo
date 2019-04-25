@@ -1,7 +1,7 @@
 package appen.ui;
 
+import appen.domain.Database;
 import appen.dao.*;
-import appen.database.*;
 import appen.domain.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -321,7 +321,7 @@ public class Appui extends Application {
         //---------------------------------------------------------------------
         BorderPane logoutBorder = new BorderPane();
 
-        Label message = new Label("You have logged out. \nWindow will close in few seconds.");
+        Label message = new Label("You have logged out. \nWindow closes in few seconds.");
 
         logoutBorder.setCenter(message);
 

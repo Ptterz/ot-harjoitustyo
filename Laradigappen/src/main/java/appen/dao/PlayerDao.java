@@ -1,6 +1,6 @@
 package appen.dao;
 
-import appen.database.*;
+import appen.domain.Database;
 import appen.domain.*;
 import java.sql.*;
 import java.util.*;

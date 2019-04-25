@@ -1,6 +1,6 @@
 package appen.dao;
 
-import appen.database.Database;
+import appen.domain.Database;
 import appen.domain.Exercise;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

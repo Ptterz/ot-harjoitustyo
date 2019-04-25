@@ -1,7 +1,7 @@
 package test.Dao;
 
+import appen.domain.Database;
 import appen.dao.*;
-import appen.database.*;
 import appen.domain.*;
 import java.sql.*;
 import org.junit.*;

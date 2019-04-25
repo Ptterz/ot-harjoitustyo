@@ -1,4 +1,4 @@
-package appen.database;
+package appen.domain;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
