@@ -46,4 +46,5 @@ Alla olevassa kuvassa on esitelty sovelluksen käynnistys, kun muun muassa Manag
 
 ## Parannettavaa
 
-Koko käyttöliittymä on toteutettu yhtenä suurena luokkana, jossa esiintyy paljon toistoa. Eri näkymien eriyttäminen vähintään omiksi metodeiksi parantaisi koodin luettavuutta ja ylläpitoa. 
+Koko käyttöliittymä on toteutettu yhtenä suurena luokkana, jossa esiintyy paljon toistoa. Eri näkymien eriyttäminen omiksi metodeiksi parantaisi koodin luettavuutta ja ylläpitoa, mutta se vaatisi monien komponenttien tekemistä
+globaaleiksi, jotta eri metodi pääsisi niihin käsiksi.  
