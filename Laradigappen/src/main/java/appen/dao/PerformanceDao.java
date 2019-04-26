@@ -78,10 +78,9 @@ public class PerformanceDao implements perfDao<Performance, Integer> {
         Connection connex2 = db.getConnection();
 
         PreparedStatement stmt2 = connex2.prepareStatement("SELECT COUNT(id) AS worse FROM Performances "
-                + "WHERE (exerciseid = ? AND playerid <> ? AND score < ?);");
+                + "WHERE (exerciseid = ? AND score < ?);");
         stmt2.setInt(1, p.getExercise().getId());
-        stmt2.setString(2, p.getPlayer().getNickname());
-        stmt2.setInt(3, p.getScore());
+        stmt2.setInt(2, p.getScore());
         ResultSet rs2 = stmt2.executeQuery();
 
         if (!rs2.next()) {
