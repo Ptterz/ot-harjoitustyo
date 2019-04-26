@@ -68,7 +68,7 @@ public class PerformanceDao implements perfDao<Performance, Integer> {
         ResultSet rs = stmt.executeQuery();
         
         total = rs.getInt("total");
-        if (total == 0) {
+        if (total == 1 || total == 0) {
             return 100.0;
         }
 

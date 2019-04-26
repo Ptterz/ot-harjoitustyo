@@ -29,7 +29,6 @@ public class ManagementTest {
     public void setUp() throws SQLException {
         db = new Database("jdbc:sqlite:test.db");
         db.init();
-        db.reset();
         pd = new PlayerDao(db);
         ed = new ExerciseDao(db);
         perD = new PerformanceDao(db);
@@ -43,6 +42,11 @@ public class ManagementTest {
         ed2 = new ExerciseDao(db2);
         perD2 = new PerformanceDao(db2);
         mg2 = new Management(pd2, ed2, perD2);
+    }
+    
+    @After
+    public void tearDown() throws SQLException {
+        db.reset();
     }
 
     @Test
@@ -337,4 +341,34 @@ public class ManagementTest {
         mg.getPd().delete("Pete");
         assertFalse(mg.changePassword("0000"));
     }
+    
+    @Test
+    public void timeSpent1() throws SQLException {
+        assertEquals("Time spent: 0 min 50 sec", mg.timeSpent(50000, 100000));
+    }
+    
+    @Test
+    public void timeSpent2() throws SQLException {
+        assertEquals("Time spent: 2 min 30 sec", mg.timeSpent(50000, 200000));
+    }
+    
+    @Test
+    public void newPerformance() throws SQLException {
+        mg.createAccount("Pete", "1234");
+        mg.checkLoginEntry("Pete", "1234");
+        mg.calculate("2+2");
+        mg.getExercise();
+        mg.createNewPerformance(0, 5000);
+    }
+    
+    /* getResult() won't finish */
+//    @Test
+//    public void getResult() throws SQLException {
+//        mg.createAccount("Pete", "1234");
+//        mg.checkLoginEntry("Pete", "1234");
+//        mg.calculate("2+2");
+//        mg.getExercise();
+//        mg.createNewPerformance(0, 5000);
+//        assertEquals("You scored better than 100.0%.", mg.getResult());
+//    }
 }
