@@ -29,7 +29,7 @@ public class ExerciseDaoTest {
     public void tearDown() throws SQLException {
         db.reset();
     }
-
+    
     @Test
     public void read() throws SQLException {
         Exercise e = new Exercise("2+2", "4", 1);

@@ -12,7 +12,7 @@ public class Performance {
         this.player = p;
         this.exercise = e;
         int secs = (int) (time / 1000);
-        this.score = Math.abs(1000000 - 10000*count - 10000*secs);
+        this.score = Math.abs(1000000 - 10000*count - 1000*secs);
     }
 
     public int getId() {
