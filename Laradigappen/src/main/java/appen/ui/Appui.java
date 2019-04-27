@@ -1,6 +1,6 @@
 package appen.ui;
 
-import appen.domain.Database;
+import appen.dao.Database;
 import appen.dao.*;
 import appen.domain.*;
 import javafx.animation.AnimationTimer;

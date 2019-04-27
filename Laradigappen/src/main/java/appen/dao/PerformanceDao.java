@@ -3,7 +3,7 @@ package appen.dao;
 import appen.domain.*;
 import java.sql.*;
 
-public class PerformanceDao implements perfDao<Performance, Integer> {
+public class PerformanceDao implements PerfDao<Performance, Integer> {
 
     private Database db;
     private int idCounter;
@@ -55,26 +55,24 @@ public class PerformanceDao implements perfDao<Performance, Integer> {
         stmt.close();
     }
 
-    @Override
-    public double getBetterThan(Performance p) throws SQLException {
-        double d;
+    private int getAllRecordsOfTheExercise(Performance p) throws SQLException {
         int total;
-        int worse;
-
         Connection connex = db.getConnection();
         PreparedStatement stmt = connex.prepareStatement("SELECT COUNT(id) AS total FROM Performances "
                 + "WHERE exerciseid = ?;");
         stmt.setInt(1, p.getExercise().getId());
         ResultSet rs = stmt.executeQuery();
-        
+
         total = rs.getInt("total");
-        if (total == 1 || total == 0) {
-            return 100.0;
-        }
 
         stmt.close();
         rs.close();
 
+        return total;
+    }
+
+    private int getWorseRecords(Performance p) throws SQLException {
+        int worse;
         Connection connex2 = db.getConnection();
 
         PreparedStatement stmt2 = connex2.prepareStatement("SELECT COUNT(id) AS worse FROM Performances "
@@ -83,15 +81,20 @@ public class PerformanceDao implements perfDao<Performance, Integer> {
         stmt2.setInt(2, p.getScore());
         ResultSet rs2 = stmt2.executeQuery();
 
-        if (!rs2.next()) {
-            return 0.0;
-        } else {
-            worse = rs2.getInt("worse");
-        }
+        worse = rs2.getInt("worse");
 
         stmt2.close();
         rs2.close();
 
+        return worse;
+    }
+
+    @Override
+    public double getBetterThan(Performance p) throws SQLException {
+        int total = getAllRecordsOfTheExercise(p);
+        int worse = getWorseRecords(p);
+
+        double d;
         d = (double) worse / total;
         d *= 10000;
         d = Math.round(d);

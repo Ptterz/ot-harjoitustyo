@@ -444,7 +444,14 @@ public class Management {
         }
         return "Time spent: " + minutes + " min " + secs + " sec";
     }
-    
+
+    /**
+     * Creates a new performance record.
+     *
+     * @param count Tries used to solve the exercise
+     * @param time Time spent solving the exercise
+     * @since 1.1
+     */
     public void createNewPerformance(int count, long time) {
         Performance p = new Performance(playerIn, lastExe, count, time);
         lastPerf = p;
@@ -454,7 +461,13 @@ public class Management {
             System.out.println("");
         }
     }
-    
+
+    /**
+     * Returns a string telling how many performed worse.
+     *
+     * @return A string containing the result.
+     * @since 1.1
+     */
     public String getResult() {
         try {
             double result = perfD.getBetterThan(lastPerf);

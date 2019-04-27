@@ -1,9 +1,6 @@
-package appen.domain;
+package appen.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * A class to handle the database and connection to it.
@@ -40,23 +37,37 @@ public class Database {
     /**
      * Initializes the database and creates all the tables.
      *
-     * @throws SQLException is handled elsewhere
+     * @throws Exception is handled elsewhere
      * @since 1.0
      */
-    public void init() throws SQLException {
-        Connection connex = getConnection();
+    public void init() {
+        try {
+            Connection connex = getConnection();
+            initPlayer(connex);
+            initExercise(connex);
+            initPerformance(connex);
+        } catch (Exception e) {
+            System.out.println("");
+        }
+    }
+
+    private void initPlayer(Connection connex) throws Exception {
         connex.prepareStatement("CREATE TABLE IF NOT EXISTS Players ("
                 + "nickname VARCHAR(20) PRIMARY KEY, "
                 + "password VARCHAR(20));"
         ).executeUpdate();
+    }
 
+    private void initExercise(Connection connex) throws Exception {
         connex.prepareStatement("CREATE TABLE IF NOT EXISTS Exercises ("
                 + "id INTEGER PRIMARY KEY,"
                 + "question VARCHAR(20),"
                 + "answer VARCHAR(20),"
                 + "level INTEGER);"
         ).executeUpdate();
+    }
 
+    private void initPerformance(Connection connex) throws Exception {
         connex.prepareStatement("CREATE TABLE IF NOT EXISTS Performances ("
                 + "id INTEGER PRIMARY KEY,"
                 + "playerid VARCHAR(20),"
