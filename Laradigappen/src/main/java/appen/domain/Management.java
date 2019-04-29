@@ -467,7 +467,13 @@ public class Management {
             return "Failed to get results.";
         }
     }
-    
+    /**
+     * A timer used to automatically close the window.
+     * 
+     * @param window A stage the timer is connected to.
+     * @return Returns an AnimationTimer.
+     * @since 1.1
+     */
     public AnimationTimer getTimer(Stage window) {
         AnimationTimer timer = new AnimationTimer() {
             long edellinen = 0;

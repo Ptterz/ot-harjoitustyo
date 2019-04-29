@@ -37,7 +37,6 @@ public class Database {
     /**
      * Initializes the database and creates all the tables.
      *
-     * @throws Exception is handled elsewhere
      * @since 1.0
      */
     public void init() {

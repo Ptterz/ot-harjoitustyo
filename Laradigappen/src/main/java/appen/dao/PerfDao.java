@@ -6,8 +6,8 @@ import java.sql.*;
 /**
  * An interface to handle performances.
  *
- * @param <T>
- * @param <K>
+ * @param <T> The class of an object.
+ * @param <K> The class of a key of the object.
  *
  * @author Pete
  * @version 1.0
