@@ -3,6 +3,8 @@ package appen.domain;
 import appen.dao.*;
 import java.sql.*;
 import java.util.*;
+import javafx.animation.AnimationTimer;
+import javafx.stage.Stage;
 
 /**
  * A class to handle all the logic behind the application.
@@ -18,19 +20,28 @@ public class Management {
     private final ExerciseDao ed;
     private final PerformanceDao perfD;
     private final Random r;
+    private final Database db;
     private Exercise lastExe;
     private Player playerIn;
     private Performance lastPerf;
     private int selectedPlayLevel;
     private int selectedCreateLevel;
-    private Map<Integer, List<Exercise>> exesMap;
 
     /**
      * A constructor for a variable of the management class.
+     * 
+     * @param b A boolean value to connect to different database for tests.
+     * @since 1.0
      */
-    public Management() {
+    public Management(boolean b) {
         this.calc = new Calculator();
-        Database db = new Database("jdbc:sqlite:laradigappen.db");
+        if (b) {
+            db = new Database("jdbc:sqlite:laradigappen.db");
+            db.init();
+        } else {
+            db = new Database("jdbc:sqlite:test.db");
+            db.init();
+        }
         this.pd = new PlayerDao(db);
         this.ed = new ExerciseDao(db);
         this.perfD = new PerformanceDao(db);
@@ -39,6 +50,10 @@ public class Management {
         this.selectedPlayLevel = 0;
     }
 
+    public Database getDb() {
+        return db;
+    }
+    
     public Calculator getCalc() {
         return calc;
     }
@@ -187,7 +202,7 @@ public class Management {
      * @since 1.0
      */
     public boolean checkNameAvailability(String name) {
-        List<Player> players = new ArrayList<>();
+        List<Player> players;
 
         try {
             players = pd.list();
@@ -451,5 +466,26 @@ public class Management {
         } catch (Exception e) {
             return "Failed to get results.";
         }
+    }
+    
+    public AnimationTimer getTimer(Stage window) {
+        AnimationTimer timer = new AnimationTimer() {
+            long edellinen = 0;
+            long counter = 0;
+
+            @Override
+            public void handle(long nykyhetki) {
+                if (nykyhetki - edellinen < 1000000000) {
+                    if (counter < 400) {
+                        counter++;
+                        return;
+                    }
+                    window.close();
+                }
+
+                this.edellinen = nykyhetki;
+            }
+        };
+        return timer;
     }
 }

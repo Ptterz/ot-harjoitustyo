@@ -18,34 +18,14 @@ public class Appui extends Application {
     private Stage window;
     private Management manage;
     private int tries;
-    private int selectedLevel;
     private long gameBegin;
     private long gameEnd;
-    private AnimationTimer timer;
 
     @Override
     public void start(Stage frame) throws Exception {
-        this.manage = new Management();
+        this.manage = new Management(true);
         this.tries = 0;
         window = frame;
-        
-        timer = new AnimationTimer() {
-            long edellinen = 0;
-            long counter = 0;
-
-            @Override
-            public void handle(long nykyhetki) {
-                if (nykyhetki - edellinen < 1000000000) {
-                    if (counter < 400) {
-                        counter++;
-                        return;
-                    }
-                    window.close();
-                }
-
-                this.edellinen = nykyhetki;
-            }
-        };
 
         window.setScene(getOpenScene(window));
         window.show();
@@ -132,7 +112,7 @@ public class Appui extends Application {
 
         quitButton.setOnAction((event) -> {
             window.setScene(getLogoutScene(window));
-            timer.start();
+            manage.getTimer(window).start();
         });
 
         VBox vMainMenu = new VBox();
@@ -403,7 +383,7 @@ public class Appui extends Application {
     }
 
     private Scene getChooseCreateLevelScene(Stage window) {
-        Label chooseCreteLevel = new Label("Choose a level.");
+        Label chooseCreateLevel = new Label("Choose a level.");
         Button createLevel1Button = new Button("Basics");
         Button createLevel2Button = new Button("Functions");
         Button createLevel3Button = new Button("Equations");
@@ -425,7 +405,7 @@ public class Appui extends Application {
         });
 
         VBox vChooseCreateLevel = new VBox();
-        vChooseCreateLevel.getChildren().addAll(createLevel1Button,
+        vChooseCreateLevel.getChildren().addAll(chooseCreateLevel, createLevel1Button,
                 createLevel2Button, createLevel3Button, chooseCreateLevelError);
         vChooseCreateLevel.setPadding(new Insets(20, 20, 20, 20));
         vChooseCreateLevel.setSpacing(10);
