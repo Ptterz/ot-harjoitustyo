@@ -33,7 +33,7 @@ public class ManagementTest {
         ed = new ExerciseDao(db);
         perD = new PerformanceDao(db);
         ed.create(new Exercise("2+2", "4", 1));
-        mg = new Management(pd, ed, perD);
+        mg = new Management();
         mg.setSelectedPlayLevel(1);
         mg.setSelectedCreateLevel(1);
 
@@ -41,7 +41,7 @@ public class ManagementTest {
         pd2 = new PlayerDao(db2);
         ed2 = new ExerciseDao(db2);
         perD2 = new PerformanceDao(db2);
-        mg2 = new Management(pd2, ed2, perD2);
+        mg2 = new Management();
     }
     
     @After

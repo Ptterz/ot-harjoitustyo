@@ -21,26 +21,37 @@ public class Appui extends Application {
     private int selectedLevel;
     private long gameBegin;
     private long gameEnd;
-
-    @Override
-    public void init() throws Exception {
-        Database db = new Database("jdbc:sqlite:laradigappen.db");
-        db.init();
-        PlayerDao pd = new PlayerDao(db);
-        ExerciseDao ed = new ExerciseDao(db);
-        PerformanceDao perD = new PerformanceDao(db);
-        this.manage = new Management(pd, ed, perD);
-        this.tries = 0;
-    }
+    private AnimationTimer timer;
 
     @Override
     public void start(Stage frame) throws Exception {
-
+        this.manage = new Management();
+        this.tries = 0;
         window = frame;
+        
+        timer = new AnimationTimer() {
+            long edellinen = 0;
+            long counter = 0;
 
-        //---------------------------------------------------------------------
-        //Aloitusnäkymä                                         Aloitusnäkymä
-        //---------------------------------------------------------------------
+            @Override
+            public void handle(long nykyhetki) {
+                if (nykyhetki - edellinen < 1000000000) {
+                    if (counter < 400) {
+                        counter++;
+                        return;
+                    }
+                    window.close();
+                }
+
+                this.edellinen = nykyhetki;
+            }
+        };
+
+        window.setScene(getOpenScene(window));
+        window.show();
+    }
+
+    private Scene getOpenScene(Stage window) {
         Label nameText = new Label("Nickname: ");
         TextField nameField = new TextField();
         Label passwordText = new Label("Password: ");
@@ -48,6 +59,30 @@ public class Appui extends Application {
         Label failureText = new Label("");
         Button loginButton = new Button("Login");
         Button createAccountButton = new Button("Create an account");
+
+        passwordField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
+                    failureText.setText("Invalid nickname or password!");
+                    failureText.setTextFill(Color.rgb(210, 39, 30));
+                    return;
+                }
+                window.setScene(getMainMenuScene(window));
+            }
+        });
+
+        loginButton.setOnAction((event) -> {
+            if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
+                failureText.setText("Invalid nickname or password!");
+                failureText.setTextFill(Color.rgb(210, 39, 30));
+                return;
+            }
+            window.setScene(getMainMenuScene(window));
+        });
+
+        createAccountButton.setOnAction((event) -> {
+            window.setScene(getCreateAccountScene(window));
+        });
 
         VBox beg = new VBox();
 
@@ -67,11 +102,50 @@ public class Appui extends Application {
         beg.setPadding(new Insets(20, 20, 20, 20));
         beg.setSpacing(10);
 
-        Scene openScene = new Scene(beg, 400, 300);
+        return new Scene(beg, 400, 300);
+    }
 
-        //---------------------------------------------------------------------
-        //Tunnusten luonti                                    Tunnusten luonti
-        //---------------------------------------------------------------------
+    private Scene getMainMenuScene(Stage window) {
+        Label menuText = new Label("Welcome!");
+        Button playButton = new Button("Play");
+        Button createButton = new Button("Create");
+        Button playerInfoButton = new Button("My account");
+        Button logoutButton = new Button("Logout");
+        Button quitButton = new Button("Quit");
+        Label versionLabel = new Label("Version 1.0");
+
+        createButton.setOnAction((event) -> {
+            window.setScene(getChooseCreateLevelScene(window));
+        });
+
+        playButton.setOnAction((event) -> {
+            window.setScene(getChooseGameLevelScene(window));
+        });
+
+        playerInfoButton.setOnAction((event) -> {
+            window.setScene(getPlayerInfoScene(window));
+        });
+
+        logoutButton.setOnAction((event) -> {
+            window.setScene(getOpenScene(window));
+        });
+
+        quitButton.setOnAction((event) -> {
+            window.setScene(getLogoutScene(window));
+            timer.start();
+        });
+
+        VBox vMainMenu = new VBox();
+
+        vMainMenu.getChildren().addAll(menuText, playButton, createButton,
+                playerInfoButton, logoutButton, quitButton, versionLabel);
+        vMainMenu.setPadding(new Insets(20, 20, 20, 20));
+        vMainMenu.setSpacing(10);
+
+        return new Scene(vMainMenu, 400, 300);
+    }
+
+    private Scene getCreateAccountScene(Stage window) {
         Label tryNameText = new Label("Nickname (max. 20 letters and numbers):");
         TextField tryNameField = new TextField();
         Label tryPasswordText = new Label("Password (max. 20 letters and numbers):");
@@ -83,6 +157,59 @@ public class Appui extends Application {
         Button createNewAccountButton = new Button("Create");
         Button backToLoginButton = new Button("Back");
         Label passwordNotMatch = new Label("");
+
+        checkNameAvailabilityButton.setOnAction((event) -> {
+            String name = tryNameField.getText();
+
+            if (!manage.checkEntryNickname(name)) {
+                nameAvailable.setText("Invalid nickname!");
+                nameAvailable.setTextFill(Color.rgb(210, 39, 30));
+            } else if (!manage.checkNameAvailability(name)) {
+                nameAvailable.setText("Nickname already taken!");
+                nameAvailable.setTextFill(Color.rgb(210, 39, 30));
+            } else {
+                nameAvailable.setText("Nickname available!");
+                nameAvailable.setTextFill(Color.rgb(21, 117, 84));
+            }
+        });
+
+        tryNameField.setOnKeyTyped((event) -> {
+            nameAvailable.setText("");
+        });
+
+        tryPasswordField.setOnKeyTyped((event) -> {
+            passwordNotMatch.setText("");
+        });
+
+        tryPasswordField2.setOnKeyTyped((event) -> {
+            passwordNotMatch.setText("");
+        });
+
+        createNewAccountButton.setOnAction((event) -> {
+            String ps1 = tryPasswordField.getText();
+            String ps2 = tryPasswordField2.getText();
+
+            if (!(manage.checkPasswordEntry(ps1, ps2))) {
+                passwordNotMatch.setText("Invalid password!");
+                passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
+            } else {
+                String name = tryNameField.getText();
+                if (nameAvailable.getText().equals("Nickname available!")) {
+                    if (manage.createAccount(name, ps1)) {
+                        window.setScene(getOpenScene(window));
+                    } else {
+                        passwordNotMatch.setText("Something went wrong. Try again.");
+                    }
+                } else {
+                    passwordNotMatch.setText("Check if nickname available!");
+                    passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
+                }
+            }
+        });
+
+        backToLoginButton.setOnAction((event) -> {
+            window.setScene(getOpenScene(window));
+        });
 
         VBox vCreateAccount = new VBox();
 
@@ -120,37 +247,40 @@ public class Appui extends Application {
         vCreateAccount.setPadding(new Insets(20, 20, 20, 20));
         vCreateAccount.setSpacing(10);
 
-        Scene createAccountScene = new Scene(vCreateAccount, 400, 300);
+        return new Scene(vCreateAccount, 400, 300);
+    }
 
-        //---------------------------------------------------------------------
-        //Valikkonäkymä                                         Valikkonäkymä
-        //---------------------------------------------------------------------
-        Label menuText = new Label("Welcome!");
-        Button playButton = new Button("Play");
-        Button createButton = new Button("Create");
-        Button playerInfoButton = new Button("My account");
-        Button logoutButton = new Button("Logout");
-        Button quitButton = new Button("Quit");
-        Label versionLabel = new Label("Version 1.0");
-
-        VBox vMainMenu = new VBox();
-
-        vMainMenu.getChildren().addAll(menuText, playButton, createButton,
-                playerInfoButton, logoutButton, quitButton, versionLabel);
-        vMainMenu.setPadding(new Insets(20, 20, 20, 20));
-        vMainMenu.setSpacing(10);
-
-        Scene mainMenuScene = new Scene(vMainMenu, 400, 300);
-
-        //---------------------------------------------------------------------
-        //Level - Game                                          Level - Game
-        //---------------------------------------------------------------------
+    private Scene getChooseGameLevelScene(Stage window) {
         Label choosePlayLevel = new Label("Choose a level.");
         Button playLevel1Button = new Button("Basics");
         Button playLevel2Button = new Button("Functions");
         Button playLevel3Button = new Button("Equations");
         Button playAllButton = new Button("Bring it on!");
         Label choosePlayLevelError = new Label("");
+
+        playLevel1Button.setOnAction((event) -> {
+            gameBegin = System.currentTimeMillis();
+            manage.setSelectedPlayLevel(1);
+            window.setScene(getGameScene(window));
+        });
+
+        playLevel2Button.setOnAction((event) -> {
+            gameBegin = System.currentTimeMillis();
+            manage.setSelectedPlayLevel(2);
+            window.setScene(getGameScene(window));
+        });
+
+        playLevel3Button.setOnAction((event) -> {
+            gameBegin = System.currentTimeMillis();
+            choosePlayLevelError.setText("The option is not yet supported.");
+            choosePlayLevelError.setTextFill(Color.rgb(210, 39, 30));
+        });
+
+        playAllButton.setOnAction((event) -> {
+            gameBegin = System.currentTimeMillis();
+            manage.setSelectedPlayLevel(0);
+            window.setScene(getGameScene(window));
+        });
 
         VBox vChoosePlayLevel = new VBox();
         vChoosePlayLevel.getChildren().addAll(choosePlayLevel, playLevel1Button,
@@ -159,16 +289,50 @@ public class Appui extends Application {
         vChoosePlayLevel.setPadding(new Insets(20, 20, 20, 20));
         vChoosePlayLevel.setSpacing(10);
 
-        Scene choosePlayLevelScene = new Scene(vChoosePlayLevel, 400, 300);
+        return new Scene(vChoosePlayLevel, 400, 300);
+    }
 
-        //---------------------------------------------------------------------
-        //Game                                                      Game
-        //---------------------------------------------------------------------
-        Label exerciseText = new Label("");
+    private Scene getGameScene(Stage window) {
+        String solve = "Solve: " + manage.getExercise();
+        Label exerciseText = new Label(solve);
         TextField answerField = new TextField();
         Label wrongAnswer = new Label("");
         Button checkAnswerButton = new Button("Submit your answer");
         Button forfeitButton = new Button("Forfeit");
+
+        checkAnswerButton.setOnAction((event) -> {
+            String answer = manage.getAnswer();
+            if (answerField.getText().equals(answer)) {
+                gameEnd = System.currentTimeMillis();
+                window.setScene(getAnswerScene(window, true));
+            } else {
+                tries++;
+                wrongAnswer.setText("Answer is not correct.");
+                wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
+            }
+        });
+
+        answerField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                String answer = manage.getAnswer();
+                if (answerField.getText().equals(answer)) {
+                    gameEnd = System.currentTimeMillis();
+                    window.setScene(getAnswerScene(window, true));
+                } else {
+                    tries++;
+                    wrongAnswer.setText("Answer is not correct.");
+                    wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
+                }
+            }
+        });
+
+        forfeitButton.setOnAction((event) -> {
+            window.setScene(getAnswerScene(window, false));
+        });
+
+        answerField.setOnKeyTyped((event) -> {
+            wrongAnswer.setText("");
+        });
 
         VBox vGame = new VBox();
         HBox hGame = new HBox();
@@ -180,17 +344,49 @@ public class Appui extends Application {
         vGame.setPadding(new Insets(20, 20, 20, 20));
         vGame.setSpacing(10);
 
-        Scene gameScene = new Scene(vGame, 400, 300);
+        return new Scene(vGame, 400, 300);
+    }
 
-        //---------------------------------------------------------------------
-        //Answer                                                   Answer
-        //---------------------------------------------------------------------
-        Label headlineField = new Label("");
+    private Scene getAnswerScene(Stage window, boolean b) {
+        Label headlineField = new Label("Results");
         Label triesField = new Label("");
         Label timeSpent = new Label("");
         Label statsRightAnswer = new Label("");
         Button playAgainButton = new Button("Play again");
         Button mainMenuButton = new Button("Main menu");
+
+        if (b) {
+            timeSpent.setText(manage.timeSpent(gameBegin, gameEnd));
+            triesField.setText("Tries: " + tries);
+            manage.createNewPerformance(tries, (gameEnd - gameBegin));
+            statsRightAnswer.setText(manage.getResult());
+        } else {
+            triesField.setText("Tries: ");
+            timeSpent.setText("Time spent: ");
+            tries = 0;
+        }
+
+        playAgainButton.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                gameBegin = System.currentTimeMillis();
+                window.setScene(getGameScene(window));
+            }
+        });
+
+        playAgainButton.setOnAction((event) -> {
+            gameBegin = System.currentTimeMillis();
+            window.setScene(getGameScene(window));
+        });
+
+        mainMenuButton.setOnAction((event) -> {
+            window.setScene(getMainMenuScene(window));
+        });
+
+        mainMenuButton.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                window.setScene(getMainMenuScene(window));
+            }
+        });
 
         VBox vRightAnswer = new VBox();
 
@@ -203,16 +399,30 @@ public class Appui extends Application {
         vRightAnswer.setPadding(new Insets(20, 20, 20, 20));
         vRightAnswer.setSpacing(10);
 
-        Scene answerScene = new Scene(vRightAnswer, 400, 300);
+        return new Scene(vRightAnswer, 400, 300);
+    }
 
-        //---------------------------------------------------------------------
-        //Level - Create                                        Level - Create
-        //---------------------------------------------------------------------
+    private Scene getChooseCreateLevelScene(Stage window) {
         Label chooseCreteLevel = new Label("Choose a level.");
         Button createLevel1Button = new Button("Basics");
         Button createLevel2Button = new Button("Functions");
         Button createLevel3Button = new Button("Equations");
         Label chooseCreateLevelError = new Label("");
+
+        createLevel1Button.setOnAction((event) -> {
+            manage.setSelectedCreateLevel(1);
+            window.setScene(getCreate1Scene(window));
+        });
+
+        createLevel2Button.setOnAction((event) -> {
+            manage.setSelectedCreateLevel(2);
+            window.setScene(getCreate2Scene(window));
+        });
+
+        createLevel3Button.setOnAction((event) -> {
+            chooseCreateLevelError.setText("The option is not yet supported.");
+            chooseCreateLevelError.setTextFill(Color.rgb(210, 39, 30));
+        });
 
         VBox vChooseCreateLevel = new VBox();
         vChooseCreateLevel.getChildren().addAll(createLevel1Button,
@@ -220,16 +430,37 @@ public class Appui extends Application {
         vChooseCreateLevel.setPadding(new Insets(20, 20, 20, 20));
         vChooseCreateLevel.setSpacing(10);
 
-        Scene chooseCreateLevelScene = new Scene(vChooseCreateLevel, 400, 300);
+        return new Scene(vChooseCreateLevel, 400, 300);
+    }
 
-        //---------------------------------------------------------------------
-        //Create 1                                                  Create 1
-        //---------------------------------------------------------------------
+    private Scene getCreate1Scene(Stage window) {
         Label formulaText = new Label("Formula: ");
         TextField formulaField = new TextField();
         Label formulaErrorText = new Label("");
         Button submitFormulaButton = new Button("Submit");
         Button create1ReturnButton = new Button("Back");
+
+        submitFormulaButton.setOnAction((event) -> {
+            String s = formulaField.getText();
+            if (manage.checkSubmittedFormula(s)) {
+                if (manage.calculate(s)) {
+                    formulaErrorText.setText("Exercise succesfully submitted!");
+                    formulaErrorText.setTextFill(Color.rgb(21, 117, 84));
+                    formulaField.clear();
+                } else {
+                    formulaErrorText.setText("Invalid formula!");
+                    formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
+                }
+            } else {
+                formulaErrorText.setText("Invalid formula!");
+                formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
+            }
+        });
+
+        create1ReturnButton.setOnAction((event) -> {
+            formulaField.clear();
+            window.setScene(getMainMenuScene(window));
+        });
 
         VBox vCreate1 = new VBox();
 
@@ -238,15 +469,13 @@ public class Appui extends Application {
         hCreate1.setSpacing(10);
 
         vCreate1.getChildren().addAll(formulaText, formulaField, formulaErrorText, hCreate1);
-
         vCreate1.setPadding(new Insets(20, 20, 20, 20));
         vCreate1.setSpacing(10);
 
-        Scene create1Scene = new Scene(vCreate1, 400, 300);
+        return new Scene(vCreate1, 400, 300);
+    }
 
-        //---------------------------------------------------------------------
-        //Create 2                                                  Create 2
-        //---------------------------------------------------------------------
+    private Scene getCreate2Scene(Stage window) {
         Label create2Text = new Label("Enter both a function and a value for variable x.");
         Label functionText = new Label("f(x) =");
         Label functionValueText = new Label("x =");
@@ -255,6 +484,27 @@ public class Appui extends Application {
         Label functionErrorText = new Label("");
         Button submitFunctionButton = new Button("Submit");
         Button create2ReturnButton = new Button("Back");
+
+        submitFunctionButton.setOnAction((event) -> {
+            String f = functionField.getText();
+            String v = functionValueField.getText();
+            if (manage.checkSubmittedFunction(f, v)) {
+                if (manage.calculateFunction(f, v)) {
+                    functionErrorText.setText("Exercise succesfully submitted!");
+                    functionErrorText.setTextFill(Color.rgb(21, 117, 84));
+                } else {
+                    functionErrorText.setText("Invalid function and/or value!");
+                    functionErrorText.setTextFill(Color.rgb(210, 39, 30));
+                }
+            } else {
+                functionErrorText.setText("Invalid function and/or value!");
+                functionErrorText.setTextFill(Color.rgb(210, 39, 30));
+            }
+        });
+
+        create2ReturnButton.setOnAction((event) -> {
+            window.setScene(getMainMenuScene(window));
+        });
 
         VBox vCreate2 = new VBox();
 
@@ -269,16 +519,14 @@ public class Appui extends Application {
         hCreate2.setSpacing(10);
 
         vCreate2.getChildren().addAll(create2Text, gridCreate2, functionErrorText, hCreate2);
-
         vCreate2.setPadding(new Insets(20, 20, 20, 20));
         vCreate2.setSpacing(10);
 
-        Scene create2Scene = new Scene(vCreate2, 400, 300);
+        return new Scene(vCreate2, 400, 300);
+    }
 
-        //---------------------------------------------------------------------
-        //Player info                                           Player info
-        //---------------------------------------------------------------------
-        Label playerHeader = new Label("Player info");
+    private Scene getPlayerInfoScene(Stage window) {
+        Label playerHeader = new Label(manage.getPlayerNick());
         Button playerSetPasswordButton = new Button("Change password");
         Button playerReturnButton = new Button("Back");
         Label playerMessagePassword = new Label("");
@@ -299,380 +547,14 @@ public class Appui extends Application {
         Button submitNewPasswordButton = new Button("Submit changes");
         submitNewPasswordButton.setVisible(false);
 
-        VBox vPlayer = new VBox();
-        HBox h1Player = new HBox();
-        GridPane gPlayer = new GridPane();
-
-        h1Player.getChildren().addAll(playerSetPasswordButton, playerReturnButton);
-        h1Player.setSpacing(10);
-
-        gPlayer.addColumn(0, oldPassword, newPassword1, newPassword2);
-        gPlayer.addColumn(1, oldPasswordField, newPasswordField1, newPasswordField2);
-        gPlayer.setHgap(10);
-        gPlayer.setVgap(10);
-
-        vPlayer.getChildren().addAll(playerHeader, h1Player, playerMessagePassword,
-                gPlayer, submitNewPasswordButton);
-
-        vPlayer.setPadding(new Insets(20, 20, 20, 20));
-        vPlayer.setSpacing(10);
-
-        Scene playerInfoScene = new Scene(vPlayer, 400, 300);
-
-        //---------------------------------------------------------------------
-        //Logout                                                    Logout
-        //---------------------------------------------------------------------
-        BorderPane logoutBorder = new BorderPane();
-
-        Label message = new Label("You have logged out. \nWindow closes in few seconds.");
-
-        logoutBorder.setCenter(message);
-
-        Scene logoutScene = new Scene(logoutBorder, 400, 300);
-
-        //---------------------------------------------------------------------
-        //Button functions                                    Button functions 
-        //---------------------------------------------------------------------
-        //openScene
-        passwordField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
-                    failureText.setText("Invalid nickname or password!");
-                    failureText.setTextFill(Color.rgb(210, 39, 30));
-                    return;
-                }
-
-                window.setScene(mainMenuScene);
-            }
+        playerReturnButton.setOnAction((event) -> {
+            window.setScene(getMainMenuScene(window));
         });
 
-        //openScene
-        loginButton.setOnAction((event) -> {
-            if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
-                failureText.setText("Invalid nickname or password!");
-                failureText.setTextFill(Color.rgb(210, 39, 30));
-                return;
-            }
-
-            window.setScene(mainMenuScene);
-        });
-
-        //openScene
-        createAccountButton.setOnAction((event) -> {
-            window.setScene(createAccountScene);
-        });
-
-        //createAccountScene
-        checkNameAvailabilityButton.setOnAction((event) -> {
-
-            String name = tryNameField.getText();
-
-            if (!manage.checkEntryNickname(name)) {
-                nameAvailable.setText("Invalid nickname!");
-                nameAvailable.setTextFill(Color.rgb(210, 39, 30));
-            } else if (!manage.checkNameAvailability(name)) {
-                nameAvailable.setText("Nickname already taken!");
-                nameAvailable.setTextFill(Color.rgb(210, 39, 30));
-            } else {
-                nameAvailable.setText("Nickname available!");
-                nameAvailable.setTextFill(Color.rgb(21, 117, 84));
-            }
-        });
-
-        //createAccountScene
-        tryNameField.setOnKeyTyped((event) -> {
-            nameAvailable.setText("");
-        });
-
-        //createAccountScene
-        answerField.setOnKeyTyped((event) -> {
-            wrongAnswer.setText("");
-        });
-
-        //createAccountScene
-        tryPasswordField.setOnKeyTyped((event) -> {
-            passwordNotMatch.setText("");
-        });
-
-        //createAccountScene
-        tryPasswordField2.setOnKeyTyped((event) -> {
-            passwordNotMatch.setText("");
-        });
-
-        //createAccountScene
-        createNewAccountButton.setOnAction((event) -> {
-
-            String ps1 = tryPasswordField.getText();
-            String ps2 = tryPasswordField2.getText();
-
-            if (!(manage.checkPasswordEntry(ps1, ps2))) {
-                passwordNotMatch.setText("Invalid password!");
-                passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
-            } else {
-                String name = tryNameField.getText();
-                if (nameAvailable.getText().equals("Nickname available!")) {
-                    if (manage.createAccount(name, ps1)) {
-                        failureText.setText("");
-                        nameField.clear();
-                        passwordField.clear();
-                        window.setScene(openScene);
-                    } else {
-                        passwordNotMatch.setText("Something went wrong. Try again.");
-                    }
-                } else {
-                    passwordNotMatch.setText("Check if nickname available!");
-                    passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
-                }
-            }
-        });
-
-        //createAccountScene
-        backToLoginButton.setOnAction((event) -> {
-            failureText.setText("");
-            nameField.clear();
-            passwordField.clear();
-            window.setScene(openScene);
-        });
-
-        //mainMenuScene
-        playButton.setOnAction((event) -> {
-            window.setScene(choosePlayLevelScene);
-        });
-
-        //choosePlayLevelScene
-        playLevel1Button.setOnAction((event) -> {
-            gameBegin = System.currentTimeMillis();
-            choosePlayLevelError.setText("");
-            manage.setSelectedPlayLevel(1);
-            String solve = "Solve: " + manage.getExercise();
-            exerciseText.setText(solve);
-            window.setScene(gameScene);
-        });
-
-        //choosePlayLevelScene
-        playLevel2Button.setOnAction((event) -> {
-            gameBegin = System.currentTimeMillis();
-            choosePlayLevelError.setText("");
-            manage.setSelectedPlayLevel(2);
-            String solve = "Solve: " + manage.getExercise();
-            exerciseText.setText(solve);
-            window.setScene(gameScene);
-        });
-
-        //choosePlayLevelScene
-        playLevel3Button.setOnAction((event) -> {
-            gameBegin = System.currentTimeMillis();
-            choosePlayLevelError.setText("The option is not yet supported.");
-            choosePlayLevelError.setTextFill(Color.rgb(210, 39, 30));
-        });
-
-        //choosePlayLevelScene
-        playAllButton.setOnAction((event) -> {
-            gameBegin = System.currentTimeMillis();
-            choosePlayLevelError.setText("");
-            manage.setSelectedPlayLevel(0);
-            String solve = "Solve: " + manage.getExercise();
-            exerciseText.setText(solve);
-            window.setScene(gameScene);
-        });
-
-        //mainMenuScene
-        createButton.setOnAction((event) -> {
-            window.setScene(chooseCreateLevelScene);
-        });
-
-        //gameScene
-        checkAnswerButton.setOnAction((event) -> {
-            String answer = manage.getAnswer();
-            if (answerField.getText().equals(answer)) {
-                gameEnd = System.currentTimeMillis();
-                String newExe = "Solve: " + manage.getExercise();
-                exerciseText.setText(newExe);
-                answerField.clear();
-                headlineField.setText("Correct answer!");
-                wrongAnswer.setText("");
-                timeSpent.setText(manage.timeSpent(gameBegin, gameEnd));
-                triesField.setText("Tries: " + tries);
-                manage.createNewPerformance(tries, (gameEnd - gameBegin));
-                statsRightAnswer.setText(manage.getResult());
-                tries = 0;
-                window.setScene(answerScene);
-            } else {
-                tries++;
-                wrongAnswer.setText("Answer is not correct.");
-                wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
-            }
-        });
-
-        //gameScene
-        answerField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                String answer = manage.getAnswer();
-                if (answerField.getText().equals(answer)) {
-                    gameEnd = System.currentTimeMillis();
-                    String newExe = "Solve: " + manage.getExercise();
-                    exerciseText.setText(newExe);
-                    answerField.clear();
-                    headlineField.setText("Correct answer!");
-                    wrongAnswer.setText("");
-                    timeSpent.setText(manage.timeSpent(gameBegin, gameEnd));
-                    triesField.setText("Tries: " + tries);
-                    manage.createNewPerformance(tries, (gameEnd - gameBegin));
-                    statsRightAnswer.setText(manage.getResult());
-                    tries = 0;
-                    window.setScene(answerScene);
-                } else {
-                    tries++;
-                    wrongAnswer.setText("Answer is not correct.");
-                    wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
-                }
-            }
-        });
-
-        //gameScene
-        forfeitButton.setOnAction((event) -> {
-            String newExe = "Solve: " + manage.getExercise();
-            exerciseText.setText(newExe);
-            answerField.clear();
-            headlineField.setText("You should try harder!");
-            wrongAnswer.setText("");
-            triesField.setText("Tries: ");
-            timeSpent.setText("Time spent: ");
-            tries = 0;
-            window.setScene(answerScene);
-        });
-
-        //rightAnswerScene
-        playAgainButton.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                gameBegin = System.currentTimeMillis();
-                window.setScene(gameScene);
-            }
-        });
-
-        //rightAnswerScene
-        playAgainButton.setOnAction((event) -> {
-            gameBegin = System.currentTimeMillis();
-            window.setScene(gameScene);
-        });
-
-        //rightAnswerScene
-        mainMenuButton.setOnAction((event) -> {
-            window.setScene(mainMenuScene);
-        });
-
-        //rightAnswerScene
-        mainMenuButton.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                window.setScene(mainMenuScene);
-            }
-        });
-
-        //chooseCreateLevelScene
-        createLevel1Button.setOnAction((event) -> {
-            chooseCreateLevelError.setText("");
-            manage.setSelectedCreateLevel(1);
-            window.setScene(create1Scene);
-        });
-
-        //chooseCreateLevelScene
-        createLevel2Button.setOnAction((event) -> {
-            chooseCreateLevelError.setText("");
-            manage.setSelectedCreateLevel(2);
-            window.setScene(create2Scene);
-        });
-
-        //chooseCreateLevelScene
-        createLevel3Button.setOnAction((event) -> {
-            chooseCreateLevelError.setText("The option is not yet supported.");
-            chooseCreateLevelError.setTextFill(Color.rgb(210, 39, 30));
-        });
-
-        //create1Scene
-        submitFormulaButton.setOnAction((event) -> {
-            //lisää tehtävä talteen ja tarkasta se(?)
-            String s = formulaField.getText();
-            if (manage.checkSubmittedFormula(s)) {
-                if (manage.calculate(s)) {
-                    formulaErrorText.setText("Exercise succesfully submitted!");
-                    formulaErrorText.setTextFill(Color.rgb(21, 117, 84));
-                    formulaField.clear();
-                } else {
-                    formulaErrorText.setText("Invalid formula!");
-                    formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
-                }
-            } else {
-                formulaErrorText.setText("Invalid formula!");
-                formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
-            }
-        });
-
-        //create2Scene
-        submitFunctionButton.setOnAction((event) -> {
-            String f = functionField.getText();
-            String v = functionValueField.getText();
-            if (manage.checkSubmittedFunction(f, v)) {
-                if (manage.calculateFunction(f, v)) {
-                    functionErrorText.setText("Exercise succesfully submitted!");
-                    functionErrorText.setTextFill(Color.rgb(21, 117, 84));
-                    functionField.clear();
-                    functionValueField.clear();
-                } else {
-                    functionErrorText.setText("Invalid function and/or value!");
-                    functionErrorText.setTextFill(Color.rgb(210, 39, 30));
-                }
-            } else {
-                functionErrorText.setText("Invalid function and/or value!");
-                functionErrorText.setTextFill(Color.rgb(210, 39, 30));
-            }
-        });
-
-        //createScene
-        create1ReturnButton.setOnAction((event) -> {
-            formulaField.clear();
-            window.setScene(mainMenuScene);
-        });
-
-        //createScene
-        create2ReturnButton.setOnAction((event) -> {
-            functionField.clear();
-            functionValueField.clear();
-            window.setScene(mainMenuScene);
-        });
-
-        //mainMenuScene
-        playerInfoButton.setOnAction((event) -> {
-            playerHeader.setText(manage.getPlayerNick());
-            window.setScene(playerInfoScene);
-        });
-
-        //playerInfoScene
-        playerSetPasswordButton.setOnAction((event) -> {
-            playerMessagePassword.setText("");
-            oldPassword.setVisible(true);
-            newPassword1.setVisible(true);
-            newPassword2.setVisible(true);
-            oldPasswordField.setVisible(true);
-            newPasswordField1.setVisible(true);
-            newPasswordField2.setVisible(true);
-            submitNewPasswordButton.setVisible(true);
-        });
-
-        //playerInfoScene
         submitNewPasswordButton.setOnAction((event) -> {
             if (manage.getPlayerPassword().equals(oldPasswordField.getText())) {
                 if (manage.checkPasswordEntry(newPasswordField1.getText(), newPasswordField2.getText())) {
                     if (manage.changePassword(newPasswordField1.getText())) {
-                        oldPassword.setVisible(false);
-                        newPassword1.setVisible(false);
-                        newPassword2.setVisible(false);
-                        oldPasswordField.setVisible(false);
-                        newPasswordField1.setVisible(false);
-                        newPasswordField2.setVisible(false);
-                        submitNewPasswordButton.setVisible(false);
-                        oldPasswordField.clear();
-                        newPasswordField1.clear();
-                        newPasswordField2.clear();
                         playerMessagePassword.setText("Password changed!");
                         playerMessagePassword.setTextFill(Color.rgb(21, 117, 84));
                     } else {
@@ -689,54 +571,40 @@ public class Appui extends Application {
             }
         });
 
-        //playerInfoScene
-        playerReturnButton.setOnAction((event) -> {
-            oldPassword.setVisible(false);
-            newPassword1.setVisible(false);
-            newPassword2.setVisible(false);
-            oldPasswordField.setVisible(false);
-            newPasswordField1.setVisible(false);
-            newPasswordField2.setVisible(false);
-            submitNewPasswordButton.setVisible(false);
-            oldPasswordField.clear();
-            newPasswordField1.clear();
-            newPasswordField2.clear();
+        playerSetPasswordButton.setOnAction((event) -> {
             playerMessagePassword.setText("");
-            window.setScene(mainMenuScene);
+            oldPassword.setVisible(true);
+            newPassword1.setVisible(true);
+            newPassword2.setVisible(true);
+            oldPasswordField.setVisible(true);
+            newPasswordField1.setVisible(true);
+            newPasswordField2.setVisible(true);
+            submitNewPasswordButton.setVisible(true);
         });
 
-        //mainMenuScene
-        logoutButton.setOnAction((event) -> {
-            nameField.clear();
-            passwordField.clear();
-            window.setScene(openScene);
-        });
+        VBox vPlayer = new VBox();
+        HBox h1Player = new HBox();
+        GridPane gPlayer = new GridPane();
 
-        //mainMenuScene
-        AnimationTimer timer = new AnimationTimer() {
-            long edellinen = 0;
-            long counter = 0;
+        h1Player.getChildren().addAll(playerSetPasswordButton, playerReturnButton);
+        h1Player.setSpacing(10);
 
-            @Override
-            public void handle(long nykyhetki) {
-                if (nykyhetki - edellinen < 1000000000) {
-                    if (counter < 400) {
-                        counter++;
-                        return;
-                    }
-                    window.close();
-                }
+        gPlayer.addColumn(0, oldPassword, newPassword1, newPassword2);
+        gPlayer.addColumn(1, oldPasswordField, newPasswordField1, newPasswordField2);
+        gPlayer.setHgap(10);
+        gPlayer.setVgap(10);
 
-                this.edellinen = nykyhetki;
-            }
-        };
-        quitButton.setOnAction((event) -> {
-            window.setScene(logoutScene);
-            timer.start();
-        });
+        vPlayer.getChildren().addAll(playerHeader, h1Player, playerMessagePassword,
+                gPlayer, submitNewPasswordButton);
+        vPlayer.setPadding(new Insets(20, 20, 20, 20));
+        vPlayer.setSpacing(10);
 
-        //---------------------------------------------------------------------
-        window.setScene(openScene);
-        window.show();
+        return new Scene(vPlayer, 400, 300);
+    }
+
+    private Scene getLogoutScene(Stage window) {
+        BorderPane logoutBorder = new BorderPane();
+        logoutBorder.setCenter(new Label("You have logged out. \nWindow closes in few seconds."));
+        return new Scene(logoutBorder, 400, 300);
     }
 }

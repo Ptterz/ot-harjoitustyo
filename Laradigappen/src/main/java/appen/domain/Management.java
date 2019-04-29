@@ -26,17 +26,14 @@ public class Management {
     private Map<Integer, List<Exercise>> exesMap;
 
     /**
-     * A constructor for management.
-     *
-     * @param pd PlayerDao linked to a specific database.
-     * @param ed ExerciseDao linked to a specific database.
-     * @param perfD PerformanceDao linked to a specific database.
+     * A constructor for a variable of the management class.
      */
-    public Management(PlayerDao pd, ExerciseDao ed, PerformanceDao perfD) {
+    public Management() {
         this.calc = new Calculator();
-        this.pd = pd;
-        this.ed = ed;
-        this.perfD = perfD;
+        Database db = new Database("jdbc:sqlite:laradigappen.db");
+        this.pd = new PlayerDao(db);
+        this.ed = new ExerciseDao(db);
+        this.perfD = new PerformanceDao(db);
         this.r = new Random();
         this.selectedCreateLevel = 0;
         this.selectedPlayLevel = 0;
@@ -74,9 +71,6 @@ public class Management {
         return playerIn.getPassword();
     }
 
-    /**
-     * Validates whether or not the string contains accepted characters.
-     */
     private boolean checkCharsNickname(String s) {
         for (int i = 0; i < s.length(); i++) {
             int ascii = (int) s.charAt(i);
@@ -88,9 +82,6 @@ public class Management {
         return true;
     }
 
-    /**
-     * Validates whether or not the string contains accepted characters.
-     */
     private boolean checkCharsFormula(String s) {
         for (int i = 0; i < s.length(); i++) {
             int ascii = (int) s.charAt(i);
@@ -102,9 +93,6 @@ public class Management {
         return true;
     }
 
-    /**
-     * Validates whether or not the string contains accepted characters.
-     */
     private boolean checkCharsFunction(String s) {
         for (int i = 0; i < s.length(); i++) {
             int ascii = (int) s.charAt(i);
@@ -116,9 +104,6 @@ public class Management {
         return true;
     }
 
-    /**
-     * Validates whether or not the string exceeds length limits.
-     */
     private boolean checkLength(String s) {
         if (s.length() == 0 || s.length() > 20) {
             return false;
@@ -143,23 +128,14 @@ public class Management {
         return checkCharsNickname(s) && checkLength(s);
     }
 
-    /**
-     * Validates whether or not the given string is acceptable.
-     */
     private boolean checkEntryFormula(String s) {
         return checkCharsFormula(s) && checkLength(s);
     }
 
-    /**
-     * Validates whether or not the given string is acceptable.
-     */
     private boolean checkEntryFunction(String s) {
         return checkCharsFunction(s) && checkLength(s);
     }
 
-    /**
-     * Validates whether or not the given string is acceptable.
-     */
     private boolean checkEntryValue(String s) {
         try {
             long i = Long.parseLong(s);
