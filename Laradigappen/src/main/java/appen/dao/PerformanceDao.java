@@ -9,9 +9,9 @@ public class PerformanceDao implements PerfDao<Performance, Integer> {
     private int idCounter;
 
     /**
-     * Contructor for PerformanceDao.
+     * A constructor for PerformanceDao.
      *
-     * @param db Initalized database
+     * @param db Initialized database
      * @since 1.1
      */
     public PerformanceDao(Database db) {

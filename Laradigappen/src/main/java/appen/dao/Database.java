@@ -14,7 +14,7 @@ public class Database {
     private String dataBaseAddress;
 
     /**
-     * Contructor for Database.
+     * Constructor for Database.
      *
      * @param address The path for database
      * @since 1.0

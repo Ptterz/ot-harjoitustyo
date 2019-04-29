@@ -311,7 +311,6 @@ public class Management {
      */
     public boolean calculate(String s) {
         long answer = 0;
-        //If the calculated answer is over or under Max/Min values (19-20 chars), calculator throws an exception
         try {
             answer = calc.calculate(s);
         } catch (Exception e) {

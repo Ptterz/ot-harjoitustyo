@@ -20,6 +20,8 @@ public class Appui extends Application {
     private int tries;
     private long gameBegin;
     private long gameEnd;
+    private final Color COLOR_WARNING = Color.rgb(210, 39, 30);
+    private final Color COLOR_OK = Color.rgb(21, 117, 84);
 
     @Override
     public void start(Stage frame) throws Exception {
@@ -44,20 +46,20 @@ public class Appui extends Application {
             if (event.getCode() == KeyCode.ENTER) {
                 if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
                     failureText.setText("Invalid nickname or password!");
-                    failureText.setTextFill(Color.rgb(210, 39, 30));
-                    return;
+                    failureText.setTextFill(COLOR_WARNING);
+                } else {
+                    window.setScene(getMainMenuScene(window));
                 }
-                window.setScene(getMainMenuScene(window));
             }
         });
 
         loginButton.setOnAction((event) -> {
             if (!manage.checkLoginEntry(nameField.getText(), passwordField.getText())) {
                 failureText.setText("Invalid nickname or password!");
-                failureText.setTextFill(Color.rgb(210, 39, 30));
-                return;
+                failureText.setTextFill(COLOR_WARNING);
+            } else {
+                window.setScene(getMainMenuScene(window));
             }
-            window.setScene(getMainMenuScene(window));
         });
 
         createAccountButton.setOnAction((event) -> {
@@ -111,7 +113,7 @@ public class Appui extends Application {
         });
 
         quitButton.setOnAction((event) -> {
-            window.setScene(getLogoutScene(window));
+            window.setScene(getLogoutScene());
             manage.getTimer(window).start();
         });
 
@@ -140,16 +142,15 @@ public class Appui extends Application {
 
         checkNameAvailabilityButton.setOnAction((event) -> {
             String name = tryNameField.getText();
-
             if (!manage.checkEntryNickname(name)) {
                 nameAvailable.setText("Invalid nickname!");
-                nameAvailable.setTextFill(Color.rgb(210, 39, 30));
+                nameAvailable.setTextFill(COLOR_WARNING);
             } else if (!manage.checkNameAvailability(name)) {
                 nameAvailable.setText("Nickname already taken!");
-                nameAvailable.setTextFill(Color.rgb(210, 39, 30));
+                nameAvailable.setTextFill(COLOR_WARNING);
             } else {
                 nameAvailable.setText("Nickname available!");
-                nameAvailable.setTextFill(Color.rgb(21, 117, 84));
+                nameAvailable.setTextFill(COLOR_OK);
             }
         });
 
@@ -171,7 +172,7 @@ public class Appui extends Application {
 
             if (!(manage.checkPasswordEntry(ps1, ps2))) {
                 passwordNotMatch.setText("Invalid password!");
-                passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
+                passwordNotMatch.setTextFill(COLOR_WARNING);
             } else {
                 String name = tryNameField.getText();
                 if (nameAvailable.getText().equals("Nickname available!")) {
@@ -182,7 +183,7 @@ public class Appui extends Application {
                     }
                 } else {
                     passwordNotMatch.setText("Check if nickname available!");
-                    passwordNotMatch.setTextFill(Color.rgb(210, 39, 30));
+                    passwordNotMatch.setTextFill(COLOR_WARNING);
                 }
             }
         });
@@ -253,7 +254,7 @@ public class Appui extends Application {
         playLevel3Button.setOnAction((event) -> {
             gameBegin = System.currentTimeMillis();
             choosePlayLevelError.setText("The option is not yet supported.");
-            choosePlayLevelError.setTextFill(Color.rgb(210, 39, 30));
+            choosePlayLevelError.setTextFill(COLOR_WARNING);
         });
 
         playAllButton.setOnAction((event) -> {
@@ -288,7 +289,7 @@ public class Appui extends Application {
             } else {
                 tries++;
                 wrongAnswer.setText("Answer is not correct.");
-                wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
+                wrongAnswer.setTextFill(COLOR_WARNING);
             }
         });
 
@@ -301,7 +302,7 @@ public class Appui extends Application {
                 } else {
                     tries++;
                     wrongAnswer.setText("Answer is not correct.");
-                    wrongAnswer.setTextFill(Color.rgb(210, 39, 30));
+                    wrongAnswer.setTextFill(COLOR_WARNING);
                 }
             }
         });
@@ -401,7 +402,7 @@ public class Appui extends Application {
 
         createLevel3Button.setOnAction((event) -> {
             chooseCreateLevelError.setText("The option is not yet supported.");
-            chooseCreateLevelError.setTextFill(Color.rgb(210, 39, 30));
+            chooseCreateLevelError.setTextFill(COLOR_WARNING);
         });
 
         VBox vChooseCreateLevel = new VBox();
@@ -425,15 +426,15 @@ public class Appui extends Application {
             if (manage.checkSubmittedFormula(s)) {
                 if (manage.calculate(s)) {
                     formulaErrorText.setText("Exercise succesfully submitted!");
-                    formulaErrorText.setTextFill(Color.rgb(21, 117, 84));
+                    formulaErrorText.setTextFill(COLOR_OK);
                     formulaField.clear();
                 } else {
                     formulaErrorText.setText("Invalid formula!");
-                    formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
+                    formulaErrorText.setTextFill(COLOR_WARNING);
                 }
             } else {
                 formulaErrorText.setText("Invalid formula!");
-                formulaErrorText.setTextFill(Color.rgb(210, 39, 30));
+                formulaErrorText.setTextFill(COLOR_WARNING);
             }
         });
 
@@ -471,14 +472,14 @@ public class Appui extends Application {
             if (manage.checkSubmittedFunction(f, v)) {
                 if (manage.calculateFunction(f, v)) {
                     functionErrorText.setText("Exercise succesfully submitted!");
-                    functionErrorText.setTextFill(Color.rgb(21, 117, 84));
+                    functionErrorText.setTextFill(COLOR_OK);
                 } else {
                     functionErrorText.setText("Invalid function and/or value!");
-                    functionErrorText.setTextFill(Color.rgb(210, 39, 30));
+                    functionErrorText.setTextFill(COLOR_WARNING);
                 }
             } else {
                 functionErrorText.setText("Invalid function and/or value!");
-                functionErrorText.setTextFill(Color.rgb(210, 39, 30));
+                functionErrorText.setTextFill(COLOR_WARNING);
             }
         });
 
@@ -510,7 +511,6 @@ public class Appui extends Application {
         Button playerSetPasswordButton = new Button("Change password");
         Button playerReturnButton = new Button("Back");
         Label playerMessagePassword = new Label("");
-        playerMessagePassword.setTextFill(Color.rgb(21, 117, 84));
 
         Label oldPassword = new Label("Old password: ");
         oldPassword.setVisible(false);
@@ -536,18 +536,18 @@ public class Appui extends Application {
                 if (manage.checkPasswordEntry(newPasswordField1.getText(), newPasswordField2.getText())) {
                     if (manage.changePassword(newPasswordField1.getText())) {
                         playerMessagePassword.setText("Password changed!");
-                        playerMessagePassword.setTextFill(Color.rgb(21, 117, 84));
+                        playerMessagePassword.setTextFill(COLOR_OK);
                     } else {
                         playerMessagePassword.setText("Something went wrong. Please try again.");
-                        playerMessagePassword.setTextFill(Color.rgb(210, 39, 30));
+                        playerMessagePassword.setTextFill(COLOR_WARNING);
                     }
                 } else {
                     playerMessagePassword.setText("Passwords don't match!");
-                    playerMessagePassword.setTextFill(Color.rgb(210, 39, 30));
+                    playerMessagePassword.setTextFill(COLOR_WARNING);
                 }
             } else {
                 playerMessagePassword.setText("Invalid password!");
-                playerMessagePassword.setTextFill(Color.rgb(210, 39, 30));
+                playerMessagePassword.setTextFill(COLOR_WARNING);
             }
         });
 
@@ -582,7 +582,7 @@ public class Appui extends Application {
         return new Scene(vPlayer, 400, 300);
     }
 
-    private Scene getLogoutScene(Stage window) {
+    private Scene getLogoutScene() {
         BorderPane logoutBorder = new BorderPane();
         logoutBorder.setCenter(new Label("You have logged out. \nWindow closes in few seconds."));
         return new Scene(logoutBorder, 400, 300);

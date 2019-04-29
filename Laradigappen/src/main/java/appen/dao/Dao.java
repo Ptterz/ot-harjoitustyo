@@ -18,7 +18,7 @@ public interface Dao<T, K> {
     /**
      * Creates a new entry to a SQL table.
      * @param object Contains the information that is added.
-     * @throws SQLException Throws the expection to one that called it.
+     * @throws SQLException Throws the exception to one that called it.
      * @since 1.0
      */
     void create(T object) throws SQLException;
@@ -27,7 +27,7 @@ public interface Dao<T, K> {
      * Reads a specific row from the SQL table.
      * @param key A primary key to fetch a specific information.
      * @return Returns the information as an object of class T.
-     * @throws SQLException Throws the expection to one that called it.
+     * @throws SQLException Throws the exception to one that called it.
      * @since 1.0
      */
     T read(K key) throws SQLException;
@@ -37,7 +37,7 @@ public interface Dao<T, K> {
      * @param object An object of class T that contains the primary key 
      * and the new information.
      * @return Returns the information as an object of class T.
-     * @throws SQLException Throws the expection to one that called it.
+     * @throws SQLException Throws the exception to one that called it.
      * @since 1.0
      */
     T update(T object) throws SQLException;
@@ -45,7 +45,7 @@ public interface Dao<T, K> {
     /**
      * Deletes a specific row from the SQL table.
      * @param key A primary key of the row that is to be deleted.
-     * @throws SQLException Throws the expection to one that called it.
+     * @throws SQLException Throws the exception to one that called it.
      * @since 1.0
      */
     void delete(K key) throws SQLException;
@@ -53,7 +53,7 @@ public interface Dao<T, K> {
     /**
      * Returns a list of objects of class T.
      * @return A list of objects of class T.
-     * @throws SQLException Throws the expection to one that called it.
+     * @throws SQLException Throws the exception to one that called it.
      * @since 1.0
      */
     List<T> list() throws SQLException;

@@ -15,9 +15,9 @@ public class ExerciseDao implements Dao<Exercise, String> {
     private int idCounter;
 
     /**
-     * Contructor for ExerciseDao.
+     * A constructor for ExerciseDao.
      *
-     * @param db Initalized database
+     * @param db Initialized database
      * @since 1.0
      */
     public ExerciseDao(Database db) {

@@ -28,7 +28,7 @@ public interface PerfDao<T, K> {
      *
      * @param object An object containing all the info.
      * @return Returns the percentage in double format
-     * @throws SQLException Is handled elsewhere
+     * @throws SQLException is handled elsewhere
      */
     double getBetterThan(T object) throws SQLException;
 
