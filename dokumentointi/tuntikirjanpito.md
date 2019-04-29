@@ -16,4 +16,5 @@
 |24.4|3|JavaDoc, Checkstyle, ajastimen korjaus|
 |25.4|6|Arkkitehtuurikuvaus, suoritukset ja niiden vertailu|
 |26.4|2|Version 1.1 viimeistely|
-|yht.|45|tuntia|
+|29.4|2|Rakenteen muokkausta|
+|yht.|47|tuntia|
