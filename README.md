@@ -16,6 +16,8 @@ Uutta versiossa 1.1
 
 [Käyttöohje](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/manual.md)
 
+[Testausdokumentti](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/testausdokumentti.md)
+
 [Työaikakirjanpito](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
 
 [Vaatimusmäärittely](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/maarittelydoc.md)
