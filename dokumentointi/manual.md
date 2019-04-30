@@ -52,4 +52,28 @@ Alla näkyy pelitilan tasovalinta.
 
 Pelitilassa tehtävänanto ja kaikki tarvittava tehtävän ratkaisemiseen näytetään yläosassa. Näiden alta löytyy vastauskenttä. Vastauskenttään annetaan vastaus tehtävään. 
 
-**Tehtävän vastaus pyöristetään tarvittaessa lähimpään kokonaislukuun.** 
+**Matemaattisen tehtävän vastaus pyöristetään tarvittaessa lähimpään kokonaislukuun.** 
+
+<img src="https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/snapshots/Game.png">
+
+Jos vastaus on oikein, aukeaa tulosnäkymä, jossa on yhteenveto yritysten määrästä, kuluneesta ajasta ja kuinka hyvin pelaaja menestyi muihin verrattuna. Myös pelaajan aiemmat suoritukset huomioidaan tässä prosentissa.
+
+<img src="https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/snapshots/Result.png">
+
+### Luontitila
+
+Luontitilassa pelaajalta pyydetään tarvittavat tiedot tehtävää varten. 
+
+<img src="https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/snapshots/Create.png">
+
+Pelaaja ei itse anna vastausta keksimälleen tehtävälle, vaan sovellus laskee sille vastauksen.
+
+### Pelaajan tiedot
+
+Pelaajan tiedoissa näkyy nimimerkki ja mahdollisuus muuttaa salasanaa. Painamalla _Change password_-painiketta saa näkyviin tarvittavat kentät salasanan muuttamiseen.
+
+<img src="https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/snapshots/Playerinfo.png">
+
+
+
+
