@@ -7,7 +7,7 @@ Sovellus on toteutettu osana Ohjelmistotekniikka-kurssia.
 
 [Versio 1.1](https://github.com/Ptterz/ot-harjoitustyo/releases)
 
-Uutta versiossa 1.1
+Uutta
 - Tulosikkunaan on lisätty vertailutoiminto, joka vertaa suoritustasi muihin tehtävän suorituksiin. 
 
 ## Dokumentaatio
