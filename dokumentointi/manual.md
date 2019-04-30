@@ -22,9 +22,11 @@ Muutoin kirjaudu sisään syöttämällä käyttäjätunnus ja salasana.
 
 ## Käyttäjätilin luominen
 
+<img src="https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/snapshots/Createaccount.png">
+
 Luodaksesi käyttäjätilin, syötä nimimerkkikenttään haluamasi nimimerkki ja varmista alla olevalla painikkeella, että se on vapaana.
 
-Kun nimimerkki on varmistettu, syötä haluamasi salasana ja paina _Create_-painiketta. Jos tunnusten luonti onnistui, näkymä palaa kirjautumisikkunaan.
+Kun nimimerkki on varmistettu, syötä haluamasi salasana ja paina _Create_-painiketta. Jos tunnusten luonti onnistui, näkymä palaa kirjautumisikkunaan. Muutoin sovellus ilmoittaa virheestä.
 
 ## Toiminnot
 
@@ -36,7 +38,14 @@ Kirjauduttua sisään avautuu päävalikko, josta löytyy kaikki ohjelman toimin
 - _Logout_-painike kirjaa nykyisen käyttäjän ulos ja palaa kirjautumisikkunaan.
 - _Quit_ kirjaa käyttäjän ulos ja sulkee sovelluksen. 
 
+<img src="https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/snapshots/Mainmenu.png">
+
 ### Tasovalinta
 
 Valittaessa joko pelitoiminto tai luontitoiminto pelaajalle avautuu eteen tasonvalintaikkuna. Luotaessa tehtäviä pelaaja voi valita jonkin kolmesta tasosta. Pelatessa valintoja on neljä: samat kolme kuin luontitoiminnossa ja
 _Bring it on_-valinta, jossa sovellus arpoo minkä tahansa tehtävän. 
+Alla näkyy pelitilan tasovalinta.
+
+<img src="https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/snapshots/ChooseLevel.png">
+
+
