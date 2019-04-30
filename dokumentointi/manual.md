@@ -48,4 +48,8 @@ Alla näkyy pelitilan tasovalinta.
 
 <img src="https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/snapshots/ChooseLevel.png">
 
+### Pelitila
 
+Pelitilassa tehtävänanto ja kaikki tarvittava tehtävän ratkaisemiseen näytetään yläosassa. Näiden alta löytyy vastauskenttä. Vastauskenttään annetaan vastaus tehtävään. 
+
+**Tehtävän vastaus pyöristetään tarvittaessa lähimpään kokonaislukuun.** 
