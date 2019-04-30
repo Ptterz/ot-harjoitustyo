@@ -11,3 +11,9 @@ JUnit-testejä on muutoin luotu jokaiselle luokalle, joilla varmistetaan, että 
 Management-luokan osalta testeissä on annettu luokalle parametrina boolean arvo _false_, jolloin tietokantayhteys ohjautuu testitietokantaan.
 
 Osalla luokista saattaa olla vähemmän testejä kuin toisilla, kun esimerkiksi Management-testit kattavat paljon myös muiden luokkien toimintoja.
+
+## Testikattavuus 
+
+JUnit-testeillä on saavutettu varsin hyvä kattavuusprosentti.
+
+
