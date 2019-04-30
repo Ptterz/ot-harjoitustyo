@@ -14,6 +14,8 @@ java -jar todoapp.jar
 
 Sovellus käynnistyy kirjautumisnäkymään. Sovelluksen käyttö vaatii käyttäjätunnukset. 
 
+<img src="https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/snapshots/Login.png">
+
 Jos tunnuksia ei vielä ole, voi siirtyä tunnusten luontiin _Create an account_-painikkeella.
 
 Muutoin kirjaudu sisään syöttämällä käyttäjätunnus ja salasana.
