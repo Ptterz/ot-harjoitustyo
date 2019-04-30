@@ -1,9 +1,14 @@
 # Laradigappen
-Sovelluksella on tarkoitus harjoitella erilaisia tehtäviä, joiden aihealue ja vaikeustaso riippuu valinnoista. 
-Käyttääkseen sovellusta on luotava käyttäjätunnukset (nimimerkki + salasana). 
-Sovelluksessa ei ole valmiina tehtäviä. Tehtäviä luodessa käyttäjän tarvitsee antaa vain tehtävänannon kannalta oleelliset tiedot. 
-Sovelluksen sisään toteutettu laskin hoitaa vastauksen laskemisen!
+Sovelluksella on tarkoitus harjoitella erilaisia tehtäviä, joiden aihealue ja vaikeustaso riippuu valinnoista.
+
 Sovellus on toteutettu osana Ohjelmistotekniikka-kurssia.
+
+## Julkaisut
+
+[Versio 1.1](https://github.com/Ptterz/ot-harjoitustyo/releases)
+
+Muutoksia edelliseen:
+- Tulosikkunaan on lisätty vertailutoiminto, joka vertaa suoritustasi muihin tehtävän suorituksiin. 
 
 ## Dokumentaatio
 
@@ -12,8 +17,6 @@ Sovellus on toteutettu osana Ohjelmistotekniikka-kurssia.
 [Vaatimusmäärittely](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/maarittelydoc.md)
 
 [Työaikakirjanpito](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
-
-[Julkaisut](https://github.com/Ptterz/ot-harjoitustyo/releases)
 
 ## Komentorivitoiminnot
 
