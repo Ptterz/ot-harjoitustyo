@@ -17,7 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class LaraUI extends Application {
-
+    
+    private final String version = "1.1";
     private Stage window;
     private Management manage;
     private int tries;
@@ -97,7 +98,7 @@ public class LaraUI extends Application {
         Button playerInfoButton = new Button("My account");
         Button logoutButton = new Button("Logout");
         Button quitButton = new Button("Quit");
-        Label versionLabel = new Label("Version 1.0");
+        Label versionLabel = new Label("Version " + version);
 
         createButton.setOnAction((event) -> {
             window.setScene(getChooseCreateLevelScene(window));
