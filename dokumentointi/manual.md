@@ -34,3 +34,7 @@ Kirjauduttua sisään avautuu päävalikko, josta löytyy kaikki ohjelman toimin
 - _Logout_-painike kirjaa nykyisen käyttäjän ulos ja palaa kirjautumisikkunaan.
 - _Quit_ kirjaa käyttäjän ulos ja sulkee sovelluksen. 
 
+### Tasovalinta
+
+Valittaessa joko pelitoiminto tai luontitoiminto pelaajalle avautuu eteen tasonvalintaikkuna. Luotaessa tehtäviä pelaaja voi valita jonkin kolmesta tasosta. Pelatessa valintoja on neljä: samat kolme kuin luontitoiminnossa ja
+_Bring it on_-valinta, jossa sovellus arpoo minkä tahansa tehtävän. 
