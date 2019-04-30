@@ -46,5 +46,6 @@ Alla olevassa kuvassa on esitelty, mitä tapahtuu sovelluksen taustalla käyttö
 
 ## Parannettavaa
 
-Koko käyttöliittymä on toteutettu yhtenä suurena luokkana, jossa esiintyy paljon toistoa. Eri näkymien eriyttäminen omiksi metodeiksi parantaisi koodin luettavuutta ja ylläpitoa, mutta se vaatisi monien komponenttien tekemistä
-globaaleiksi, jotta eri metodi pääsisi niihin käsiksi.  
+Koodissa esiintyy vielä jonkin verran toisteisuutta, jonka voisi poistaa metodeilla. 
+
+Management-luokan toimintaa voisi tehostaa. Nyt luokassa on hyvin paljon toisteisuutta ja ketjutusta metodista toiseen, mikä tekee rakenteensa todella sekavan.
