@@ -74,6 +74,8 @@ Pelaajan tiedoissa näkyy nimimerkki ja mahdollisuus muuttaa salasanaa. Painamal
 
 <img src="https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/snapshots/Playerinfo.png">
 
+### Uloskirjautuminen ja lopetus
 
+Painaessa _Logout_-painiketta, sovellus kirjaa pelaajan ulos ja palaa kirjautumisikkunaan. 
 
-
+_Quit_-painike kirjaa pelaajan ulos ja sulkee sovelluksen muutaman sekunnin kuluttua.
