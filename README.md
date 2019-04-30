@@ -9,6 +9,7 @@ Sovellus on toteutettu osana Ohjelmistotekniikka-kurssia.
 
 Uutta
 - Tulosikkunaan on lisätty vertailutoiminto, joka vertaa suoritustasi muihin tehtävän suorituksiin. 
+HUOM! Tuloksessa huomioidaan myös omat aiemmat suoritukset, ei vain toisten pelaajien. 
 
 ## Dokumentaatio
 
