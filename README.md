@@ -7,16 +7,18 @@ Sovellus on toteutettu osana Ohjelmistotekniikka-kurssia.
 
 [Versio 1.1](https://github.com/Ptterz/ot-harjoitustyo/releases)
 
-Muutoksia edelliseen:
+Uutta versiossa 1.1
 - Tulosikkunaan on lisätty vertailutoiminto, joka vertaa suoritustasi muihin tehtävän suorituksiin. 
 
 ## Dokumentaatio
 
 [Arkkitehtuuri](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/arkkitehtuuri.md)
 
-[Vaatimusmäärittely](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/maarittelydoc.md)
+[Käyttöohje](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/manual.md)
 
 [Työaikakirjanpito](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/tuntikirjanpito.md)
+
+[Vaatimusmäärittely](https://github.com/Ptterz/ot-harjoitustyo/blob/master/dokumentointi/maarittelydoc.md)
 
 ## Komentorivitoiminnot
 
@@ -32,7 +34,7 @@ luo hakemistoon target suoritettavan jar-tiedoston Laradigappen-1.0-SNAPSHOT.jar
 
 Voit käynnistää sovelluksen komentoriviltä
 ```
-mvn compile exec:java -Dexec.mainClass=appen.ui.Start
+mvn compile exec:java -Dexec.mainClass=appen.ui.LaraUI
 ```
 
 ### Testaus
