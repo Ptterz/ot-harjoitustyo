@@ -23,4 +23,4 @@ ole edes tarvetta tehdä testejä.
 
 ## Manuaaliset testit
 
-Sovellusta on testattu jatkuvasti ja paljon manuaalisesti, että siirtymät ja toiminnot toimivat odotetusti. Testausta on toteutettu vain mac OS X -järjestelmässä. 
+Sovellusta on testattu jatkuvasti manuaalisesti, että siirtymät ja toiminnot toimivat odotetusti. Testausta on toteutettu vain mac OS X -järjestelmässä. 
