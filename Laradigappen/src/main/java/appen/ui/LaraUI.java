@@ -1,19 +1,22 @@
 package appen.ui;
 
-import appen.dao.Database;
-import appen.dao.*;
-import appen.domain.*;
-import javafx.animation.AnimationTimer;
+import appen.domain.Management;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class Appui extends Application {
+public class LaraUI extends Application {
 
     private Stage window;
     private Management manage;
@@ -587,4 +590,14 @@ public class Appui extends Application {
         logoutBorder.setCenter(new Label("You have logged out. \nWindow closes in few seconds."));
         return new Scene(logoutBorder, 400, 300);
     }
+
+    /**
+     * Launches the class Appui.
+     *
+     * @param args No args
+     */
+    public static void main(String[] args) {
+        Application.launch(args);
+    }
+
 }
