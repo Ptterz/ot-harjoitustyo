@@ -5,11 +5,9 @@ Sovellus on toteutettu osana Ohjelmistotekniikka-kurssia.
 
 ## Julkaisut
 
-[Versio 1.1](https://github.com/Ptterz/ot-harjoitustyo/releases)
+[Versio 1.2](https://github.com/Ptterz/ot-harjoitustyo/releases)
 
-Uutta
-- Tulosikkunaan on lisätty vertailutoiminto, joka vertaa suoritustasi muihin tehtävän suorituksiin. 
-HUOM! Tuloksessa huomioidaan myös omat aiemmat suoritukset, ei vain toisten pelaajien. 
+- Dokumentaatiota parannettu  
 
 ## Dokumentaatio
 
